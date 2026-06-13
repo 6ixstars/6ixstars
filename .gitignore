@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Production build
+build/
+
+# Environnment variables (NUNCA subir al repo)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.sw?
+
+# Vercel (por si se usa en el futuro)
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Claude Code (configuración local, no va al repo)
+.claude/
+.agents/
+skills-lock.json
+
+# Archivos de diseño/referencia grandes
+ScentualBliss*Homepage*
+*.docx
+
+.vercel
+
+# Tokens y secretos
+token*.txt
+*.token
+
+# Originales de logos de marca (procesados a public/img/brands/ vía script)
+public/img/brands-original/
+
+.env*.local
+
+# Backup local del antiguo lib/products.js antes de migrar a Supabase.
+# Safety net que SOLO existe en disco local. No va al repo.
+lib/products.backup.js
+
+# Exports manuales del catálogo (xlsx, csv). Se regeneran cuando se necesiten.
+exports/
