@@ -11,7 +11,7 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import FitBuilder from '@/components/fx/FitBuilder';
-import Drop3D from '@/components/fx/Drop3D';
+import DropShowcase from '@/components/fx/DropShowcase';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -39,14 +39,14 @@ const softUp = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transi
 // Bento: spans de columna (de 12) por categoría — layout editorial asimétrico.
 const BENTO_SPANS = [7, 5, 5, 7, 8, 4];
 
-// Piezas del DROP (carrusel 3D). Usan las fotos generadas + slugs del seed.
+// Piezas del DROP (showcase). Usan las fotos generadas + slugs del seed.
 const DROP_ITEMS = [
-  { name: 'Buzo Oversize Shadow',    price: '$159.900', img: '/img/gen/cat-buzos.webp',     slug: 'buzo-oversize-shadow' },
-  { name: 'Jean Baggy Wave',         price: '$169.900', img: '/img/gen/cat-jeans.webp',     slug: 'jean-baggy-wave' },
-  { name: 'Conjunto Track 6ix',      price: '$229.900', img: '/img/gen/cat-conjuntos.webp', slug: 'conjunto-track-6ix' },
-  { name: 'Camisa Boxy Static',      price: '$79.900',  img: '/img/gen/cat-camisas.webp',   slug: 'camisa-boxy-static' },
-  { name: 'Bermuda Cargo Tactical',  price: '$109.900', img: '/img/gen/cat-bermudas.webp',  slug: 'bermuda-cargo-tactical' },
-  { name: 'Gorra Snapback 6ix',      price: '$59.900',  img: '/img/gen/cat-gorras.webp',    slug: 'gorra-snapback-6ix' },
+  { name: 'Buzo Oversize Shadow',    price: '$159.900', img: '/img/gen/cat-buzos.webp',     slug: 'buzo-oversize-shadow',   colors: ['#191A1D', '#FF2E7E', '#ECECEC', '#5B5B62'], sizes: ['S', 'M', 'L', 'XL'] },
+  { name: 'Jean Baggy Wave',         price: '$169.900', img: '/img/gen/cat-jeans.webp',     slug: 'jean-baggy-wave',        colors: ['#43618F', '#191A1D', '#ECECEC'],            sizes: ['S', 'M', 'L', 'XL'] },
+  { name: 'Conjunto Track 6ix',      price: '$229.900', img: '/img/gen/cat-conjuntos.webp', slug: 'conjunto-track-6ix',     colors: ['#191A1D', '#FF2E7E', '#5C6B3C'],            sizes: ['S', 'M', 'L', 'XL'] },
+  { name: 'Camisa Boxy Static',      price: '$79.900',  img: '/img/gen/cat-camisas.webp',   slug: 'camisa-boxy-static',     colors: ['#ECECEC', '#191A1D', '#FF2E7E'],            sizes: ['S', 'M', 'L', 'XL'] },
+  { name: 'Bermuda Cargo Tactical',  price: '$109.900', img: '/img/gen/cat-bermudas.webp',  slug: 'bermuda-cargo-tactical', colors: ['#5C6B3C', '#191A1D', '#C9B79C'],            sizes: ['S', 'M', 'L', 'XL'] },
+  { name: 'Gorra Snapback 6ix',      price: '$59.900',  img: '/img/gen/cat-gorras.webp',    slug: 'gorra-snapback-6ix',     colors: ['#191A1D', '#FF2E7E', '#E11D48'],            sizes: ['Única'] },
 ];
 
 export default function HomePageClient({ products = [] }) {
@@ -151,7 +151,7 @@ export default function HomePageClient({ products = [] }) {
             </div>
             <Link href="/tienda?sort=nuevo" className="sx6-head-link" data-cursor="hover">VER DROP <ArrowRight size={16} /></Link>
           </Reveal>
-          <Drop3D items={DROP_ITEMS} />
+          <DropShowcase items={DROP_ITEMS} />
         </section>
 
         {/* ===================== TRUST ===================== */}
