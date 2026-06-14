@@ -54,7 +54,7 @@ vercel env add SUPABASE_SERVICE_ROLE_KEY
 vercel env add NEXT_PUBLIC_WOMPI_PUBLIC_KEY
 vercel env add WOMPI_INTEGRITY_SECRET
 vercel env add WOMPI_EVENTS_SECRET
-vercel env add NEXT_PUBLIC_SITE_URL          # https://TU-DOMINIO
+vercel env add NEXT_PUBLIC_SITE_URL          # https://6ixstars.com.co
 vercel env add NEXT_PUBLIC_USD_TO_COP_RATE   # 1  (precios ya en COP)
 ```
 Despliega a producción:
@@ -70,7 +70,7 @@ Vercel te dará una URL `https://6ixstars-xxxx.vercel.app`.
 
 ## 4) Conectar tu dominio
 En el dashboard de Vercel: **Project → Settings → Domains → Add**.
-1. Escribe tu dominio (ej. `6ixstars.co` y `www.6ixstars.co`).
+1. Escribe tu dominio (ej. `6ixstars.com.co` y `www.6ixstars.com.co`).
 2. Vercel te dará los registros DNS (un `A` a `76.76.21.21` o un `CNAME`).
 3. En tu registrador (donde compraste el dominio) crea esos registros DNS.
 4. Espera la propagación (minutos–horas) → Vercel emite el SSL automático.
@@ -80,7 +80,7 @@ En el dashboard de Vercel: **Project → Settings → Domains → Add**.
 
 ## 5) Wompi (pagos) — post-deploy
 1. En el dashboard de Wompi → **Configuración → API**, copia las llaves (empieza con `pub_test_`).
-2. Configura el **webhook**: `https://TU-DOMINIO/api/wompi/webhook`
+2. Configura el **webhook**: `https://6ixstars.com.co/api/wompi/webhook`
 3. Prueba con tarjeta sandbox: `4242 4242 4242 4242` (aprobada).
 4. Cuando todo funcione, cambia a llaves `pub_prod_` y vuelve a desplegar.
 
