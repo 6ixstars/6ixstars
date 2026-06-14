@@ -28,7 +28,7 @@ const typeCats = [
 function parseSearchParams(sp) {
   return {
     cat: sp.cat || 'Todos',
-    type: sp.type || 'Todos',
+    gender: sp.gender || 'Todos',
     sort: sp.sort || 'featured',
     brand: sp.brand || 'Todos',
     q: sp.q || '',
@@ -37,9 +37,9 @@ function parseSearchParams(sp) {
 }
 
 // Genera segmentos de canonical sin el param "page" (la paginada apunta a su base)
-function buildCanonical({ cat, type, sort, brand, q }) {
+function buildCanonical({ cat, gender, sort, brand, q }) {
   const params = new URLSearchParams();
-  if (type !== 'Todos') params.set('type', type);
+  if (gender !== 'Todos') params.set('gender', gender);
   if (cat !== 'Todos') params.set('cat', cat);
   if (brand !== 'Todos') params.set('brand', brand);
   if (q) params.set('q', q);
@@ -48,9 +48,9 @@ function buildCanonical({ cat, type, sort, brand, q }) {
   return qs ? `${SITE_URL}/tienda?${qs}` : `${SITE_URL}/tienda`;
 }
 
-function buildHeading({ cat, type, brand }) {
+function buildHeading({ cat, gender, brand }) {
   if (brand !== 'Todos') return brand;
-  if (type !== 'Todos') return productTypes.find(t => t.id === type)?.name || null;
+  if (gender !== 'Todos') return productTypes.find(t => t.id === gender)?.name || null;
   if (cat !== 'Todos') return collections.find(c => c.id === cat)?.name || null;
   return null;
 }
@@ -65,20 +65,19 @@ export async function generateMetadata({ searchParams }) {
   let description;
   if (f.q) {
     title = `Resultados para "${f.q}" — Tienda`;
-    description = `Perfumes de lujo que coinciden con "${f.q}". Envío express en Colombia, 100% auténticos.`;
+    description = `Prendas que coinciden con "${f.q}". Streetwear con envío a toda Colombia.`;
   } else if (f.brand !== 'Todos') {
-    title = `Perfumes ${f.brand} — Colección Oficial`;
-    description = `Descubre todos los perfumes ${f.brand} disponibles en ScentualBliss. Originales 100% con envío en 24-48h a toda Colombia.`;
-  } else if (f.type !== 'Todos') {
-    // productTypes ya incluyen "Perfumes" en su nombre → no anteponer
-    title = `${heading} — Catálogo Completo`;
-    description = `Explora nuestra selección de ${heading?.toLowerCase()}: las mejores fragancias con envío express en Colombia.`;
+    title = `${f.brand} — 6ixstars`;
+    description = `Todas las prendas de ${f.brand} en 6ixstars. Envío a toda Colombia en 24–48h.`;
+  } else if (f.gender !== 'Todos') {
+    title = `${heading} — 6ixstars`;
+    description = `Streetwear para ${heading?.toLowerCase()}: hoodies, camisetas, cargos y más con envío a toda Colombia.`;
   } else if (f.cat !== 'Todos') {
-    title = `Perfumes ${heading} — Familia Olfativa`;
-    description = `Fragancias ${heading?.toLowerCase()} cuidadosamente seleccionadas. Envío express en 24-48h en Colombia.`;
+    title = `${heading} — 6ixstars`;
+    description = `${heading}: lo último en ropa urbana. Envío a toda Colombia en 24–48h.`;
   } else {
-    title = 'Tienda — Todos los Perfumes de Lujo';
-    description = 'Explora nuestra colección completa de fragancias exclusivas. Filtra por marca, familia olfativa y tipo. Envío gratis desde COP $350.000.';
+    title = 'Tienda — Streetwear & Ropa Urbana';
+    description = 'Explora todo el catálogo de 6ixstars. Filtra por categoría, género y marca. Hoodies, camisetas oversize, cargos y gorras.';
   }
 
   // Páginas paginadas (?page=2+) no se indexan: apuntan canonical a la base
@@ -124,7 +123,7 @@ export default async function TiendaPage({ searchParams }) {
   const canonical = buildCanonical(f);
 
   const activeFilters = [
-    f.type !== 'Todos' && { key: 'type', value: f.type, label: productTypes.find(t => t.id === f.type)?.name || f.type },
+    f.gender !== 'Todos' && { key: 'gender', value: f.gender, label: productTypes.find(t => t.id === f.gender)?.name || f.gender },
     f.cat !== 'Todos' && { key: 'cat', value: f.cat, label: collections.find(c => c.id === f.cat)?.name || f.cat },
     f.brand !== 'Todos' && { key: 'brand', value: f.brand, label: f.brand },
   ].filter(Boolean);
@@ -140,7 +139,7 @@ export default async function TiendaPage({ searchParams }) {
   const itemListSchema = {
     '@context': 'https://schema.org',
     '@type': 'ItemList',
-    name: heading ? `${heading} — ScentualBliss` : 'Catálogo de Perfumes',
+    name: heading ? `${heading} — 6ixstars` : 'Catálogo 6ixstars',
     numberOfItems: filtered.length,
     itemListElement: visible.map((p, i) => ({
       '@type': 'ListItem',
@@ -176,17 +175,11 @@ export default async function TiendaPage({ searchParams }) {
       <div className="shop-header">
         <div className="container">
           <Breadcrumbs items={breadcrumbItems} />
-          <p className="shop-header-eyebrow">ScentualBliss · Tienda</p>
+          <p className="shop-header-eyebrow">6ixstars · Tienda</p>
           <h1 className="shop-header-title">
-            {heading
-              ? f.brand !== 'Todos'
-                ? <em>{heading}</em>
-                : heading.startsWith('Perfumes')
-                  ? <em>{heading}</em>
-                  : <>Perfumes <em>{heading}</em></>
-              : <>La <em>Colección</em></>}
+            {heading ? <em>{heading}</em> : <>Toda la <em>tienda</em></>}
           </h1>
-          <p className="shop-header-count">{filtered.length} fragancias</p>
+          <p className="shop-header-count">{filtered.length} {filtered.length === 1 ? 'producto' : 'productos'}</p>
         </div>
       </div>
 
@@ -194,7 +187,7 @@ export default async function TiendaPage({ searchParams }) {
         <div className="shop-filters-sticky">
           <ShopFilters
             cat={f.cat}
-            type={f.type}
+            gender={f.gender}
             sort={f.sort}
             brand={f.brand}
             q={f.q}
