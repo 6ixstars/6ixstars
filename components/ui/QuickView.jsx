@@ -201,7 +201,7 @@ export default function QuickView({ product, isOpen, onClose }) {
                     >
                       <ShoppingBag size={15} /> {displayPrice > 0 ? 'Agregar al Carrito' : 'Consultar precio'}
                     </button>
-                    <Link href={`/perfume/${product.slug}`} onClick={onClose} className="btn btn-outline" style={{ flexShrink: 0, padding: '12px 16px' }}>
+                    <Link href={`/producto/${product.slug}`} onClick={onClose} className="btn btn-outline" style={{ flexShrink: 0, padding: '12px 16px' }}>
                       Ver Detalle
                     </Link>
                   </div>

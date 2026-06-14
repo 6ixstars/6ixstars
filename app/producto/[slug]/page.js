@@ -42,7 +42,7 @@ export async function generateMetadata({ params }) {
 
   const categoryLabel = categoryLabels[product.category] || '';
   const typeLabel = product.type ? `${product.type} ` : '';
-  const url = `${SITE_URL}/perfume/${product.slug}`;
+  const url = `${SITE_URL}/producto/${product.slug}`;
   const image = getImagePath(product);
 
   // Title programático: "Comprar X EDP de Brand | Perfume Hombre Oriental | ScentualBliss"
@@ -122,7 +122,7 @@ export default async function ProductPage({ params }) {
   ).slice(0, 4);
 
   const categoryLabel = categoryLabels[product.category] || '';
-  const url = `${SITE_URL}/perfume/${product.slug}`;
+  const url = `${SITE_URL}/producto/${product.slug}`;
   const resolvedImages = resolveProductImages(product);
 
   // URLs absolutas para Schema.org (Google requiere https://...)

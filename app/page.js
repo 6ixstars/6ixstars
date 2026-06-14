@@ -2,8 +2,8 @@ import HomePageClient from '@/components/pages/HomePageClient';
 import { getAllProducts } from '@/lib/products';
 
 export const metadata = {
-  title: 'ScentualBliss — Perfumería Original | Fragancias Exclusivas',
-  description: 'Descubre fragancias únicas orientales, florales y amaderadas. Perfumes de lujo con envío gratis a toda Colombia. Dior Sauvage, Creed Aventus, Lattafa Khamrah, Tom Ford y más.',
+  title: '6ixstars — Streetwear & Ropa Urbana en Colombia',
+  description: 'Hoodies, camisetas oversize, cargos y gorras. Ropa urbana para los que marcan la diferencia. Drops limitados con envío a toda Colombia.',
 };
 
 export default async function HomePage() {

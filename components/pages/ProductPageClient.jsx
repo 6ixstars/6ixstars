@@ -119,7 +119,7 @@ export default function ProductPageClient({ product, resolvedImages, related = [
     </div>
   );
 
-  // `related` viene desde el server padre (app/perfume/[slug]/page.js)
+  // `related` viene desde el server padre (app/producto/[slug]/page.js)
   // que calcula los productos relacionados ya filtrados.
 
   const discount = product.originalPrice ? Math.round((1 - product.price / product.originalPrice) * 100) : null;

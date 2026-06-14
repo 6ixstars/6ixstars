@@ -86,7 +86,7 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
         </Field>
 
         <div className="row two">
-          <Field label="Slug" required hint="URL: /perfume/<slug>. Sólo minúsculas, números y guiones.">
+          <Field label="Slug" required hint="URL: /producto/<slug>. Sólo minúsculas, números y guiones.">
             <input
               name="slug"
               value={slug}

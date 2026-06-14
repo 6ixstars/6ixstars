@@ -145,7 +145,7 @@ export default async function TiendaPage({ searchParams }) {
     itemListElement: visible.map((p, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `${SITE_URL}/perfume/${p.slug}`,
+      url: `${SITE_URL}/producto/${p.slug}`,
       name: p.name,
     })),
   };

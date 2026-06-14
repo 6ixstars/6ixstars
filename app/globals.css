@@ -1,38 +1,46 @@
 /* ============================
-   SCENTUALBLISS — DESIGN SYSTEM
+   6IXSTARS — STREETWEAR DESIGN SYSTEM
+   Tema oscuro · negro + rosa/rojo · tipografía gruesa.
+   Los nombres de variable se conservan (--gold, --black, --white…)
+   para re-skinear toda la tienda sin editar cada componente.
    ============================ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* Acentos dorados — alineados con paleta del template */
-  --gold: #B8905C;
-  --gold-light: #D4B68A;       /* gold-soft del template */
-  --gold-dark: #8C6A40;        /* gold-deep del template */
+  /* ACENTO — rosa chicle del logo + rojo/carmín del contorno.
+     (--gold* conserva el nombre, ahora es ROSA/ROJO) */
+  --gold: #FF2E7E;             /* acento principal — hot pink */
+  --gold-light: #FF8FB8;       /* rosa claro — detalles suaves */
+  --gold-dark: #E11D48;        /* rojo/carmín — estados fuertes, hovers */
+  --pink: #FF2E7E;
+  --red: #E11D48;
 
-  /* TEMA CLARO — backgrounds (alineados con --bg-* del template) */
-  --black: #FDFBF7;            /* body bg principal — marfil cálido (--bg-1) */
-  --dark: #F5EFE3;             /* secciones alternas — sand (--bg-2) */
-  --dark-2: #FFFFFF;            /* cards/papel — blanco puro para destacar productos */
-  --dark-3: #FAF6EE;            /* cream (--bg-3) */
-  --dark-4: #E5DCC7;            /* bordes — beige medio */
-  --cream: #F5EFE3;
-  --cream-2: #FAF6EE;
-  --bg-deep: #0F0C09;           /* fondo profundo (footer, story) */
-  --bg-dark: #1A1612;           /* mocha noche (announce, secciones oscuras) */
+  /* TEMA OSCURO — backgrounds */
+  --black: #0B0B0C;            /* body bg principal — casi negro */
+  --dark: #141416;             /* secciones alternas */
+  --dark-2: #1A1A1D;           /* cards / superficies elevadas */
+  --dark-3: #141416;           /* secciones oscuras */
+  --dark-4: #2A2A2E;           /* bordes */
+  --cream: #141416;
+  --cream-2: #1A1A1D;
+  --bg-deep: #060607;          /* fondo profundo (footer) */
+  --bg-dark: #101012;          /* announce, secciones */
 
-  /* TEMA CLARO — textos (alineados con --ink-* del template) */
-  --white: #1F1A14;             /* texto principal — ink */
-  --gray: #7A6E5E;              /* texto muted — ink-3 */
-  --gray-light: #4A3F33;        /* texto body — ink-2 */
+  /* TEMA OSCURO — textos */
+  --white: #F5F5F6;            /* texto principal */
+  --gray: #8C8C93;             /* texto muted / labels */
+  --gray-light: #C7C7CD;       /* texto body */
 
-  --error: #C04A5C;
-  --success: #6B8E7A;
+  --error: #FF4D6A;
+  --success: #4ADE80;
 
-  /* Toda la tienda usa Montserrat (con peso Light 300 por defecto en body) */
-  --font-serif: var(--font-montserrat), system-ui, sans-serif;
+  /* Tipografía: Anton (display condensado) + Montserrat (texto).
+     --font-serif se repunta a display para que los headings que lo
+     usaban hereden el look streetwear sin editarlos uno por uno. */
+  --font-display: var(--font-anton), 'Arial Narrow', system-ui, sans-serif;
+  --font-serif: var(--font-anton), 'Arial Narrow', system-ui, sans-serif;
   --font-sans: var(--font-montserrat), system-ui, sans-serif;
-  --font-display: var(--font-montserrat), system-ui, sans-serif;
 
   --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px;
   --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px;
@@ -40,10 +48,10 @@
 
   --r-sm: 4px; --r-md: 8px; --r-lg: 16px; --r-xl: 24px; --r-full: 9999px;
 
-  --shadow-sm: 0 1px 3px rgba(31,26,18,.06);
-  --shadow-md: 0 4px 20px rgba(31,26,18,.08);
-  --shadow-lg: 0 8px 40px rgba(31,26,18,.12);
-  --shadow-gold: 0 4px 30px rgba(201,169,110,.30);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,.4);
+  --shadow-md: 0 4px 20px rgba(0,0,0,.5);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.6);
+  --shadow-gold: 0 4px 30px rgba(255,46,126,.35);
 
   --ease: cubic-bezier(.4,0,.2,1);
   --t-fast: 150ms var(--ease);
@@ -59,7 +67,7 @@ html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
 
 body {
   font-family: var(--font-sans);
-  font-weight: 300;
+  font-weight: 400;
   background: var(--black);
   color: var(--white);
   line-height: 1.6;
@@ -73,12 +81,25 @@ body {
 ::-webkit-scrollbar-track { background: var(--dark); }
 ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
 
-::selection { background: var(--gold); color: var(--white); }
+::selection { background: var(--gold); color: #0B0B0C; }
 
-h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 400; line-height: 1.15; }
-h1 { font-size: clamp(2.5rem, 6vw, 5rem); }
-h2 { font-size: clamp(2rem, 4vw, 3.5rem); }
-h3 { font-size: clamp(1.4rem, 2.5vw, 2rem); }
+/* Titulares: Anton condensado, en mayúsculas, look graffiti/street */
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: .95;
+  text-transform: uppercase;
+  letter-spacing: .005em;
+}
+h3, h4 {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -.005em;
+}
+h1 { font-size: clamp(2.8rem, 7vw, 6rem); }
+h2 { font-size: clamp(2.2rem, 5vw, 4rem); }
+h3 { font-size: clamp(1.3rem, 2.5vw, 1.9rem); }
 p { color: var(--gray-light); }
 a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
@@ -90,31 +111,31 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
-  font-family: var(--font-sans); font-size: .875rem; font-weight: 600;
-  letter-spacing: .08em; text-transform: uppercase; padding: 14px 32px;
+  font-family: var(--font-sans); font-size: .875rem; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; padding: 14px 32px;
   border-radius: var(--r-sm); transition: all var(--t-mid); cursor: pointer;
   position: relative; overflow: hidden;
 }
 .btn::before {
   content: ''; position: absolute; inset: 0;
-  background: rgba(0,0,0,.06); opacity: 0; transition: opacity var(--t-fast);
+  background: rgba(255,255,255,.1); opacity: 0; transition: opacity var(--t-fast);
 }
 .btn:hover::before { opacity: 1; }
 .btn:active { transform: scale(.98); }
 
 .btn-primary {
-  background: var(--gold); color: #1F1A12; border: 2px solid var(--gold);
+  background: var(--gold); color: #0B0B0C; border: 2px solid var(--gold);
   box-shadow: var(--shadow-gold);
 }
-.btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); color: #FFFFFF; transform: translateY(-1px); box-shadow: 0 8px 40px rgba(201,169,110,.5); }
+.btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); color: #FFFFFF; transform: translateY(-1px); box-shadow: 0 8px 40px rgba(255,46,126,.5); }
 
 .btn-outline {
-  background: transparent; color: var(--gold-dark); border: 1.5px solid var(--gold);
+  background: transparent; color: var(--white); border: 1.5px solid var(--gold);
 }
-.btn-outline:hover { background: var(--gold); color: #1F1A12; transform: translateY(-1px); }
+.btn-outline:hover { background: var(--gold); color: #0B0B0C; transform: translateY(-1px); }
 
-.btn-dark { background: var(--dark-3); color: var(--white); border: 1.5px solid var(--dark-4); }
-.btn-dark:hover { border-color: var(--gold); color: var(--gold-dark); background: #FFFFFF; }
+.btn-dark { background: var(--dark-2); color: var(--white); border: 1.5px solid var(--dark-4); }
+.btn-dark:hover { border-color: var(--gold); color: var(--gold); background: #1F1F23; }
 
 .btn-sm { padding: 10px 20px; font-size: .8rem; }
 .btn-lg { padding: 18px 48px; font-size: 1rem; }
@@ -122,26 +143,26 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 .btn:disabled { opacity: .5; cursor: not-allowed; pointer-events: none; }
 
 .badge {
-  display: inline-block; font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+  display: inline-block; font-size: .7rem; font-weight: 800; letter-spacing: .1em;
   text-transform: uppercase; padding: 3px 10px; border-radius: var(--r-full);
-  color: #1F1A12;
+  color: #0B0B0C;
 }
 
 .divider {
   display: flex; align-items: center; gap: var(--sp-4); margin: var(--sp-6) 0;
 }
 .divider::before, .divider::after {
-  content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dark));
+  content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold));
 }
-.divider::after { background: linear-gradient(90deg, var(--gold-dark), transparent); }
+.divider::after { background: linear-gradient(90deg, var(--gold), transparent); }
 
 .section-header { text-align: center; margin-bottom: var(--sp-12); }
 .section-header .eyebrow {
-  font-size: .75rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  font-size: .75rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
   color: var(--gold); margin-bottom: var(--sp-3);
 }
 .eyebrow {
-  font-size: .75rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase;
+  font-size: .75rem; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
   color: var(--gold); margin-bottom: var(--sp-3);
 }
 .section-header h2 { color: var(--white); margin-bottom: var(--sp-4); }
@@ -152,7 +173,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
 .star.filled { color: var(--gold); }
 
 .overlay {
-  position: fixed; inset: 0; background: rgba(31,26,18,.45); z-index: 100;
+  position: fixed; inset: 0; background: rgba(0,0,0,.65); z-index: 100;
   animation: fadeIn var(--t-mid) var(--ease);
 }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -165,11 +186,11 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   border-radius: var(--r-md); color: var(--white); font-family: var(--font-sans); font-size: .95rem;
   transition: border-color var(--t-fast), box-shadow var(--t-fast); outline: none;
 }
-.input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,169,110,.15); }
+.input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,46,126,.15); }
 .input::placeholder { color: var(--gray); }
 
 .form-group { display: flex; flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-5); }
-.form-group label { font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--gray-light); }
+.form-group label { font-size: .8rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--gray-light); }
 
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--sp-6); }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-6); }
@@ -195,7 +216,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   border: 0;
 }
 
-/* Focus visible accesible — reemplaza el outline removido en selects/botones */
+/* Focus visible accesible */
 :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
@@ -271,7 +292,7 @@ a:focus-visible {
 }
 
 /* ================================
-   NOISE TEXTURE OVERLAY
+   NOISE TEXTURE OVERLAY (sobre fondo oscuro → screen)
    ================================ */
 body::after {
   content: '';
@@ -279,11 +300,11 @@ body::after {
   inset: 0;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.028;
+  opacity: 0.04;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
-  mix-blend-mode: multiply;
+  mix-blend-mode: screen;
 }
 
 /* ================================
@@ -307,7 +328,7 @@ body::after {
   letter-spacing: .35em;
   text-transform: uppercase;
   color: var(--gray);
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
   padding: 0 40px;
 }
@@ -317,7 +338,7 @@ body::after {
   border-radius: 50%;
   background: var(--gold);
   flex-shrink: 0;
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 /* ================================
@@ -335,13 +356,13 @@ body::after {
 }
 
 /* ================================
-   PRODUCT CARD — editorial
+   PRODUCT CARD — streetwear
    ================================ */
 .product-card-img-wrap {
   position: relative;
   overflow: hidden;
-  border-radius: 2px;
-  background: #EFEBE3;
+  border-radius: 4px;
+  background: #141416;
 }
 .product-card-img-wrap img {
   width: 100%;
@@ -356,14 +377,14 @@ body::after {
 .product-card-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(26,22,16,.0);
+  background: rgba(0,0,0,.0);
   transition: background .35s;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
 }
 .product-card-img-wrap:hover .product-card-overlay {
-  background: rgba(26,22,16,.55);
+  background: rgba(0,0,0,.55);
 }
 .product-card-cta {
   padding: 16px;
@@ -377,6 +398,12 @@ body::after {
 }
 .product-card-info {
   padding: 14px 4px 0;
+}
+/* Nombre de producto: legible, bold sans (no el display condensado) */
+.product-card-info h3 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  text-transform: none;
 }
 @media (max-width: 480px) {
   .product-card-info { padding: 10px 4px 0; }
@@ -396,10 +423,10 @@ body::after {
   top: 0;
   z-index: 10000;
   padding: 10px 16px;
-  background: var(--gold-dark);
-  color: #FDFBF7;
+  background: var(--gold);
+  color: #0B0B0C;
   font-size: .85rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .08em;
   text-transform: uppercase;
   border-radius: 0 0 4px 0;
@@ -414,7 +441,7 @@ body::after {
 
 /* Shop header — responsive */
 .shop-header {
-  border-bottom: 1px solid rgba(31,26,18,.12);
+  border-bottom: 1px solid var(--dark-4);
   padding: 32px 0 24px;
   background: var(--dark-3);
 }
@@ -425,19 +452,20 @@ body::after {
   font-size: .7rem;
   letter-spacing: .32em;
   text-transform: uppercase;
-  color: var(--gold-dark);
-  font-weight: 600;
+  color: var(--gold);
+  font-weight: 700;
   margin-bottom: 12px;
 }
 .shop-header-title {
-  font-family: var(--font-serif);
-  font-weight: 300;
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
   color: var(--white);
-  line-height: 1.1;
-  font-size: clamp(1.8rem, 5vw, 4rem);
+  line-height: .95;
+  font-size: clamp(2rem, 5vw, 4.5rem);
 }
 .shop-header-title em {
-  font-style: italic;
+  font-style: normal;
   color: var(--gold);
 }
 .shop-header-count {
@@ -469,15 +497,15 @@ body::after {
   font-size: .72rem;
   letter-spacing: .12em;
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
 }
 .breadcrumbs-link {
   color: var(--gray-light);
   text-decoration: none;
   transition: color .2s;
 }
-.breadcrumbs-link:hover { color: var(--gold-dark); }
-.breadcrumbs-current { color: var(--gold-dark); font-weight: 600; }
+.breadcrumbs-link:hover { color: var(--gold); }
+.breadcrumbs-current { color: var(--gold); font-weight: 700; }
 .breadcrumbs-sep { color: var(--gray); }
 
 /* Search input */
@@ -493,15 +521,15 @@ body::after {
   left: 14px;
   top: 50%;
   transform: translateY(-50%);
-  color: var(--gold-dark);
+  color: var(--gold);
   pointer-events: none;
 }
 .shop-search-input {
   width: 100%;
   min-height: 48px;
   padding: 12px 44px 12px 40px;
-  background: rgba(184,144,92,.08);
-  border: 1px solid rgba(31,26,18,.12);
+  background: rgba(255,255,255,.04);
+  border: 1px solid var(--dark-4);
   color: var(--white);
   font-family: var(--font-sans);
   font-size: .92rem;
@@ -513,7 +541,7 @@ body::after {
 .shop-search-input::placeholder { color: var(--gray); }
 .shop-search-input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(184,144,92,.15);
+  box-shadow: 0 0 0 3px rgba(255,46,126,.15);
 }
 .shop-search-clear {
   position: absolute;
@@ -531,7 +559,7 @@ body::after {
   cursor: pointer;
   border-radius: 2px;
 }
-.shop-search-clear:hover { color: var(--gold-dark); }
+.shop-search-clear:hover { color: var(--gold); }
 
 /* Skeleton placeholders */
 @keyframes shimmer {
@@ -541,9 +569,9 @@ body::after {
 .skeleton {
   background: linear-gradient(
     90deg,
-    rgba(31,26,18,.06) 0%,
-    rgba(31,26,18,.1) 50%,
-    rgba(31,26,18,.06) 100%
+    rgba(255,255,255,.04) 0%,
+    rgba(255,255,255,.08) 50%,
+    rgba(255,255,255,.04) 100%
   );
   background-size: 200% 100%;
   animation: shimmer 1.4s linear infinite;
@@ -571,7 +599,7 @@ body::after {
     margin: 0 calc(-1 * var(--sp-6)) 8px;
     padding-left: var(--sp-6);
     padding-right: var(--sp-6);
-    box-shadow: 0 6px 20px -16px rgba(31,26,18,.18);
+    box-shadow: 0 6px 20px -16px rgba(0,0,0,.6);
     max-height: calc(100vh - var(--nav-h) - 16px);
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -594,11 +622,11 @@ body::after {
   min-height: 48px;
   padding: 0 18px;
   background: transparent;
-  border: 1px solid rgba(31,26,18,.2);
+  border: 1px solid var(--dark-4);
   color: var(--white);
   font-family: var(--font-sans);
   font-size: .85rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: .06em;
   cursor: pointer;
   border-radius: 4px;
@@ -608,8 +636,8 @@ body::after {
 }
 .shop-filter-btn:hover {
   border-color: var(--gold);
-  background: rgba(184,144,92,.08);
-  color: var(--gold-dark);
+  background: rgba(255,46,126,.08);
+  color: var(--gold);
 }
 .shop-filter-badge {
   display: inline-flex;
@@ -619,9 +647,9 @@ body::after {
   height: 20px;
   padding: 0 6px;
   background: var(--gold);
-  color: #1A1612;
+  color: #0B0B0C;
   font-size: .7rem;
-  font-weight: 700;
+  font-weight: 800;
   border-radius: 999px;
 }
 .shop-sort-desktop {
@@ -650,7 +678,7 @@ body::after {
 .shop-sheet-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(31,26,18,.45);
+  background: rgba(0,0,0,.65);
   z-index: 950;
   animation: shopSheetFadeIn .2s ease-out;
 }
@@ -658,7 +686,7 @@ body::after {
   position: fixed;
   left: 0; right: 0; bottom: 0;
   z-index: 960;
-  background: var(--dark-3);
+  background: var(--dark-2);
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   max-height: 90vh;
@@ -671,7 +699,7 @@ body::after {
   width: 40px;
   height: 4px;
   border-radius: 999px;
-  background: rgba(31,26,18,.2);
+  background: var(--dark-4);
   margin: 10px auto 6px;
   flex-shrink: 0;
 }
@@ -680,13 +708,14 @@ body::after {
   align-items: center;
   justify-content: space-between;
   padding: 4px 20px 12px;
-  border-bottom: 1px solid rgba(31,26,18,.08);
+  border-bottom: 1px solid var(--dark-4);
   flex-shrink: 0;
 }
 .shop-sheet-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
   font-weight: 400;
+  text-transform: uppercase;
   color: var(--white);
   margin: 0;
 }
@@ -711,7 +740,7 @@ body::after {
   display: flex;
   gap: 10px;
   padding: 12px 20px 16px;
-  border-top: 1px solid rgba(31,26,18,.08);
+  border-top: 1px solid var(--dark-4);
   flex-shrink: 0;
 }
 
@@ -734,13 +763,12 @@ body::after {
   .shop-sheet-handle { display: none; }
 }
 
-/* Reducir animaciones del sheet si el usuario lo solicita */
 @media (prefers-reduced-motion: reduce) {
   .shop-sheet-overlay,
   .shop-sheet { animation: none; }
 }
 
-/* Botones flotantes — posición default (no PDP) y subidos cuando hay CTA sticky */
+/* Botones flotantes */
 .wa-float-wrap { bottom: 24px; }
 .scroll-top-btn { bottom: 24px; }
 @media (max-width: 768px) {
@@ -748,9 +776,7 @@ body::after {
   .scroll-top-btn--pdp { bottom: calc(92px + env(safe-area-inset-bottom)); }
 }
 
-/* CTA fija al fondo en mobile (página de detalle del producto). Mantiene
-   el "Agregar al carrito" siempre accesible mientras el usuario hace
-   scroll por descripción, notas, reseñas, etc. Oculta en desktop. */
+/* CTA fija al fondo en mobile (PDP) */
 .mobile-sticky-cta { display: none; }
 @media (max-width: 768px) {
   .mobile-sticky-cta {
@@ -761,9 +787,9 @@ body::after {
     align-items: center;
     gap: 10px;
     padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
-    background: var(--dark-3);
-    border-top: 1px solid rgba(31,26,18,.1);
-    box-shadow: 0 -10px 30px -18px rgba(31,26,18,.2);
+    background: var(--dark-2);
+    border-top: 1px solid var(--dark-4);
+    box-shadow: 0 -10px 30px -18px rgba(0,0,0,.7);
   }
   .mobile-sticky-cta-info {
     flex: 1 1 0;
@@ -781,9 +807,9 @@ body::after {
     text-overflow: ellipsis;
   }
   .mobile-sticky-cta-price {
-    font-family: var(--font-serif);
-    color: var(--gold-dark);
-    font-weight: 600;
+    font-family: var(--font-sans);
+    color: var(--gold);
+    font-weight: 800;
     font-size: 1.15rem;
     line-height: 1;
     white-space: nowrap;
@@ -802,7 +828,7 @@ body::after {
   body:has(.mobile-sticky-cta) main { padding-bottom: 96px; }
 }
 
-/* "Cargar más" como celda full-width al final del grid de productos */
+/* "Cargar más" como celda full-width al final del grid */
 .grid-load-more {
   grid-column: 1 / -1;
   display: flex;
@@ -824,8 +850,6 @@ body::after {
   margin: 0;
 }
 
-/* Accesibilidad: respeta la preferencia del sistema para reducir movimiento.
-   Excluimos animaciones decorativas críticas (marquee de logos, anuncios) usando :not() */
 @media (prefers-reduced-motion: reduce) {
   *:not(.fx-marquee-track):not(.sb-announce-track):not(.fx-marquee-track *),
   *::before,
@@ -840,68 +864,50 @@ body::after {
 }
 
 /* ================================
-   PDP — Tema claro (texto negro, fondos crema)
-   Redefine CSS variables locales para que los inline styles
-   automáticamente hereden colores del tema claro.
+   BRAND WORDMARK (placeholder en CSS hasta tener el PNG del logo)
+   ================================ */
+.brand-wordmark {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  line-height: 1;
+  color: var(--white);
+  display: inline-flex;
+  align-items: center;
+  gap: .12em;
+}
+.brand-wordmark .six { color: var(--gold); }
+.brand-wordmark .star { color: var(--gold); }
+
+/* ================================
+   PDP — Tema oscuro (coherente con el resto)
+   Antes forzaba tema claro; ahora mantiene el dark streetwear.
    ================================ */
 .pdp-light {
-  --white:      #1A1612;          /* "blanco" en tema oscuro → ahora texto principal oscuro */
-  --gray-light: #2F2823;          /* texto secundario */
-  --gray:       #574E47;          /* texto terciario / labels */
-  --dark-2:     #F8F3EA;          /* fondo de tarjetas */
-  --dark-3:     #F0E9DC;          /* fondo de secciones */
-  --dark-4:     rgba(26,22,18,.12); /* bordes */
-  --black:      #FAF6EE;          /* fondo principal */
-  --ink:        #1A1612;
-
-  background: #FAF6EE;
-  color: #1A1612;
+  background: var(--black);
+  color: var(--white);
 }
-
-/* Tipografía: párrafos más grandes para mejor legibilidad */
 .pdp-light p {
   font-size: 1.02rem;
   line-height: 1.75;
-  color: #2B2520;
+  color: var(--gray-light);
   font-weight: 400;
 }
-
-/* Encabezados en negrilla, color oscuro */
 .pdp-light h1,
 .pdp-light h2,
 .pdp-light h3,
 .pdp-light h4 {
-  font-weight: 700 !important;
-  color: #1A1612 !important;
-  letter-spacing: -.01em;
+  color: var(--white) !important;
 }
-
-/* Botones de las pestañas (Descripción / Notas / Detalles) más legibles */
 .pdp-light button[role="tab"],
 .pdp-light .tab-btn {
-  color: #1A1612;
+  color: var(--white);
 }
-
-/* Inputs (cantidad) sobre fondo claro */
 .pdp-light input,
 .pdp-light select {
-  color: #1A1612;
+  color: var(--white);
 }
-
-/* Tarjetas de notas / detalles: borde sutil oscuro */
-.pdp-light [class*="detail-card"],
-.pdp-light [style*="background: var(--dark-2)"] {
-  border-color: rgba(26,22,18,.1) !important;
-}
-
-/* FAQ items: separadores oscuros */
-.pdp-light hr,
-.pdp-light [style*="borderBottom"] {
-  border-color: rgba(26,22,18,.08) !important;
-}
-
-/* Imágenes principales conservan fondo oscuro para que destaque la botella */
 .pdp-light .product-main-img,
 .pdp-light [class*="gallery"] [style*="aspectRatio"] {
-  background: #1A1612 !important;
+  background: #141416 !important;
 }

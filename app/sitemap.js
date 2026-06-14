@@ -87,7 +87,7 @@ export default async function sitemap() {
     );
 
     return {
-      url: `${SITE_URL}/perfume/${p.slug}`,
+      url: `${SITE_URL}/producto/${p.slug}`,
       lastModified: now,
       changeFrequency: 'weekly',
       priority: p.featured || p.bestseller ? 0.9 : 0.8,

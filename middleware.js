@@ -69,16 +69,16 @@ const SHOPIFY_POLICY_MAP = new Map([
  * URL vieja porque ya no devuelve el mismo contenido.
  */
 function getShopifyLegacyRedirect(pathname) {
-  // /products/<handle>  →  /perfume/<handle>
+  // /products/<handle>  →  /producto/<handle>
   // Mantenemos el handle exacto; los handles de Shopify suelen coincidir
   // con los slugs nuevos (decisión consciente al migrar).
   let m = pathname.match(/^\/products\/([^/?#]+)/);
-  if (m) return `/perfume/${m[1]}`;
+  if (m) return `/producto/${m[1]}`;
 
-  // /collections/<handle>/products/<product-handle>  →  /perfume/<product-handle>
+  // /collections/<handle>/products/<product-handle>  →  /producto/<product-handle>
   // (ignoramos la collection — el producto importa)
   m = pathname.match(/^\/collections\/[^/]+\/products\/([^/?#]+)/);
-  if (m) return `/perfume/${m[1]}`;
+  if (m) return `/producto/${m[1]}`;
 
   // /collections/<handle>  →  /tienda  (mantiene contexto de catálogo)
   // /collections/all  →  /tienda

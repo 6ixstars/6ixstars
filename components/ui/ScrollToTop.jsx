@@ -6,7 +6,7 @@ import { ArrowUp } from 'lucide-react';
 export default function ScrollToTop() {
   const [visible, setVisible] = useState(false);
   const pathname = usePathname();
-  const isPDP = pathname?.startsWith('/perfume/');
+  const isPDP = pathname?.startsWith('/producto/');
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 400);

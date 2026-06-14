@@ -10,7 +10,7 @@ export default function WhatsAppFloat() {
   const [bumped, setBumped] = useState(false);
   const pathname = usePathname();
   // En página de detalle (mobile) sube el botón para no chocar con el CTA sticky
-  const isPDP = pathname?.startsWith('/perfume/');
+  const isPDP = pathname?.startsWith('/producto/');
 
   // Animacion de "rebote" cada 8s para llamar la atencion sutilmente
   useEffect(() => {

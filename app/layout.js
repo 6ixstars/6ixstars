@@ -1,5 +1,5 @@
 import './globals.css';
-import { Montserrat } from 'next/font/google';
+import { Montserrat, Anton } from 'next/font/google';
 import { PublicHeader, PublicFooter } from '@/components/layout/PublicChrome';
 import ToasterWrapper from '@/components/ui/ToasterWrapper';
 import DeferredShell from '@/components/layout/DeferredShell';
@@ -7,8 +7,16 @@ import { SITE_URL } from '@/lib/site';
 
 const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-montserrat',
+  display: 'swap',
+});
+
+// Anton — display condensado pesado para titulares (look streetwear).
+const anton = Anton({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--font-anton',
   display: 'swap',
 });
 
@@ -148,7 +156,7 @@ export default async function RootLayout({ children }) {
   const { getAllProducts } = await import('@/lib/products');
   const products = await getAllProducts();
   return (
-    <html lang="es" className={montserrat.variable}>
+    <html lang="es" className={`${montserrat.variable} ${anton.variable}`}>
       <body>
         <script
           type="application/ld+json"

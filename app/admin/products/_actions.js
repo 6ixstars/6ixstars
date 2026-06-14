@@ -22,7 +22,7 @@ function revalidateAllProductRoutes() {
   revalidateTag(PRODUCTS_CACHE_TAG);
   revalidatePath('/');
   revalidatePath('/tienda');
-  revalidatePath('/perfume/[slug]', 'page');
+  revalidatePath('/producto/[slug]', 'page');
   revalidatePath('/admin/products');
 }
 
@@ -478,7 +478,7 @@ export async function executeImportAction(formData) {
   revalidateTag(PRODUCTS_CACHE_TAG);
   revalidatePath('/');
   revalidatePath('/tienda');
-  revalidatePath('/perfume/[slug]', 'page');
+  revalidatePath('/producto/[slug]', 'page');
   revalidatePath('/admin/products');
 
   return {

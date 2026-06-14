@@ -1,9 +1,9 @@
 'use client';
 
 const ITEMS = [
-  'ENVÍO GRATIS A TODA COLOMBIA',
+  'ENVÍO A TODA COLOMBIA',
+  'NUEVO DROP · FW26',
   'PAGO SEGURO CON WOMPI',
-  '100% AUTÉNTICOS · GARANTÍA',
   '10% OFF EN TU PRIMERA COMPRA',
 ];
 
@@ -15,7 +15,7 @@ export default function AnnouncementBar() {
           ITEMS.map((t, i) => (
             <span key={`${dup}-${i}`} className="sb-announce-item">
               {t}
-              <span className="sb-announce-dot" />
+              <span className="sb-announce-dot" aria-hidden="true">★</span>
             </span>
           ))
         ))}
@@ -23,21 +23,22 @@ export default function AnnouncementBar() {
 
       <style>{`
         .sb-announce {
-          background: #050505;
-          color: #ffd700;
+          background: #060607;
+          color: var(--white);
           padding: 9px 0;
           font-size: .68rem;
-          letter-spacing: .25em;
+          letter-spacing: .26em;
           text-transform: uppercase;
-          font-weight: 500;
+          font-weight: 700;
           overflow: hidden;
           position: relative;
           z-index: 60;
           font-family: var(--font-sans);
+          border-bottom: 1px solid var(--dark-4);
         }
         .sb-announce-track {
           display: flex;
-          gap: clamp(28px, 6vw, 56px);
+          gap: clamp(24px, 5vw, 48px);
           white-space: nowrap;
           animation: sb-announce-scroll 40s linear infinite;
           width: max-content;
@@ -45,22 +46,22 @@ export default function AnnouncementBar() {
         .sb-announce-item {
           display: inline-flex;
           align-items: center;
-          gap: clamp(28px, 6vw, 56px);
+          gap: clamp(24px, 5vw, 48px);
+        }
+        .sb-announce-dot {
+          color: var(--gold);
+          font-size: .8em;
+          line-height: 1;
         }
         @media (max-width: 480px) {
           .sb-announce {
-            font-size: .62rem;
+            font-size: .6rem;
             letter-spacing: .18em;
             padding: 7px 0;
           }
         }
-        .sb-announce-dot {
-          display: inline-block;
-          width: 4px;
-          height: 4px;
-          border-radius: 50%;
-          background: #ffd700;
-          opacity: .7;
+        @media (prefers-reduced-motion: reduce) {
+          .sb-announce-track { animation: none; }
         }
         @keyframes sb-announce-scroll {
           from { transform: translateX(0); }

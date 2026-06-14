@@ -10,10 +10,10 @@ import { getImagePath } from '@/lib/products-constants';
 import { formatCOP } from '@/lib/format';
 import toast from 'react-hot-toast';
 
-const PLACEHOLDER = '/img/placeholder-perfume.webp';
+const PLACEHOLDER = '/img/placeholder.webp';
 const CARD_SIZES = '(max-width: 640px) 50vw, (max-width: 900px) 50vw, (max-width: 1024px) 33vw, 25vw';
 
-const TOAST = { style: { background: '#1A1610', color: '#F6F3EE', border: '1px solid rgba(184,144,92,.3)', fontFamily: 'var(--font-sans)' }, iconTheme: { primary: '#B8905C', secondary: '#1A1610' } };
+const TOAST = { style: { background: '#1A1A1D', color: '#F5F5F6', border: '1px solid rgba(255,46,126,.35)', fontFamily: 'var(--font-sans)' }, iconTheme: { primary: '#FF2E7E', secondary: '#0B0B0C' } };
 
 export default function ProductCard({ product, priority = false }) {
   const [hovered, setHovered] = useState(false);
@@ -41,7 +41,7 @@ export default function ProductCard({ product, priority = false }) {
   };
 
   return (
-    <Link href={`/perfume/${product.slug}`} style={{ display: 'block', textDecoration: 'none' }}>
+    <Link href={`/producto/${product.slug}`} style={{ display: 'block', textDecoration: 'none' }}>
       <article
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -51,7 +51,7 @@ export default function ProductCard({ product, priority = false }) {
         <div className="product-card-img-wrap" style={{ aspectRatio: '3/4' }}>
           <Image
             src={imgSrc}
-            alt={`${product.name} de ${product.brand} — perfume ${product.gender?.toLowerCase() || ''}`.trim()}
+            alt={`${product.name} — ${product.brand} ${product.category || ''}`.trim()}
             fill
             sizes={CARD_SIZES}
             style={{ objectFit: 'cover' }}
@@ -131,14 +131,14 @@ export default function ProductCard({ product, priority = false }) {
 
         {/* Info */}
         <div className="product-card-info">
-          <p style={{ fontSize: '.66rem', letterSpacing: '.22em', color: 'var(--gold-dark)', textTransform: 'uppercase', fontWeight: 600, marginBottom: 6 }}>
+          <p style={{ fontSize: '.62rem', letterSpacing: '.2em', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>
             {product.brand}
           </p>
-          <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.05rem', color: 'var(--white)', fontWeight: 400, lineHeight: 1.3, marginBottom: 8 }}>
+          <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: 'var(--white)', fontWeight: 700, lineHeight: 1.25, marginBottom: 8, textTransform: 'none' }}>
             {product.name}
-            {product.type && <em style={{ fontSize: '.85rem', color: 'var(--gray)', fontStyle: 'italic', marginLeft: 6, fontWeight: 300 }}>{product.type}</em>}
+            {product.type && <span style={{ fontSize: '.78rem', color: 'var(--gray)', marginLeft: 6, fontWeight: 500 }}>· {product.type}</span>}
           </h3>
-          <span style={{ fontSize: '.95rem', fontWeight: 500, color: product.price > 0 ? 'var(--white)' : 'var(--gray)', letterSpacing: '.02em' }}>
+          <span style={{ fontSize: '.98rem', fontWeight: 700, color: product.price > 0 ? 'var(--white)' : 'var(--gray)', letterSpacing: '.01em' }}>
             {product.price > 0 ? formatCOP(product.price) : 'Consultar precio'}
           </span>
         </div>
