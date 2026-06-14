@@ -157,7 +157,8 @@ export default function HomePageClient({ products = [] }) {
           <div className="sx6-bento">
             {collections.map((c, i) => (
               <Reveal key={c.id} i={i % 3} className="sx6-bento-cell" style={{ gridColumn: `span ${BENTO_SPANS[i] || 6}` }}>
-                <Link href={`/tienda?cat=${c.id}`} className="sx6-tile" data-cursor="hover">
+                <Link href={`/tienda?cat=${c.id}`} className="sx6-tile" data-cursor="hover"
+                  style={{ background: `linear-gradient(155deg, ${c.color}33, #0f0f11 72%)` }}>
                   <span className="sx6-tile-ghost">{String(i + 1).padStart(2, '0')}</span>
                   <div className="sx6-tile-top">
                     <span className="sx6-tile-idx">[ {String(i + 1).padStart(2, '0')} ]</span>
@@ -184,9 +185,14 @@ export default function HomePageClient({ products = [] }) {
               <Link href="/tienda" className="sx6-head-link" data-cursor="hover">VER COLECCIÓN <ArrowRight size={16} /></Link>
             </Reveal>
             <div className="sx6-look-grid">
-              {['FIG.01 — OUTERWEAR', 'FIG.02 — DENIM', 'FIG.03 — HEADWEAR'].map((label, i) => (
+              {[
+                { label: 'FIG.01 — OUTERWEAR', tint: 'rgba(255,46,126,.16)' },
+                { label: 'FIG.02 — DENIM', tint: 'rgba(67,97,143,.20)' },
+                { label: 'FIG.03 — HEADWEAR', tint: 'rgba(236,236,236,.10)' },
+              ].map(({ label, tint }, i) => (
                 <Reveal key={label} i={i} className={`sx6-look-cell ${i === 1 ? 'tall' : ''}`}>
-                  <div className="sx6-look-frame" data-cursor="hover">
+                  <div className="sx6-look-frame" data-cursor="hover"
+                    style={{ background: `radial-gradient(120% 90% at 50% 15%, ${tint}, transparent 62%), #0f0f11` }}>
                     <StarMark className="sx6-look-star" size={120} outline />
                     <span className="sx6-look-label">{label}</span>
                     <span className="sx6-look-corner">6IX</span>
@@ -321,7 +327,8 @@ function HomeStyles() {
       @media (max-width: 700px) { .sx6-frame { inset: 7px; } .sx6-frame-tr, .sx6-frame-bl { display: none; } }
 
       /* ---------- HERO ---------- */
-      .sx6-hero { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: clip; border-bottom: 1px solid var(--dark-4); }
+      .sx6-hero { position: relative; min-height: 100svh; display: flex; align-items: center; overflow: clip; border-bottom: 1px solid var(--dark-4);
+        background: radial-gradient(70% 55% at 74% 34%, rgba(255,46,126,.10), transparent 62%), radial-gradient(50% 40% at 10% 90%, rgba(67,97,143,.10), transparent 60%); }
       .sx6-hero-bigstar { position: absolute; right: -340px; top: 48%; transform: translateY(-50%); color: var(--gold); opacity: .10; pointer-events: none; will-change: transform; }
       .sx6-hero-bigstar svg { display: block; }
       .sx6-hero-outstar { position: absolute; left: 38%; top: 14%; color: var(--dark-4); opacity: .6; pointer-events: none; }
