@@ -1,12 +1,4 @@
 {
-  "crons": [
-    {
-      "path": "/api/cron/sync-orders",
-      "schedule": "0 6 * * *"
-    },
-    {
-      "path": "/api/cron/recover-abandoned-carts",
-      "schedule": "0 14 * * *"
-    }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "nextjs"
 }
