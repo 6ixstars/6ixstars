@@ -12,6 +12,7 @@ import { usePathname } from 'next/navigation';
 const CartDrawer = dynamic(() => import('@/components/cart/CartDrawer'), { ssr: false });
 const WhatsAppFloat = dynamic(() => import('@/components/ui/WhatsAppFloat'), { ssr: false });
 const ScrollToTop = dynamic(() => import('@/components/ui/ScrollToTop'), { ssr: false });
+const SoundToggle = dynamic(() => import('@/components/ui/SoundToggle'), { ssr: false });
 
 export default function DeferredShell() {
   const pathname = usePathname();
@@ -21,6 +22,7 @@ export default function DeferredShell() {
       <CartDrawer />
       <WhatsAppFloat />
       <ScrollToTop />
+      <SoundToggle />
     </>
   );
 }

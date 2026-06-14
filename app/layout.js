@@ -1,5 +1,5 @@
 import './globals.css';
-import { Montserrat, Anton } from 'next/font/google';
+import { Montserrat, Anton, Space_Mono } from 'next/font/google';
 import { PublicHeader, PublicFooter } from '@/components/layout/PublicChrome';
 import ToasterWrapper from '@/components/ui/ToasterWrapper';
 import DeferredShell from '@/components/layout/DeferredShell';
@@ -17,6 +17,14 @@ const anton = Anton({
   subsets: ['latin'],
   weight: '400',
   variable: '--font-anton',
+  display: 'swap',
+});
+
+// Space Mono — etiquetas técnicas/brutalistas (meta, tags, coordenadas).
+const spaceMono = Space_Mono({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-mono',
   display: 'swap',
 });
 
@@ -156,7 +164,7 @@ export default async function RootLayout({ children }) {
   const { getAllProducts } = await import('@/lib/products');
   const products = await getAllProducts();
   return (
-    <html lang="es" className={`${montserrat.variable} ${anton.variable}`}>
+    <html lang="es" className={`${montserrat.variable} ${anton.variable} ${spaceMono.variable}`}>
       <body>
         <script
           type="application/ld+json"

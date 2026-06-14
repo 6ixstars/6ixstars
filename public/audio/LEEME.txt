@@ -1,0 +1,8 @@
+Pon aquí la canción de fondo de la tienda con el nombre exacto:
+
+    theme.mp3
+
+(formato MP3, idealmente < 3-4 MB, que haga loop bien).
+El reproductor arranca al primer clic del usuario y tiene un botón
+flotante abajo a la izquierda para encender/apagar. Recuerda la
+preferencia del visitante. Volumen por defecto: 35%.
