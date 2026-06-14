@@ -11,7 +11,7 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import FitBuilder from '@/components/fx/FitBuilder';
-import SneakerDrop from '@/components/fx/SneakerDrop';
+import TiltShoes from '@/components/fx/TiltShoes';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -151,7 +151,7 @@ export default function HomePageClient({ products = [] }) {
             </div>
             <Link href="/tienda?sort=nuevo" className="sx6-head-link" data-cursor="hover">VER DROP <ArrowRight size={16} /></Link>
           </Reveal>
-          <SneakerDrop />
+          <TiltShoes />
         </section>
 
         {/* ===================== TRUST ===================== */}
