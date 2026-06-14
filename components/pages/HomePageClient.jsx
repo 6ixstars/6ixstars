@@ -11,6 +11,7 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import FitBuilder from '@/components/fx/FitBuilder';
+import Drop3D from '@/components/fx/Drop3D';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -37,6 +38,16 @@ const softUp = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transi
 
 // Bento: spans de columna (de 12) por categoría — layout editorial asimétrico.
 const BENTO_SPANS = [7, 5, 5, 7, 8, 4];
+
+// Piezas del DROP (carrusel 3D). Usan las fotos generadas + slugs del seed.
+const DROP_ITEMS = [
+  { name: 'Buzo Oversize Shadow',    price: '$159.900', img: '/img/gen/cat-buzos.webp',     slug: 'buzo-oversize-shadow' },
+  { name: 'Jean Baggy Wave',         price: '$169.900', img: '/img/gen/cat-jeans.webp',     slug: 'jean-baggy-wave' },
+  { name: 'Conjunto Track 6ix',      price: '$229.900', img: '/img/gen/cat-conjuntos.webp', slug: 'conjunto-track-6ix' },
+  { name: 'Camisa Boxy Static',      price: '$79.900',  img: '/img/gen/cat-camisas.webp',   slug: 'camisa-boxy-static' },
+  { name: 'Bermuda Cargo Tactical',  price: '$109.900', img: '/img/gen/cat-bermudas.webp',  slug: 'bermuda-cargo-tactical' },
+  { name: 'Gorra Snapback 6ix',      price: '$59.900',  img: '/img/gen/cat-gorras.webp',    slug: 'gorra-snapback-6ix' },
+];
 
 export default function HomePageClient({ products = [] }) {
   const bestsellers = products.filter(p => p.bestseller).slice(0, 8);
@@ -130,6 +141,18 @@ export default function HomePageClient({ products = [] }) {
             </div>
           </div>
         </div>
+
+        {/* ===================== DROP 01 — CARRUSEL 3D ===================== */}
+        <section className="container sx6-section">
+          <Reveal className="sx6-head sx6-head-row">
+            <div>
+              <span className="sx6-tag">/// DROP 01 · FW26</span>
+              <h2 className="sx6-head-title">EL DROP</h2>
+            </div>
+            <Link href="/tienda?sort=nuevo" className="sx6-head-link" data-cursor="hover">VER DROP <ArrowRight size={16} /></Link>
+          </Reveal>
+          <Drop3D items={DROP_ITEMS} />
+        </section>
 
         {/* ===================== TRUST ===================== */}
         <section className="container sx6-trust">
