@@ -1,6 +1,5 @@
 import { getProductBySlug, getBestsellers, getAllProducts, categoryLabels, getImagePath } from '@/lib/products';
 import ProductPageClient from '@/components/pages/ProductPageClient';
-import ProductSeoContent, { ProductFAQSchema } from '@/components/seo/ProductSeoContent';
 import { notFound } from 'next/navigation';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -20,7 +19,7 @@ function resolveProductImages(product) {
     const fsPath = path.join(process.cwd(), 'public', 'img', file);
     if (fs.existsSync(fsPath)) found.push(`/img/${file}`);
   }
-  return found.length ? found : ['/img/placeholder-perfume.webp'];
+  return found.length ? found : ['/img/placeholder.webp'];
 }
 
 // Solo pre-generamos bestsellers para mantener el build dentro de los límites
@@ -41,32 +40,24 @@ export async function generateMetadata({ params }) {
   if (!product) return {};
 
   const categoryLabel = categoryLabels[product.category] || '';
-  const typeLabel = product.type ? `${product.type} ` : '';
   const url = `${SITE_URL}/producto/${product.slug}`;
   const image = getImagePath(product);
 
-  // Title programático: "Comprar X EDP de Brand | Perfume Hombre Oriental | ScentualBliss"
-  const title = `Comprar ${product.name} ${typeLabel}de ${product.brand} | Perfume ${product.gender} ${categoryLabel} | ScentualBliss`;
+  // Title programático: "Comprar X — Brand | Categoría Unisex | 6ixstars"
+  const title = `Comprar ${product.name} — ${product.brand} | ${categoryLabel} | 6ixstars`;
 
-  // Meta description: descripción + notas + duración + CTA (max ~160 chars)
-  const notesShort = `${product.notes.top}, ${product.notes.heart}, ${product.notes.base}`;
-  const description = `${product.description.substring(0, 100).trim()}... Notas: ${notesShort.substring(0, 60)}. Duración ${product.longevity}. Envío gratis a Colombia.`.substring(0, 160);
+  const description = `${product.description.substring(0, 120).trim()} Envío a toda Colombia 24–48h.`.substring(0, 160);
 
-  // Keywords array para SEO
   const keywords = [
     product.name,
     `${product.name} ${product.brand}`,
-    `${product.brand} ${product.name}`,
     `comprar ${product.name}`,
     `${product.name} precio`,
-    `${product.name} ${product.type}`,
-    `perfume ${product.gender.toLowerCase()}`,
-    `perfume ${categoryLabel.toLowerCase()}`,
+    `${categoryLabel.toLowerCase()} ${product.gender}`,
+    `ropa urbana ${categoryLabel.toLowerCase()}`,
     product.brand,
-    `perfumes ${product.brand}`,
-    ...(product.occasion || []).map(o => `perfume para ${o.toLowerCase()}`),
-    'perfumes Colombia',
-    'fragancias de lujo',
+    'streetwear Colombia',
+    'ropa urbana',
   ];
 
   return {
@@ -81,12 +72,12 @@ export async function generateMetadata({ params }) {
       description: product.description,
       url,
       type: 'website',
-      siteName: 'ScentualBliss',
+      siteName: '6ixstars',
       images: [{
         url: image,
         width: 800,
         height: 1000,
-        alt: `${product.name} de ${product.brand} - Perfume ${product.gender}`,
+        alt: `${product.name} — ${product.brand}`,
       }],
       locale: 'es_CO',
     },
@@ -118,7 +109,7 @@ export default async function ProductPage({ params }) {
   // Productos relacionados (misma familia o misma concentración).
   const allProducts = await getAllProducts();
   const related = allProducts.filter(p =>
-    (p.category === product.category || p.type === product.type) && p.id !== product.id
+    p.category === product.category && p.id !== product.id
   ).slice(0, 4);
 
   const categoryLabel = categoryLabels[product.category] || '';
@@ -168,13 +159,13 @@ export default async function ProductPage({ params }) {
           '@type': 'MerchantReturnPolicy',
           applicableCountry: 'CO',
           returnPolicyCategory: 'https://schema.org/MerchantReturnFiniteReturnWindow',
-          merchantReturnDays: 30,
+          merchantReturnDays: 15,
           returnMethod: 'https://schema.org/ReturnByMail',
           returnFees: 'https://schema.org/FreeReturn',
         },
         seller: {
           '@type': 'Organization',
-          name: 'ScentualBliss',
+          name: '6ixstars',
         },
       }
     : {
@@ -183,7 +174,7 @@ export default async function ProductPage({ params }) {
         priceCurrency: 'COP',
         availability: 'https://schema.org/PreOrder',
         itemCondition: 'https://schema.org/NewCondition',
-        seller: { '@type': 'Organization', name: 'ScentualBliss' },
+        seller: { '@type': 'Organization', name: '6ixstars' },
       };
 
   // JSON-LD enriquecido (Product + BreadcrumbList)
@@ -200,22 +191,18 @@ export default async function ProductPage({ params }) {
       '@type': 'Brand',
       name: product.brand,
     },
-    category: `Perfume ${categoryLabel} ${product.gender}`,
+    category: `${categoryLabel} ${product.gender}`,
     offers: offer,
     // aggregateRating intencionalmente omitido: las reseñas reales viven
     // en Supabase y se cargan en cliente; hasta que existan no falseamos
     // señales para Google.
     additionalProperty: [
-      { '@type': 'PropertyValue', name: 'Tipo', value: product.type || 'EDP' },
-      { '@type': 'PropertyValue', name: 'Género', value: product.gender },
       { '@type': 'PropertyValue', name: 'Categoría', value: categoryLabel },
-      { '@type': 'PropertyValue', name: 'Duración', value: product.longevity },
-      { '@type': 'PropertyValue', name: 'Estela', value: product.sillage },
-      { '@type': 'PropertyValue', name: 'Estación', value: product.season },
-      { '@type': 'PropertyValue', name: 'Notas de salida', value: product.notes.top },
-      { '@type': 'PropertyValue', name: 'Notas de corazón', value: product.notes.heart },
-      { '@type': 'PropertyValue', name: 'Notas de fondo', value: product.notes.base },
-    ],
+      { '@type': 'PropertyValue', name: 'Género', value: product.gender },
+      { '@type': 'PropertyValue', name: 'Material', value: product.material },
+      { '@type': 'PropertyValue', name: 'Fit', value: product.fit },
+      { '@type': 'PropertyValue', name: 'Color', value: product.color },
+    ].filter(p => p.value),
   };
 
   const breadcrumbSchema = {
@@ -238,9 +225,7 @@ export default async function ProductPage({ params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <ProductFAQSchema product={product} />
       <ProductPageClient product={product} resolvedImages={resolvedImages} related={related} />
-      <ProductSeoContent product={product} />
     </>
   );
 }
