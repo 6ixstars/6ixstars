@@ -10,7 +10,6 @@ import Cursor from '@/components/fx/Cursor';
 import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
-import FitBuilder from '@/components/fx/FitBuilder';
 import TiltShoes from '@/components/fx/TiltShoes';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
@@ -167,11 +166,6 @@ export default function HomePageClient({ products = [] }) {
               <span className="sx6-trust-d">{d}</span>
             </Reveal>
           ))}
-        </section>
-
-        {/* ===================== ARMA TU FIT (configurador) ===================== */}
-        <section className="container sx6-section">
-          <Reveal><FitBuilder /></Reveal>
         </section>
 
         {/* ===================== CATEGORÍAS — BENTO ===================== */}
