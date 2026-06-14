@@ -3,6 +3,15 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight } from 'lucide-react';
 
+// hex → luminancia (0..1) para ajustar el brillo del colorway.
+const hexRgb = (h) => {
+  const x = (h || '#888').replace('#', '');
+  const f = x.length === 3 ? x.split('').map(c => c + c).join('') : x;
+  const n = parseInt(f, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+};
+const lumOf = (h) => { const [r, g, b] = hexRgb(h); return (0.299 * r + 0.587 * g + 0.114 * b) / 255; };
+
 // Showcase de producto estilo "Nike 3D": pieza grande al centro en ángulo,
 // palabra fantasma gigante detrás, panel izquierdo con color + talla + CTA,
 // y arco de miniaturas a la derecha para cambiar de pieza.
@@ -12,6 +21,12 @@ export default function DropShowcase({ items = [] }) {
   const [size, setSize] = useState(1);
   const p = items[idx] || {};
   const N = items.length;
+
+  // Colorway: tiñe la pieza al color elegido (sin fotos por color).
+  const swatch = (p.colors || [])[color] || '#888';
+  const lum = lumOf(swatch);
+  const bright = (0.72 + lum * 0.55).toFixed(2);   // negro → oscuro, blanco → claro
+  const tintOpacity = (0.35 + (1 - Math.abs(lum - 0.5) * 2) * 0.4).toFixed(2); // más tinte en colores medios
 
   return (
     <div className="ds">
@@ -47,7 +62,8 @@ export default function DropShowcase({ items = [] }) {
         <span className="ds-ghost" aria-hidden="true">6IX</span>
         <span className="ds-slab" aria-hidden="true" />
         <div className="ds-hero" key={p.img}>
-          <img src={p.img} alt={p.name} draggable="false" />
+          <img src={p.img} alt={p.name} draggable="false" style={{ filter: `brightness(${bright}) contrast(1.04)` }} />
+          <span className="ds-hero-tint" style={{ background: swatch, opacity: tintOpacity }} aria-hidden="true" />
         </div>
         <span className="ds-index" aria-hidden="true">{String(idx + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}</span>
       </div>
@@ -59,7 +75,7 @@ export default function DropShowcase({ items = [] }) {
           const t = N > 1 ? i / (N - 1) : 0.5;
           const push = Math.sin(t * Math.PI) * 30; // bulge hacia afuera
           return (
-            <button key={it.slug || i} onClick={() => setIdx(i)} role="tab" aria-selected={idx === i}
+            <button key={it.slug || i} onClick={() => { setIdx(i); setColor(0); setSize(1); }} role="tab" aria-selected={idx === i}
               data-cursor="hover" className={`ds-thumb ${idx === i ? 'on' : ''}`}
               style={{ top: `calc(6% + ${t * 84}%)`, transform: `translate(${push}px, -50%)` }}
               aria-label={it.name}>
@@ -98,7 +114,8 @@ export default function DropShowcase({ items = [] }) {
           background: linear-gradient(120deg, var(--gold), #7a1f8f 60%, #43618f); transform: rotate(-18deg) skewX(-10deg); filter: blur(2px); opacity: .55; border-radius: 6px; }
         .ds-hero { position: relative; z-index: 2; width: clamp(280px, 34vw, 460px); aspect-ratio: 4/5; transform: rotate(-7deg);
           box-shadow: 0 50px 90px rgba(0,0,0,.6); border: 1px solid var(--dark-4); overflow: hidden; animation: ds-pop .55s cubic-bezier(.16,1,.3,1) both; }
-        .ds-hero img { width: 100%; height: 100%; object-fit: cover; }
+        .ds-hero img { width: 100%; height: 100%; object-fit: cover; transition: filter .4s; }
+        .ds-hero-tint { position: absolute; inset: 0; mix-blend-mode: color; transition: background .4s, opacity .4s; pointer-events: none; }
         .ds-index { position: absolute; z-index: 3; bottom: 6px; left: 50%; transform: translateX(-50%); font-family: var(--font-display); font-size: 1.1rem; color: var(--gray); }
         @keyframes ds-pop { from { opacity: 0; transform: rotate(-7deg) translateY(28px) scale(.96); } to { opacity: 1; transform: rotate(-7deg) translateY(0) scale(1); } }
         @keyframes ds-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
