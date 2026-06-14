@@ -70,6 +70,9 @@ export default function HomePageClient({ products = [] }) {
             <StarMark size={900} />
           </motion.div>
           <StarMark className="sx6-hero-outstar" size={220} outline />
+          <div className="sx6-hero-photo" aria-hidden="true">
+            <img src="/img/gen/hero-model.webp" alt="" />
+          </div>
 
           <div className="container sx6-hero-inner">
             <div className="sx6-hero-toprow">
@@ -158,7 +161,7 @@ export default function HomePageClient({ products = [] }) {
             {collections.map((c, i) => (
               <Reveal key={c.id} i={i % 3} className="sx6-bento-cell" style={{ gridColumn: `span ${BENTO_SPANS[i] || 6}` }}>
                 <Link href={`/tienda?cat=${c.id}`} className="sx6-tile" data-cursor="hover"
-                  style={{ background: `linear-gradient(155deg, ${c.color}33, #0f0f11 72%)` }}>
+                  style={{ backgroundImage: `linear-gradient(180deg, rgba(11,11,12,.2), rgba(11,11,12,.9)), url(/img/gen/cat-${c.id}.webp)`, backgroundSize: 'cover', backgroundPosition: 'center top' }}>
                   <span className="sx6-tile-ghost">{String(i + 1).padStart(2, '0')}</span>
                   <div className="sx6-tile-top">
                     <span className="sx6-tile-idx">[ {String(i + 1).padStart(2, '0')} ]</span>
@@ -186,20 +189,31 @@ export default function HomePageClient({ products = [] }) {
             </Reveal>
             <div className="sx6-look-grid">
               {[
-                { label: 'FIG.01 — OUTERWEAR', tint: 'rgba(255,46,126,.16)' },
-                { label: 'FIG.02 — DENIM', tint: 'rgba(67,97,143,.20)' },
-                { label: 'FIG.03 — HEADWEAR', tint: 'rgba(236,236,236,.10)' },
-              ].map(({ label, tint }, i) => (
+                { label: 'FIG.01 — OUTERWEAR', img: 'look-01' },
+                { label: 'FIG.02 — DENIM', img: 'look-02' },
+                { label: 'FIG.03 — HEADWEAR', img: 'look-03' },
+              ].map(({ label, img }, i) => (
                 <Reveal key={label} i={i} className={`sx6-look-cell ${i === 1 ? 'tall' : ''}`}>
                   <div className="sx6-look-frame" data-cursor="hover"
-                    style={{ background: `radial-gradient(120% 90% at 50% 15%, ${tint}, transparent 62%), #0f0f11` }}>
-                    <StarMark className="sx6-look-star" size={120} outline />
+                    style={{ backgroundImage: `linear-gradient(180deg, transparent 38%, rgba(11,11,12,.88)), url(/img/gen/${img}.webp)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <span className="sx6-look-label">{label}</span>
                     <span className="sx6-look-corner">6IX</span>
                   </div>
                 </Reveal>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ===================== CAMPAÑA ===================== */}
+        <section className="sx6-campaign">
+          <img src="/img/gen/campaign.webp" alt="Campaña 6ixstars FW26" className="sx6-campaign-img" />
+          <div className="container sx6-campaign-inner">
+            <span className="sx6-tag">/// CAMPAÑA FW26</span>
+            <h2 className="sx6-campaign-title">EN LAS CALLES<br /><span>DE COLOMBIA</span></h2>
+            <Magnetic strength={0.4}>
+              <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA COLECCIÓN <ArrowUpRight size={18} /></Link>
+            </Magnetic>
           </div>
         </section>
 
@@ -333,6 +347,11 @@ function HomeStyles() {
       .sx6-hero-bigstar svg { display: block; }
       .sx6-hero-outstar { position: absolute; left: 38%; top: 14%; color: var(--dark-4); opacity: .6; pointer-events: none; }
       .sx6-hero-inner { position: relative; z-index: 2; width: 100%; padding-top: 90px; padding-bottom: 80px; }
+      .sx6-hero-photo { position: absolute; top: 0; right: 0; width: 46%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
+      .sx6-hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.15) contrast(1.05); }
+      .sx6-hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--black) 2%, transparent 44%), radial-gradient(120% 90% at 78% 45%, rgba(255,46,126,.22), transparent 62%); }
+      @media (min-width: 901px) { .sx6-hero-toprow, .sx6-hero-title, .sx6-hero-bottom { max-width: 60%; } }
+      @media (max-width: 900px) { .sx6-hero-photo { display: none; } }
 
       .sx6-hero-toprow { display: flex; justify-content: space-between; gap: 16px; font-family: var(--font-tech); font-size: .64rem; letter-spacing: .2em; color: var(--gray); border-bottom: 1px solid var(--dark-4); padding-bottom: 14px; margin-bottom: 30px; }
 
@@ -469,6 +488,14 @@ function HomeStyles() {
       .sx6-join-form button { background: #0B0B0C; color: var(--gold); font-weight: 800; font-size: .8rem; letter-spacing: .08em; padding: 0 26px; white-space: nowrap; transition: opacity .2s; }
       .sx6-join-form button:hover { opacity: .85; }
       .sx6-join-ig { display: inline-flex; align-items: center; gap: 8px; color: #0B0B0C; font-family: var(--font-tech); font-weight: 700; font-size: .8rem; margin-top: 18px; }
+
+      /* ---------- CAMPAÑA ---------- */
+      .sx6-campaign { position: relative; min-height: 80vh; display: flex; align-items: flex-end; overflow: clip; margin-top: 86px; border-top: 1px solid var(--dark-4); border-bottom: 1px solid var(--dark-4); }
+      .sx6-campaign-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+      .sx6-campaign::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(11,11,12,.94), rgba(11,11,12,.3) 55%, rgba(11,11,12,.55)); }
+      .sx6-campaign-inner { position: relative; z-index: 1; padding-top: 60px; padding-bottom: 64px; }
+      .sx6-campaign-title { font-family: var(--font-display); font-size: clamp(2.8rem, 8vw, 7rem); color: var(--white); line-height: .88; margin: 12px 0 26px; text-transform: uppercase; }
+      .sx6-campaign-title span { color: transparent; -webkit-text-stroke: 1.5px var(--gold); }
 
       /* ---------- RESPONSIVE ---------- */
       @media (max-width: 1024px) { .sx6-reviews { grid-template-columns: repeat(2, 1fr); } }
