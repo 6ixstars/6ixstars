@@ -11,6 +11,10 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
+import dynamic from 'next/dynamic';
+
+// Fantasma WebGL del hero — solo cliente (usa three.js, lazy-load).
+const GhostHero = dynamic(() => import('@/components/fx/GhostHero'), { ssr: false });
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -76,13 +80,8 @@ export default function HomePageClient({ products = [] }) {
 
         {/* ===================== HERO ===================== */}
         <section ref={heroRef} className="sx6-hero">
-          <motion.div className="sx6-hero-bigstar" style={{ y: starY, rotate: starRotate }}>
-            <StarMark size={900} />
-          </motion.div>
-          <StarMark className="sx6-hero-outstar" size={220} outline />
-          <div className="sx6-hero-photo" aria-hidden="true">
-            <img src="/img/gen/hero-model.webp" alt="" />
-          </div>
+          <GhostHero />
+          <div className="sx6-hero-fade" aria-hidden="true" />
 
           <div className="container sx6-hero-inner">
             <div className="sx6-hero-toprow">
@@ -364,11 +363,10 @@ function HomeStyles() {
       .sx6-hero-bigstar svg { display: block; }
       .sx6-hero-outstar { position: absolute; left: 38%; top: 14%; color: var(--dark-4); opacity: .6; pointer-events: none; }
       .sx6-hero-inner { position: relative; z-index: 2; width: 100%; padding-top: 90px; padding-bottom: 80px; }
-      .sx6-hero-photo { position: absolute; top: 0; right: 0; width: 46%; height: 100%; overflow: hidden; pointer-events: none; z-index: 1; }
-      .sx6-hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(.15) contrast(1.05); }
-      .sx6-hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--black) 2%, transparent 44%), radial-gradient(120% 90% at 78% 45%, rgba(255,46,126,.22), transparent 62%); }
-      @media (min-width: 901px) { .sx6-hero-toprow, .sx6-hero-title, .sx6-hero-bottom { max-width: 60%; } }
-      @media (max-width: 900px) { .sx6-hero-photo { display: none; } }
+      .ghost-hero { position: absolute; inset: 0; z-index: 0; }
+      .ghost-hero canvas { display: block; }
+      .sx6-hero-fade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(11,11,12,.92) 0%, rgba(11,11,12,.55) 32%, rgba(11,11,12,.12) 62%, transparent 80%); }
+      @media (min-width: 901px) { .sx6-hero-toprow, .sx6-hero-title, .sx6-hero-bottom { max-width: 56%; } }
 
       .sx6-hero-toprow { display: flex; justify-content: space-between; gap: 16px; font-family: var(--font-tech); font-size: .64rem; letter-spacing: .2em; color: var(--gray); border-bottom: 1px solid var(--dark-4); padding-bottom: 14px; margin-bottom: 30px; }
 
