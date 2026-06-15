@@ -44,8 +44,15 @@ export default function ProductCard({ product, priority = false }) {
     <Link href={`/producto/${product.slug}`} style={{ display: 'block', textDecoration: 'none' }}>
       <article
         onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        style={{ cursor: 'pointer' }}
+        onMouseMove={(e) => {
+          const el = e.currentTarget;
+          const r = el.getBoundingClientRect();
+          const px = (e.clientX - r.left) / r.width - 0.5;
+          const py = (e.clientY - r.top) / r.height - 0.5;
+          el.style.transform = `perspective(900px) rotateY(${px * 6}deg) rotateX(${-py * 6}deg)`;
+        }}
+        onMouseLeave={(e) => { setHovered(false); e.currentTarget.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)'; }}
+        style={{ cursor: 'pointer', transition: 'transform .25s cubic-bezier(.16,1,.3,1)', transformStyle: 'preserve-3d' }}
       >
         {/* Image */}
         <div className="product-card-img-wrap" style={{ aspectRatio: '3/4' }}>

@@ -12,6 +12,7 @@ import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
 import VideoSlides from '@/components/fx/VideoSlides';
+import GraffitiBand from '@/components/fx/GraffitiBand';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -93,14 +94,8 @@ export default function HomePageClient({ products = [] }) {
           </div>
         </section>
 
-        {/* ===================== BANDA GRAFFITI ===================== */}
-        <div className="sx6-graffiti" aria-hidden="true">
-          <div className="sx6-graffiti-track">
-            {Array.from({ length: 12 }).map((_, i) => (
-              <span key={i} className="sx6-graffiti-item">NUEVOS INGRESOS <StarMark size={20} /> ENVÍO A TODA COLOMBIA <StarMark size={20} /></span>
-            ))}
-          </div>
-        </div>
+        {/* ===================== BANDA GRAFFITI (reactiva al scroll) ===================== */}
+        <GraffitiBand />
 
         {/* ===================== DROP 01 — CARRUSEL 3D ===================== */}
         <section className="container sx6-section">
@@ -375,14 +370,8 @@ function HomeStyles() {
       @keyframes sx6-cue { 0%,100% { transform: scaleY(.4); opacity: .4; } 50% { transform: scaleY(1); opacity: 1; } }
 
       /* ---------- MARQUEE DIAGONAL ---------- */
-      /* ---------- BANDA GRAFFITI ---------- */
+      /* keyframe usado por el marquee del manifiesto */
       @keyframes sx6-marq { to { transform: translateX(-50%); } }
-      .sx6-graffiti { position: relative; overflow: hidden; border-top: 1px solid var(--dark-4); border-bottom: 1px solid var(--dark-4); padding: 20px 0; background: #0B0B0C; }
-      .sx6-graffiti::before { content: ''; position: absolute; inset: 0; background: url('/img/graffiti.webp') center / cover; opacity: .55; }
-      .sx6-graffiti::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, #0B0B0C, transparent 12%, transparent 88%, #0B0B0C), rgba(11,11,12,.3); }
-      .sx6-graffiti-track { position: relative; z-index: 1; display: flex; align-items: center; width: max-content; animation: sx6-marq 34s linear infinite; }
-      .sx6-graffiti-item { display: inline-flex; align-items: center; gap: 16px; font-family: var(--font-display); font-size: 1.6rem; letter-spacing: .02em; text-transform: uppercase; color: #fff; padding: 0 18px; white-space: nowrap; text-shadow: 0 2px 14px rgba(0,0,0,.85), 0 0 3px rgba(0,0,0,.9); }
-      .sx6-graffiti-item svg { color: var(--gold); }
 
       /* ---------- TRUST ---------- */
       .sx6-trust { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--dark-4); margin-bottom: 10px; }
