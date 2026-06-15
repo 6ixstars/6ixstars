@@ -68,39 +68,30 @@ export default function HomePageClient({ products = [] }) {
 
       <main id="main-content" className="sx6">
 
-        {/* ===================== HERO — VIDEO ===================== */}
-        <section className="sx6-hero">
+        {/* ===================== HERO — VIDEO (premium, anclado abajo) ===================== */}
+        <section className="sx6-hero sx6-vhero">
           <video className="sx6-hero-video" autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.webp">
             <source src="/video/hero.mp4" type="video/mp4" />
           </video>
-          <div className="sx6-hero-overlay" aria-hidden="true" />
+          <div className="sx6-vhero-grad" aria-hidden="true" />
 
-          <div className="container sx6-hero-inner">
-            <div className="sx6-hero-toprow">
-              <span>★ STREETWEAR · DESDE EL 6IX · FW26 ★</span>
-            </div>
-            <motion.h1 className="sx6-hero-title" variants={heroStagger} initial="hidden" animate="show">
-              <span className="m"><motion.span className="ln fill" variants={lineUp}>ROPA QUE</motion.span></span>
-              <span className="m"><motion.span className="ln" variants={lineUp}><span className="out">PEGA</span> EN LA</motion.span></span>
-              <span className="m"><motion.span className="ln fill" variants={lineUp}>CALLE<i className="reg">®</i></motion.span></span>
+          <div className="container sx6-vhero-content">
+            <motion.span className="sx6-vhero-kicker" variants={softUp} initial="hidden" animate="show">
+              ★ FW26 · COLECCIÓN 01 · DESDE EL 6IX
+            </motion.span>
+            <motion.h1 className="sx6-vhero-h" variants={heroStagger} initial="hidden" animate="show">
+              <span className="m"><motion.span className="ln" variants={lineUp}>ROPA QUE <span className="hl">PEGA</span></motion.span></span>
+              <span className="m"><motion.span className="ln" variants={lineUp}>EN LA CALLE</motion.span></span>
             </motion.h1>
-            <div className="sx6-hero-bottom">
-              <motion.p className="sx6-hero-sub" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.5 }}>
-                Hoodies, camisetas oversize, cargos y gorras para los que no pasan
-                desapercibidos. Hecho para la calle, no para el clóset.
-              </motion.p>
-              <motion.div className="sx6-hero-cta" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.6 }}>
-                <Magnetic strength={0.5}>
-                  <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA TIENDA <ArrowUpRight size={18} /></Link>
-                </Magnetic>
-                <Magnetic strength={0.5}>
-                  <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">NUEVO DROP</Link>
-                </Magnetic>
-              </motion.div>
-            </div>
+            <motion.div className="sx6-vhero-cta" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.5 }}>
+              <Magnetic strength={0.5}>
+                <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA TIENDA <ArrowUpRight size={18} /></Link>
+              </Magnetic>
+              <Magnetic strength={0.5}>
+                <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">NUEVO DROP</Link>
+              </Magnetic>
+            </motion.div>
           </div>
-
-          <div className="sx6-scrollcue" aria-hidden="true"><i /><span>SCROLL</span></div>
         </section>
 
         {/* ===================== MARQUEE DIAGONAL ===================== */}
@@ -341,7 +332,17 @@ function HomeStyles() {
       .ghost-hero canvas { display: block; }
       .sx6-hero-fade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(72% 46% at 50% 34%, rgba(11,11,12,.62), transparent 72%); }
       .sx6-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
-      .sx6-hero-overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(0deg, #0B0B0C 3%, rgba(11,11,12,.42) 45%, rgba(11,11,12,.72) 100%), radial-gradient(80% 60% at 50% 38%, rgba(255,46,126,.14), transparent 66%); }
+      /* HERO VIDEO PREMIUM: degradado sólo arriba (navbar) y abajo (texto), centro limpio */
+      .sx6-vhero-grad { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+        background: linear-gradient(180deg, rgba(11,11,12,.55) 0%, rgba(11,11,12,.12) 15%, transparent 40%, transparent 50%, rgba(11,11,12,.35) 70%, rgba(11,11,12,.92) 100%); }
+      .sx6-vhero-content { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; padding-bottom: clamp(54px, 11vh, 120px); }
+      .sx6-vhero-kicker { display: inline-block; font-family: var(--font-tech); font-size: .64rem; letter-spacing: .24em; color: var(--gold); margin-bottom: 16px; }
+      .sx6-vhero-h { font-family: var(--font-display); text-transform: uppercase; font-size: clamp(2.4rem, 6.5vw, 5.4rem); line-height: .9; color: #fff; margin: 0 0 26px; max-width: 18ch; text-shadow: 0 6px 36px rgba(0,0,0,.55); }
+      .sx6-vhero-h .hl { color: transparent; -webkit-text-stroke: 2px var(--gold); }
+      .sx6-vhero-h .m { display: block; overflow: hidden; padding-bottom: .04em; }
+      .sx6-vhero-h .ln { display: block; will-change: transform; }
+      .sx6-vhero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+      @media (max-width: 600px) { .sx6-vhero-content { padding-bottom: 84px; } .sx6-vhero-h { font-size: clamp(2.2rem, 11vw, 3rem); } }
       /* hero centrado: sin restricción de ancho lateral */
 
       .sx6-hero-toprow { display: flex; justify-content: center; font-family: var(--font-tech); font-size: .64rem; letter-spacing: .24em; color: var(--gold); margin-bottom: 24px; }
