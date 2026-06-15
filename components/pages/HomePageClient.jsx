@@ -11,6 +11,7 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
+import VideoSlides from '@/components/fx/VideoSlides';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -70,9 +71,7 @@ export default function HomePageClient({ products = [] }) {
 
         {/* ===================== HERO — VIDEO (premium, anclado abajo) ===================== */}
         <section className="sx6-hero sx6-vhero">
-          <video className="sx6-hero-video" autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.webp">
-            <source src="/video/hero.mp4" type="video/mp4" />
-          </video>
+          <VideoSlides />
           <div className="sx6-vhero-grad" aria-hidden="true" />
 
           <div className="container sx6-vhero-content">
