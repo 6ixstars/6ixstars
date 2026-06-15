@@ -356,7 +356,7 @@ function HomeStyles() {
       .sx6-hero-sub .bar { display: none; }
       .sx6-hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
-      .sx6-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-weight: 800; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; padding: 17px 30px; border-radius: 0; transition: background .2s, color .2s, box-shadow .2s; }
+      .sx6-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-weight: 800; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; padding: 16px 30px; border-radius: 999px; transition: background .2s, color .2s, box-shadow .2s; }
       .sx6-btn-pink { background: var(--gold); color: #0B0B0C; box-shadow: 0 10px 34px rgba(255,46,126,.32); }
       .sx6-btn-pink:hover { background: #fff; }
       .sx6-btn-ghost { background: transparent; color: var(--white); border: 1.5px solid var(--white); }
@@ -399,7 +399,7 @@ function HomeStyles() {
       .sx6-tag { display: inline-block; font-size: .64rem; letter-spacing: .2em; color: var(--gold); margin-bottom: 12px; border: 1px solid var(--dark-4); padding: 5px 10px; }
       .sx6-head-title { font-family: var(--font-display); font-size: clamp(2.6rem, 7vw, 6rem); color: var(--white); line-height: .88; margin: 0; text-transform: uppercase; }
       .sx6-head-title .o, .sx6-head-title span.o { color: transparent; -webkit-text-stroke: 1.5px var(--gold); }
-      .sx6-head-link { display: inline-flex; align-items: center; gap: 6px; color: var(--white); font-weight: 800; font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; border: 1.5px solid var(--white); padding: 11px 18px; white-space: nowrap; transition: all .2s; }
+      .sx6-head-link { display: inline-flex; align-items: center; gap: 6px; color: var(--white); font-weight: 800; font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; border: 1.5px solid var(--white); padding: 11px 20px; border-radius: 999px; white-space: nowrap; transition: all .2s; }
       .sx6-head-link:hover { background: var(--gold); border-color: var(--gold); color: #0B0B0C; gap: 12px; }
 
       /* ---------- BENTO ---------- */
@@ -474,7 +474,7 @@ function HomeStyles() {
       .sx6-join-inner { display: flex; flex-direction: column; align-items: center; text-align: center; }
       .sx6-join-title { font-family: var(--font-display); font-size: clamp(3rem, 9vw, 7rem); color: #0B0B0C; margin: 14px 0 0; line-height: .85; text-transform: uppercase; }
       .sx6-join-text { color: rgba(11,11,12,.8); max-width: 460px; margin: 16px auto 0; font-weight: 600; }
-      .sx6-join-form { display: flex; gap: 0; width: min(480px, 100%); margin: 24px auto 0; border: 2px solid #0B0B0C; }
+      .sx6-join-form { display: flex; gap: 0; width: min(480px, 100%); margin: 24px auto 0; border: 2px solid #0B0B0C; border-radius: 999px; overflow: hidden; }
       .sx6-join-form input { flex: 1; min-width: 0; background: transparent; border: 0; padding: 16px; color: #0B0B0C; font-family: var(--font-tech); font-size: .9rem; outline: none; }
       .sx6-join-form input::placeholder { color: rgba(11,11,12,.5); }
       .sx6-join-form button { background: #0B0B0C; color: var(--gold); font-weight: 800; font-size: .8rem; letter-spacing: .08em; padding: 0 26px; white-space: nowrap; transition: opacity .2s; }

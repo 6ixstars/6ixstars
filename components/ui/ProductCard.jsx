@@ -105,7 +105,7 @@ export default function ProductCard({ product, priority = false }) {
                   background: hasPrice ? 'var(--gold)' : 'rgba(122,110,94,.55)',
                   color: '#FAF8F3',
                   fontSize: '.7rem', fontWeight: 600, letterSpacing: '.15em',
-                  textTransform: 'uppercase', border: 'none',
+                  textTransform: 'uppercase', border: 'none', borderRadius: 999,
                   cursor: hasPrice ? 'pointer' : 'not-allowed',
                   fontFamily: 'var(--font-sans)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,

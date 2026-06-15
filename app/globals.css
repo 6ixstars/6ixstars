@@ -155,7 +155,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   display: inline-flex; align-items: center; justify-content: center; gap: var(--sp-2);
   font-family: var(--font-sans); font-size: .875rem; font-weight: 700;
   letter-spacing: .1em; text-transform: uppercase; padding: 14px 32px;
-  border-radius: var(--r-sm); transition: all var(--t-mid); cursor: pointer;
+  border-radius: var(--r-full); transition: all var(--t-mid); cursor: pointer;
   position: relative; overflow: hidden;
 }
 .btn::before {
