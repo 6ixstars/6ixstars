@@ -3,7 +3,6 @@ import { Montserrat, Anton, Space_Mono } from 'next/font/google';
 import { PublicHeader, PublicFooter } from '@/components/layout/PublicChrome';
 import ToasterWrapper from '@/components/ui/ToasterWrapper';
 import DeferredShell from '@/components/layout/DeferredShell';
-import Preloader from '@/components/fx/Preloader';
 import { SITE_URL } from '@/lib/site';
 
 const montserrat = Montserrat({
@@ -167,7 +166,6 @@ export default async function RootLayout({ children }) {
   return (
     <html lang="es" className={`${montserrat.variable} ${anton.variable} ${spaceMono.variable}`}>
       <body>
-        <Preloader />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
