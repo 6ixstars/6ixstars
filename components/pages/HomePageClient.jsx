@@ -11,10 +11,7 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
-import dynamic from 'next/dynamic';
-
-// Fantasma WebGL del hero — solo cliente (usa three.js, lazy-load).
-const GhostHero = dynamic(() => import('@/components/fx/GhostHero'), { ssr: false });
+import BookGallery from '@/components/fx/BookGallery';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -57,12 +54,6 @@ export default function HomePageClient({ products = [] }) {
   const grid = bestsellers.length ? bestsellers : products.slice(0, 8);
   const spotlight = products.find(p => p.featured) || products[0] || null;
 
-  const heroRef = useRef(null);
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
-  const starY = useTransform(scrollYProgress, [0, 1], [0, 260]);
-  const starRotate = useTransform(scrollYProgress, [0, 1], [0, 70]);
-  const copyY = useTransform(scrollYProgress, [0, 1], [0, 90]);
-
   return (
     <SmoothScroll>
       <ScrollProgress />
@@ -78,43 +69,8 @@ export default function HomePageClient({ products = [] }) {
 
       <main id="main-content" className="sx6">
 
-        {/* ===================== HERO ===================== */}
-        <section ref={heroRef} className="sx6-hero">
-          <GhostHero />
-          <div className="sx6-hero-fade" aria-hidden="true" />
-
-          <div className="container sx6-hero-inner">
-            <div className="sx6-hero-toprow">
-              <span>★ STREETWEAR · DESDE EL 6IX · FW26 ★</span>
-            </div>
-
-            <motion.h1 className="sx6-hero-title" variants={heroStagger} initial="hidden" animate="show" style={{ y: copyY }}>
-              <span className="m"><motion.span className="ln fill" variants={lineUp}>ROPA QUE</motion.span></span>
-              <span className="m"><motion.span className="ln" variants={lineUp}><span className="out">PEGA</span> EN LA</motion.span></span>
-              <span className="m"><motion.span className="ln fill" variants={lineUp}>CALLE<i className="reg">®</i></motion.span></span>
-            </motion.h1>
-
-            <div className="sx6-hero-bottom">
-              <motion.p className="sx6-hero-sub" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.5 }}>
-                <span className="bar" /> Hoodies, camisetas oversize, cargos y gorras para los que no
-                pasan desapercibidos. Hecho para la calle, no para el clóset.
-              </motion.p>
-              <motion.div className="sx6-hero-cta" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.6 }}>
-                <Magnetic strength={0.5}>
-                  <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">
-                    VER LA TIENDA <ArrowUpRight size={18} />
-                  </Link>
-                </Magnetic>
-                <Magnetic strength={0.5}>
-                  <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">NUEVO DROP</Link>
-                </Magnetic>
-              </motion.div>
-            </div>
-
-          </div>
-
-          <div className="sx6-scrollcue" aria-hidden="true"><i /><span>SCROLL</span></div>
-        </section>
+        {/* ===================== HERO — FLIPBOOK 3D ===================== */}
+        <BookGallery />
 
         {/* ===================== MARQUEE DIAGONAL ===================== */}
         <div className="sx6-marq-wrap" aria-hidden="true">
