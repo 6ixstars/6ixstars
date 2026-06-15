@@ -47,7 +47,7 @@ export default function GhostHero() {
       // ---- post-processing ----
       const composer = new EffectComposer(renderer);
       composer.addPass(new RenderPass(scene, camera));
-      const bloom = new UnrealBloomPass(new THREE.Vector2(W(), H()), 0.35, 1.2, 0.0);
+      const bloom = new UnrealBloomPass(new THREE.Vector2(W(), H()), 0.32, 0.7, 0.0);
       composer.addPass(bloom);
 
       const analogShader = {
@@ -91,6 +91,7 @@ export default function GhostHero() {
 
       // ---- ghost ----
       const ghost = new THREE.Group(); scene.add(ghost);
+      ghost.scale.setScalar(0.6); // más pequeño
       const geo = new THREE.SphereGeometry(2, 40, 40);
       const pos = geo.getAttribute('position').array;
       for (let i = 0; i < pos.length; i += 3) {
@@ -167,7 +168,7 @@ export default function GhostHero() {
         t += (dt / 16.67) * 0.01;
         atmoMat.uniforms.t.value = t; analogPass.uniforms.uTime.value = t;
 
-        const tx = mouse.x * 11, ty = mouse.y * 7;
+        const tx = mouse.x * 4.2, ty = mouse.y * 3.0 - 2.2; // centrado + un poco abajo
         const prev = ghost.position.clone();
         ghost.position.x += (tx - ghost.position.x) * 0.075;
         ghost.position.y += (ty - ghost.position.y) * 0.075;

@@ -85,8 +85,7 @@ export default function HomePageClient({ products = [] }) {
 
           <div className="container sx6-hero-inner">
             <div className="sx6-hero-toprow">
-              <span>[ COL. 01 — STREETWEAR ]</span>
-              <span>N° 6IX · DESDE EL 6IX</span>
+              <span>★ STREETWEAR · DESDE EL 6IX · FW26 ★</span>
             </div>
 
             <motion.h1 className="sx6-hero-title" variants={heroStagger} initial="hidden" animate="show" style={{ y: copyY }}>
@@ -112,18 +111,6 @@ export default function HomePageClient({ products = [] }) {
               </motion.div>
             </div>
 
-            {/* Sticker de drop rotado */}
-            <motion.div
-              className="sx6-sticker"
-              initial={{ opacity: 0, scale: 0.7, rotate: 18 }}
-              animate={{ opacity: 1, scale: 1, rotate: 9 }}
-              transition={{ duration: 0.8, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <span className="sx6-sticker-top">DROP 01 — FW26</span>
-              <span className="sx6-sticker-big">EN VIVO</span>
-              <span className="sx6-sticker-dots" />
-              <span className="sx6-sticker-bot">● AGOTÁNDOSE</span>
-            </motion.div>
           </div>
 
           <div className="sx6-scrollcue" aria-hidden="true"><i /><span>SCROLL</span></div>
@@ -362,25 +349,25 @@ function HomeStyles() {
       .sx6-hero-bigstar { position: absolute; right: -340px; top: 48%; transform: translateY(-50%); color: var(--gold); opacity: .10; pointer-events: none; will-change: transform; }
       .sx6-hero-bigstar svg { display: block; }
       .sx6-hero-outstar { position: absolute; left: 38%; top: 14%; color: var(--dark-4); opacity: .6; pointer-events: none; }
-      .sx6-hero-inner { position: relative; z-index: 2; width: 100%; padding-top: 90px; padding-bottom: 80px; }
+      .sx6-hero-inner { position: relative; z-index: 2; width: 100%; max-width: 920px; margin: 0 auto; padding-top: 90px; padding-bottom: 80px; display: flex; flex-direction: column; align-items: center; text-align: center; }
       .ghost-hero { position: absolute; inset: 0; z-index: 0; }
       .ghost-hero canvas { display: block; }
-      .sx6-hero-fade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(90deg, rgba(11,11,12,.92) 0%, rgba(11,11,12,.55) 32%, rgba(11,11,12,.12) 62%, transparent 80%); }
-      @media (min-width: 901px) { .sx6-hero-toprow, .sx6-hero-title, .sx6-hero-bottom { max-width: 56%; } }
+      .sx6-hero-fade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(72% 46% at 50% 34%, rgba(11,11,12,.62), transparent 72%); }
+      /* hero centrado: sin restricción de ancho lateral */
 
-      .sx6-hero-toprow { display: flex; justify-content: space-between; gap: 16px; font-family: var(--font-tech); font-size: .64rem; letter-spacing: .2em; color: var(--gray); border-bottom: 1px solid var(--dark-4); padding-bottom: 14px; margin-bottom: 30px; }
+      .sx6-hero-toprow { display: flex; justify-content: center; font-family: var(--font-tech); font-size: .64rem; letter-spacing: .24em; color: var(--gold); margin-bottom: 24px; }
 
-      .sx6-hero-title { font-family: var(--font-display); text-transform: uppercase; line-height: .82; font-size: clamp(3.4rem, 13vw, 12rem); color: var(--white); margin: 0; letter-spacing: -.015em; }
+      .sx6-hero-title { font-family: var(--font-display); text-transform: uppercase; line-height: .86; font-size: clamp(2.8rem, 9vw, 8rem); color: var(--white); margin: 0; letter-spacing: -.01em; }
       .sx6-hero-title .m { display: block; overflow: hidden; }
       .sx6-hero-title .ln { display: block; will-change: transform; }
       .sx6-hero-title .ln.fill { color: var(--white); }
       .sx6-hero-title .out { color: transparent; -webkit-text-stroke: 2px var(--gold); text-shadow: 0 0 40px rgba(255,46,126,.4); }
       .sx6-hero-title .reg { font-size: .22em; vertical-align: top; color: var(--gold); font-style: normal; margin-left: .1em; }
 
-      .sx6-hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; margin-top: 36px; flex-wrap: wrap; }
-      .sx6-hero-sub { max-width: 420px; color: var(--gray-light); font-size: 1rem; line-height: 1.65; position: relative; padding-left: 16px; }
-      .sx6-hero-sub .bar { position: absolute; left: 0; top: 4px; bottom: 4px; width: 3px; background: var(--gold); }
-      .sx6-hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+      .sx6-hero-bottom { display: flex; flex-direction: column; align-items: center; gap: 22px; margin-top: 28px; }
+      .sx6-hero-sub { max-width: 460px; margin: 0 auto; color: var(--gray-light); font-size: .98rem; line-height: 1.65; }
+      .sx6-hero-sub .bar { display: none; }
+      .sx6-hero-cta { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
 
       .sx6-btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-sans); font-weight: 800; font-size: .82rem; letter-spacing: .1em; text-transform: uppercase; padding: 17px 30px; border-radius: 0; transition: background .2s, color .2s, box-shadow .2s; }
       .sx6-btn-pink { background: var(--gold); color: #0B0B0C; box-shadow: 0 10px 34px rgba(255,46,126,.32); }
@@ -517,7 +504,7 @@ function HomeStyles() {
       @media (max-width: 900px) {
         .sx6-look-grid { gap: 10px; }
         .sx6-spot { grid-template-columns: 1fr; gap: 28px; }
-        .sx6-hero-bottom { flex-direction: column; align-items: flex-start; }
+        .sx6-hero-bottom { flex-direction: column; align-items: center; }
       }
       @media (max-width: 640px) { .sx6-scrollcue { display: none; } .sx6-join-form { flex-direction: column; } .sx6-join-form button { padding: 14px; } }
       @media (prefers-reduced-motion: reduce) {

@@ -139,12 +139,21 @@ function NavbarInner({ products = [] }) {
     <>
       <header className={`sb-nav ${scrolled ? 'scrolled' : ''}`}>
         {/* Fila 1: toggle (mobile) · logo · acciones */}
-        <div className="container sb-nav-top">
+        <div className="container sb-nav-bar">
           <button className="sb-mobile-toggle-left" onClick={() => setMenuOpen(m => !m)} aria-label={menuOpen ? 'Cerrar menú' : 'Abrir menú'}>
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
 
           <HouseLogo />
+
+          {/* Categorías en la MISMA fila */}
+          <nav className="sb-nav-cats" aria-label="Categorías">
+            {NAV_ITEMS.map(item => (
+              <Link key={item.label} href={item.to} className={`sb-nav-link ${isItemActive(item) ? 'active' : ''}`}>
+                {item.label}
+              </Link>
+            ))}
+          </nav>
 
           <div className="sb-nav-actions">
             <button onClick={() => setSearchOpen(s => !s)} className="sb-nav-icon-btn" aria-label="Buscar"><Search size={19} /></button>
@@ -158,15 +167,6 @@ function NavbarInner({ products = [] }) {
             </button>
           </div>
         </div>
-
-        {/* Fila 2: categorías directas (desktop) */}
-        <nav className="sb-nav-cats" aria-label="Categorías">
-          {NAV_ITEMS.map(item => (
-            <Link key={item.label} href={item.to} className={`sb-nav-link ${isItemActive(item) ? 'active' : ''}`}>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
 
         {searchOpen && (
           <div className="sb-search-bar">
@@ -307,8 +307,8 @@ function NavStyles() {
       .sb-nav { position: sticky; top: 0; z-index: 50; background: #0B0B0C; border-bottom: 1px solid var(--dark-4); transition: background .35s, border-color .35s; }
       .sb-nav.scrolled { background: rgba(11,11,12,.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 8px 24px rgba(0,0,0,.5); }
 
-      /* Fila 1 */
-      .sb-nav-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 10px 0; }
+      /* Fila única: logo · categorías · acciones */
+      .sb-nav-bar { display: flex; align-items: center; gap: 22px; padding: 12px 0; }
       .sb-nav-logo { display: inline-flex; align-items: center; flex-shrink: 0; transition: opacity .25s; }
       .sb-nav-logo:hover { opacity: .85; }
       .sb-logo-img { height: 46px; width: auto; display: block; filter: drop-shadow(0 2px 10px rgba(255,46,126,.25)); transition: transform .35s cubic-bezier(.16,1,.3,1); }
@@ -326,8 +326,8 @@ function NavStyles() {
       .sb-nav-badge.pop { animation: sb-badge-pop .4s cubic-bezier(.16,1,.3,1); }
       @keyframes sb-badge-pop { 0% { transform: scale(.5); } 50% { transform: scale(1.25); } 100% { transform: scale(1); } }
 
-      /* Fila 2: categorías */
-      .sb-nav-cats { display: flex; align-items: center; justify-content: center; gap: 30px; padding: 9px 0 12px; border-top: 1px solid var(--dark-4); }
+      /* Categorías (en la misma fila, centradas, ocupan el espacio sobrante) */
+      .sb-nav-cats { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; gap: 22px; }
       .sb-nav-link { position: relative; font-family: var(--font-sans); font-size: .76rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gray-light); padding: 4px 0; transition: color .25s; }
       .sb-nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; background: var(--gold); transform: scaleX(0); transform-origin: right; transition: transform .4s cubic-bezier(.16,1,.3,1); }
       .sb-nav-link:hover, .sb-nav-link.active { color: var(--white); }
@@ -400,12 +400,12 @@ function NavStyles() {
       .sb-drawer-footer-copy { font-size: .68rem; color: var(--gray); letter-spacing: .08em; }
 
       /* Responsive */
-      @media (max-width: 900px) {
+      @media (max-width: 980px) {
         .sb-nav-cats { display: none; }
         .sb-mobile-toggle-left { display: inline-flex; }
-        .sb-nav-top { padding: 8px 0; }
+        .sb-nav-bar { padding: 10px 0; justify-content: space-between; }
       }
-      @media (max-width: 1100px) { .sb-nav-cats { gap: 22px; } .sb-nav-link { font-size: .72rem; letter-spacing: .08em; } }
+      @media (max-width: 1200px) { .sb-nav-cats { gap: 16px; } .sb-nav-link { font-size: .7rem; letter-spacing: .06em; } }
     `}</style>
   );
 }
