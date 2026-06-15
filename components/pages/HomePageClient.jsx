@@ -11,7 +11,6 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
-import BookGallery from '@/components/fx/BookGallery';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -69,8 +68,40 @@ export default function HomePageClient({ products = [] }) {
 
       <main id="main-content" className="sx6">
 
-        {/* ===================== HERO — FLIPBOOK 3D ===================== */}
-        <BookGallery />
+        {/* ===================== HERO — VIDEO ===================== */}
+        <section className="sx6-hero">
+          <video className="sx6-hero-video" autoPlay muted loop playsInline preload="auto" poster="/video/hero-poster.webp">
+            <source src="/video/hero.mp4" type="video/mp4" />
+          </video>
+          <div className="sx6-hero-overlay" aria-hidden="true" />
+
+          <div className="container sx6-hero-inner">
+            <div className="sx6-hero-toprow">
+              <span>★ STREETWEAR · DESDE EL 6IX · FW26 ★</span>
+            </div>
+            <motion.h1 className="sx6-hero-title" variants={heroStagger} initial="hidden" animate="show">
+              <span className="m"><motion.span className="ln fill" variants={lineUp}>ROPA QUE</motion.span></span>
+              <span className="m"><motion.span className="ln" variants={lineUp}><span className="out">PEGA</span> EN LA</motion.span></span>
+              <span className="m"><motion.span className="ln fill" variants={lineUp}>CALLE<i className="reg">®</i></motion.span></span>
+            </motion.h1>
+            <div className="sx6-hero-bottom">
+              <motion.p className="sx6-hero-sub" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.5 }}>
+                Hoodies, camisetas oversize, cargos y gorras para los que no pasan
+                desapercibidos. Hecho para la calle, no para el clóset.
+              </motion.p>
+              <motion.div className="sx6-hero-cta" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.6 }}>
+                <Magnetic strength={0.5}>
+                  <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA TIENDA <ArrowUpRight size={18} /></Link>
+                </Magnetic>
+                <Magnetic strength={0.5}>
+                  <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">NUEVO DROP</Link>
+                </Magnetic>
+              </motion.div>
+            </div>
+          </div>
+
+          <div className="sx6-scrollcue" aria-hidden="true"><i /><span>SCROLL</span></div>
+        </section>
 
         {/* ===================== MARQUEE DIAGONAL ===================== */}
         <div className="sx6-marq-wrap" aria-hidden="true">
@@ -309,6 +340,8 @@ function HomeStyles() {
       .ghost-hero { position: absolute; inset: 0; z-index: 0; }
       .ghost-hero canvas { display: block; }
       .sx6-hero-fade { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: radial-gradient(72% 46% at 50% 34%, rgba(11,11,12,.62), transparent 72%); }
+      .sx6-hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+      .sx6-hero-overlay { position: absolute; inset: 0; z-index: 1; pointer-events: none; background: linear-gradient(0deg, #0B0B0C 3%, rgba(11,11,12,.42) 45%, rgba(11,11,12,.72) 100%), radial-gradient(80% 60% at 50% 38%, rgba(255,46,126,.14), transparent 66%); }
       /* hero centrado: sin restricción de ancho lateral */
 
       .sx6-hero-toprow { display: flex; justify-content: center; font-family: var(--font-tech); font-size: .64rem; letter-spacing: .24em; color: var(--gold); margin-bottom: 24px; }
