@@ -76,7 +76,7 @@ export default function HomePageClient({ products = [] }) {
 
           <div className="container sx6-vhero-content">
             <motion.span className="sx6-vhero-kicker" variants={softUp} initial="hidden" animate="show">
-              ★ FW26 · COLECCIÓN 01 · DESDE EL 6IX
+              ★ STREETWEAR MULTIMARCA · DESDE EL 6IX
             </motion.span>
             <motion.h1 className="sx6-vhero-h" variants={heroStagger} initial="hidden" animate="show">
               <span className="m"><motion.span className="ln" variants={lineUp}>ROPA QUE <span className="hl">PEGA</span></motion.span></span>
@@ -87,7 +87,7 @@ export default function HomePageClient({ products = [] }) {
                 <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA TIENDA <ArrowUpRight size={18} /></Link>
               </Magnetic>
               <Magnetic strength={0.5}>
-                <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">NUEVO DROP</Link>
+                <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">LO NUEVO</Link>
               </Magnetic>
             </motion.div>
           </div>
@@ -97,7 +97,7 @@ export default function HomePageClient({ products = [] }) {
         <div className="sx6-graffiti" aria-hidden="true">
           <div className="sx6-graffiti-track">
             {Array.from({ length: 12 }).map((_, i) => (
-              <span key={i} className="sx6-graffiti-item">NUEVO DROP <StarMark size={20} /> ENVÍO A TODA COLOMBIA <StarMark size={20} /></span>
+              <span key={i} className="sx6-graffiti-item">NUEVOS INGRESOS <StarMark size={20} /> ENVÍO A TODA COLOMBIA <StarMark size={20} /></span>
             ))}
           </div>
         </div>
@@ -106,10 +106,10 @@ export default function HomePageClient({ products = [] }) {
         <section className="container sx6-section">
           <Reveal className="sx6-head sx6-head-row">
             <div>
-              <span className="sx6-tag">/// DROP 01 · FW26</span>
-              <h2 className="sx6-head-title">EL DROP</h2>
+              <span className="sx6-tag">/// SNEAKERS</span>
+              <h2 className="sx6-head-title">SNEAKERS</h2>
             </div>
-            <Link href="/tienda?sort=nuevo" className="sx6-head-link" data-cursor="hover">VER DROP <ArrowRight size={16} /></Link>
+            <Link href="/tienda?cat=gorras" className="sx6-head-link" data-cursor="hover">VER TODO <ArrowRight size={16} /></Link>
           </Reveal>
           <TiltShoes />
         </section>
@@ -200,7 +200,7 @@ export default function HomePageClient({ products = [] }) {
           <Reveal className="sx6-head sx6-head-row">
             <div>
               <span className="sx6-tag">/// LO MÁS DURO</span>
-              <h2 className="sx6-head-title">TOP DROPS</h2>
+              <h2 className="sx6-head-title">DESTACADOS</h2>
             </div>
             <Link href="/tienda?sort=bestseller" className="sx6-head-link" data-cursor="hover">VER TODO <ArrowRight size={16} /></Link>
           </Reveal>
@@ -231,8 +231,8 @@ export default function HomePageClient({ products = [] }) {
             <Reveal as="span" className="sx6-mani-tag">/// MANIFIESTO N°01</Reveal>
             <Reveal as="h2" className="sx6-mani-title">HECHO PARA LA CALLE.<br /><span>NO PARA EL CLÓSET.</span></Reveal>
             <Reveal i={1} as="p" className="sx6-mani-text">
-              6ixstars nació en la calle y se queda ahí. Telas pesadas, fits reales y
-              piezas en cantidades limitadas. Cuando se agota, se agota.
+              6ixstars reúne las mejores marcas de streetwear en un solo lugar.
+              Piezas seleccionadas y originales. Cuando se agota, se agota.
             </Reveal>
           </div>
         </section>
@@ -286,7 +286,7 @@ export default function HomePageClient({ products = [] }) {
             <Reveal>
               <span className="sx6-tag" style={{ color: '#0B0B0C', borderColor: 'rgba(11,11,12,.3)' }}>/// COMUNIDAD 6IX</span>
               <h2 className="sx6-join-title">ÚNETE AL 6IX</h2>
-              <p className="sx6-join-text">Enterate de los drops antes que nadie. Acceso anticipado, descuentos y nada de spam.</p>
+              <p className="sx6-join-text">Enterate de los nuevos ingresos antes que nadie. Acceso anticipado, descuentos y nada de spam.</p>
               <form className="sx6-join-form" onSubmit={(e) => e.preventDefault()}>
                 <input type="email" placeholder="TU@CORREO.COM" aria-label="Correo electrónico" data-cursor="hover" />
                 <button type="submit" data-cursor="hover">SUSCRIBIRME</button>

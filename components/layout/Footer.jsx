@@ -12,7 +12,7 @@ const COLS = [
     title: 'Tienda',
     links: [
       { label: 'Toda la tienda', to: '/tienda' },
-      { label: 'Nuevos Drops', to: '/tienda?sort=nuevo' },
+      { label: 'Novedades', to: '/tienda?sort=nuevo' },
       { label: 'Más Vendidos', to: '/tienda?sort=bestseller' },
       { label: 'Hombre', to: '/tienda?gender=hombre' },
       { label: 'Mujer', to: '/tienda?gender=mujer' },
@@ -80,8 +80,8 @@ export default function Footer() {
               />
             </Link>
             <p>
-              Streetwear desde el 6ix. Telas pesadas, fits reales y drops limitados
-              para los que marcan la diferencia en la calle.
+              Las mejores marcas de streetwear en un solo lugar, para los que
+              marcan la diferencia en la calle.
             </p>
             <div className="sb-footer-social">
               {SOCIAL.map(({ Icon, label, href }) => (

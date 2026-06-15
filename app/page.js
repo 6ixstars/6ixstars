@@ -3,7 +3,7 @@ import { getAllProducts } from '@/lib/products';
 
 export const metadata = {
   title: '6ixstars — Streetwear & Ropa Urbana en Colombia',
-  description: 'Hoodies, camisetas oversize, cargos y gorras. Ropa urbana para los que marcan la diferencia. Drops limitados con envío a toda Colombia.',
+  description: 'Hoodies, camisetas oversize, cargos, jeans y gorras de las mejores marcas. Ropa urbana con envío a toda Colombia.',
 };
 
 export default async function HomePage() {

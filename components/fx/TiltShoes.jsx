@@ -47,7 +47,7 @@ export default function TiltShoes() {
           opacity: 0; transition: .5s; pointer-events: none;
         }
         .tlt-card::after {
-          content: 'DROP'; position: absolute; bottom: 8px; right: 16px;
+          content: '6IX'; position: absolute; bottom: 8px; right: 16px;
           font-family: var(--font-display); font-size: 4rem; font-style: italic; color: #fff;
           opacity: 0; transition: .5s; pointer-events: none;
         }
