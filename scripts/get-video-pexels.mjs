@@ -8,7 +8,7 @@ if (!KEY) { console.error('Falta PEXELS_KEY'); process.exit(1); }
 
 fs.mkdirSync('public/video', { recursive: true });
 
-const QUERIES = ['urban fashion model', 'street style city', 'fashion runway dark', 'city night street people'];
+const QUERIES = ['hip hop dance street', 'graffiti urban street', 'skateboarding city street', 'young people city night', 'breakdance street urban'];
 
 async function search(q) {
   const url = `https://api.pexels.com/videos/search?query=${encodeURIComponent(q)}&orientation=landscape&per_page=12&size=medium`;
