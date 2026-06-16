@@ -1,7 +1,5 @@
 'use client';
-import { useRef } from 'react';
 import Link from 'next/link';
-import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, ArrowRight, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
 import { collections } from '@/lib/products-constants';
 import ProductCard from '@/components/ui/ProductCard';
@@ -11,11 +9,11 @@ import ScrollProgress from '@/components/fx/ScrollProgress';
 import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
-import VideoSlides from '@/components/fx/VideoSlides';
 import GraffitiBand from '@/components/fx/GraffitiBand';
 import BrandsMarquee from '@/components/blocks/BrandsMarquee';
 import LookbookGallery from '@/components/blocks/LookbookGallery';
 import TestimonialsEditorial from '@/components/blocks/TestimonialsEditorial';
+import HeroVideo21 from '@/components/blocks/HeroVideo21';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -35,10 +33,6 @@ function IgGlyph({ size = 16 }) {
     </svg>
   );
 }
-
-const heroStagger = { hidden: {}, show: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } } };
-const lineUp = { hidden: { y: '118%' }, show: { y: 0, transition: { duration: 0.95, ease: [0.16, 1, 0.3, 1] } } };
-const softUp = { hidden: { opacity: 0, y: 22 }, show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } } };
 
 // Bento: spans de columna (de 12) por categoría — layout editorial asimétrico.
 const BENTO_SPANS = [7, 5, 5, 7, 8, 4];
@@ -73,29 +67,8 @@ export default function HomePageClient({ products = [] }) {
 
       <main id="main-content" className="sx6">
 
-        {/* ===================== HERO — VIDEO (premium, anclado abajo) ===================== */}
-        <section className="sx6-hero sx6-vhero">
-          <VideoSlides />
-          <div className="sx6-vhero-grad" aria-hidden="true" />
-
-          <div className="container sx6-vhero-content">
-            <motion.span className="sx6-vhero-kicker" variants={softUp} initial="hidden" animate="show">
-              ★ STREETWEAR MULTIMARCA · DESDE EL 6IX
-            </motion.span>
-            <motion.h1 className="sx6-vhero-h" variants={heroStagger} initial="hidden" animate="show">
-              <span className="m"><motion.span className="ln" variants={lineUp}>ROPA QUE <span className="hl">PEGA</span></motion.span></span>
-              <span className="m"><motion.span className="ln" variants={lineUp}>EN LA CALLE</motion.span></span>
-            </motion.h1>
-            <motion.div className="sx6-vhero-cta" variants={softUp} initial="hidden" animate="show" transition={{ delay: 0.5 }}>
-              <Magnetic strength={0.5}>
-                <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA TIENDA <ArrowUpRight size={18} /></Link>
-              </Magnetic>
-              <Magnetic strength={0.5}>
-                <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">LO NUEVO</Link>
-              </Magnetic>
-            </motion.div>
-          </div>
-        </section>
+        {/* ===================== HERO — 21st.dev "Hero with bg video" (headline rotativo) ===================== */}
+        <HeroVideo21 />
 
         {/* ===================== BANDA GRAFFITI (reactiva al scroll) ===================== */}
         <GraffitiBand />
