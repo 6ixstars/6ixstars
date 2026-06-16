@@ -1,8 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ShoppingBag, Heart, Eye } from 'lucide-react';
+import { ShoppingBag, Heart, Eye, Star } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { useQuickViewStore } from '@/lib/store/quickViewStore';
@@ -11,143 +10,88 @@ import { formatCOP } from '@/lib/format';
 import toast from 'react-hot-toast';
 
 const PLACEHOLDER = '/img/placeholder.webp';
-const CARD_SIZES = '(max-width: 640px) 50vw, (max-width: 900px) 50vw, (max-width: 1024px) 33vw, 25vw';
-
 const TOAST = { style: { background: '#1A1A1D', color: '#F5F5F6', border: '1px solid rgba(255,46,126,.35)', fontFamily: 'var(--font-sans)' }, iconTheme: { primary: '#FF2E7E', secondary: '#0B0B0C' } };
 
 export default function ProductCard({ product, priority = false }) {
-  const [hovered, setHovered] = useState(false);
-  const hasRealImages = product.images?.length && !product.images[0]?.includes('placeholder');
-  const initialImg = hasRealImages ? product.images[0] : getImagePath(product);
-  const [imgSrc, setImgSrc] = useState(initialImg);
   const { addItem } = useCartStore();
   const { items: rawWishlist, toggle: toggleWishlist } = useWishlistStore();
   const openQuickView = useQuickViewStore((s) => s.open);
   const wishlistItems = Array.isArray(rawWishlist) ? rawWishlist : [];
   const wishlisted = wishlistItems.some(i => i?.id === product.id);
 
-  const hasPrice = product.price > 0;
+  const imgs = Array.isArray(product.images) ? product.images.filter(Boolean) : [];
+  const img1 = (imgs[0] && !imgs[0].includes('placeholder')) ? imgs[0] : getImagePath(product);
+  const img2 = imgs[1] && !imgs[1].includes('placeholder') ? imgs[1] : null;
+  const [src1, setSrc1] = useState(img1);
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (!hasPrice) {
-      toast.error('Producto sin precio. Consúltanos por WhatsApp.', TOAST);
-      return;
-    }
-    const defaultSize = product.sizes?.[1]?.ml || product.sizes?.[0]?.ml;
-    addItem(product, defaultSize);
+  const hasPrice = product.price > 0;
+  const discount = product.originalPrice > product.price ? Math.round((1 - product.price / product.originalPrice) * 100) : null;
+  const lowStock = product.stock > 0 && product.stock <= 5;
+
+  const handleAdd = (e) => {
+    e.preventDefault(); e.stopPropagation();
+    if (!hasPrice) { toast.error('Producto sin precio. Consúltanos por WhatsApp.', TOAST); return; }
+    const size = product.sizes?.[1]?.ml || product.sizes?.[0]?.ml;
+    addItem(product, size);
     toast.success(`${product.name} agregado`, TOAST);
   };
 
+  const tilt = (e) => {
+    const el = e.currentTarget; const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    el.style.setProperty('--rx', `${-py * 5}deg`);
+    el.style.setProperty('--ry', `${px * 5}deg`);
+  };
+  const reset = (e) => { e.currentTarget.style.setProperty('--rx', '0deg'); e.currentTarget.style.setProperty('--ry', '0deg'); };
+
   return (
-    <Link href={`/producto/${product.slug}`} style={{ display: 'block', textDecoration: 'none' }}>
-      <article
-        onMouseEnter={() => setHovered(true)}
-        onMouseMove={(e) => {
-          const el = e.currentTarget;
-          const r = el.getBoundingClientRect();
-          const px = (e.clientX - r.left) / r.width - 0.5;
-          const py = (e.clientY - r.top) / r.height - 0.5;
-          el.style.transform = `perspective(900px) rotateY(${px * 6}deg) rotateX(${-py * 6}deg)`;
-        }}
-        onMouseLeave={(e) => { setHovered(false); e.currentTarget.style.transform = 'perspective(900px) rotateY(0deg) rotateX(0deg)'; }}
-        style={{ cursor: 'pointer', transition: 'transform .25s cubic-bezier(.16,1,.3,1)', transformStyle: 'preserve-3d' }}
-      >
-        {/* Image */}
-        <div className="product-card-img-wrap" style={{ aspectRatio: '3/4' }}>
-          <Image
-            src={imgSrc}
-            alt={`${product.name} — ${product.brand} ${product.category || ''}`.trim()}
-            fill
-            sizes={CARD_SIZES}
-            style={{ objectFit: 'cover' }}
-            priority={priority}
+    <Link href={`/producto/${product.slug}`} className="pc" data-cursor="hover">
+      <article className="pc-card" onMouseMove={tilt} onMouseLeave={reset}>
+        <div className="pc-media">
+          <img
+            className="pc-img pc-img1"
+            src={src1}
+            alt={`${product.name} — ${product.brand}`}
             loading={priority ? 'eager' : 'lazy'}
-            onError={() => { if (imgSrc !== PLACEHOLDER) setImgSrc(PLACEHOLDER); }}
+            onError={() => { if (src1 !== PLACEHOLDER) setSrc1(PLACEHOLDER); }}
           />
+          {img2 && <img className="pc-img pc-img2" src={img2} alt="" loading="lazy" />}
 
-          {/* Badges */}
-          {(product.badge || (product.stock > 0 && product.stock <= 5)) && (
-            <div style={{ position: 'absolute', top: 12, left: 12, display: 'flex', flexDirection: 'column', gap: 6, zIndex: 2 }}>
-              {product.badge && (
-                <span style={{ fontSize: '.6rem', fontWeight: 700, letterSpacing: '.12em', textTransform: 'uppercase', padding: '3px 10px', background: product.badgeColor || 'var(--gold)', color: '#FAF8F3', borderRadius: 2 }}>{product.badge}</span>
-              )}
-              {product.stock > 0 && product.stock <= 5 && (
-                <span style={{ fontSize: '.6rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', padding: '3px 10px', background: 'rgba(26,22,16,.75)', color: 'var(--gold-light)', borderRadius: 2 }}>
-                  Últimas {product.stock}
-                </span>
-              )}
-            </div>
-          )}
+          <div className="pc-badges">
+            {product.badge && <span className="pc-badge" style={product.badgeColor ? { background: product.badgeColor } : undefined}>{product.badge}</span>}
+            {discount && <span className="pc-badge pc-badge--off">−{discount}%</span>}
+            {lowStock && <span className="pc-badge pc-badge--low">ÚLTIMAS {product.stock}</span>}
+          </div>
 
-          {/* Wishlist */}
           <button
-            className={`product-card-wishlist ${hovered ? 'is-hover' : ''}`}
-            onClick={e => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product); }}
-            aria-label={wishlisted ? 'Quitar de favoritos' : 'Agregar a favoritos'}
-            aria-pressed={wishlisted}
-            style={{
-              position: 'absolute', top: 10, right: 10, zIndex: 2,
-              width: 44, height: 44, borderRadius: '50%',
-              background: 'rgba(246,243,238,.85)', backdropFilter: 'blur(8px)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: wishlisted ? '#C04A5C' : 'var(--gray)',
-              border: 'none', cursor: 'pointer',
-              transition: 'opacity .25s',
-            }}
+            className={`pc-wish ${wishlisted ? 'on' : ''}`}
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWishlist(product); }}
+            aria-label={wishlisted ? 'Quitar de favoritos' : 'Agregar a favoritos'} aria-pressed={wishlisted}
           >
             <Heart size={16} fill={wishlisted ? 'currentColor' : 'none'} />
           </button>
 
-          {/* Hover overlay + CTA */}
-          <div className="product-card-overlay">
-            <div className="product-card-cta">
-              <button
-                id={`add-to-cart-${product.id}`}
-                onClick={handleAddToCart}
-                disabled={!hasPrice}
-                style={{
-                  flex: 1, padding: '11px 0',
-                  background: hasPrice ? 'var(--gold)' : 'rgba(122,110,94,.55)',
-                  color: '#FAF8F3',
-                  fontSize: '.7rem', fontWeight: 600, letterSpacing: '.15em',
-                  textTransform: 'uppercase', border: 'none', borderRadius: 999,
-                  cursor: hasPrice ? 'pointer' : 'not-allowed',
-                  fontFamily: 'var(--font-sans)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 6,
-                }}
-              >
-                <ShoppingBag size={13} /> {hasPrice ? 'Agregar' : 'Consultar'}
-              </button>
-              <button
-                onClick={e => { e.preventDefault(); e.stopPropagation(); openQuickView(product); }}
-                aria-label={`Vista rápida de ${product.name}`}
-                style={{
-                  width: 44, minHeight: 44, background: 'rgba(246,243,238,.12)',
-                  border: '1px solid rgba(246,243,238,.25)',
-                  color: '#FAF8F3', cursor: 'pointer',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                }}
-              >
-                <Eye size={16} />
-              </button>
-            </div>
+          <div className="pc-actions">
+            <button className="pc-add" onClick={handleAdd} disabled={!hasPrice}>
+              <ShoppingBag size={14} /> {hasPrice ? 'Añadir' : 'Consultar'}
+            </button>
+            <button className="pc-eye" onClick={(e) => { e.preventDefault(); e.stopPropagation(); openQuickView(product); }} aria-label="Vista rápida">
+              <Eye size={16} />
+            </button>
           </div>
         </div>
 
-        {/* Info */}
-        <div className="product-card-info">
-          <p style={{ fontSize: '.62rem', letterSpacing: '.2em', color: 'var(--gold)', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>
-            {product.brand}
-          </p>
-          <h3 style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', color: 'var(--white)', fontWeight: 700, lineHeight: 1.25, marginBottom: 8, textTransform: 'none' }}>
-            {product.name}
-            {product.type && <span style={{ fontSize: '.78rem', color: 'var(--gray)', marginLeft: 6, fontWeight: 500 }}>· {product.type}</span>}
-          </h3>
-          <span style={{ fontSize: '.98rem', fontWeight: 700, color: product.price > 0 ? 'var(--white)' : 'var(--gray)', letterSpacing: '.01em' }}>
-            {product.price > 0 ? formatCOP(product.price) : 'Consultar precio'}
-          </span>
+        <div className="pc-info">
+          <div className="pc-top">
+            <span className="pc-brand">{product.brand}</span>
+            {product.rating > 0 && <span className="pc-rating"><Star size={11} fill="currentColor" /> {Number(product.rating).toFixed(1)}</span>}
+          </div>
+          <h3 className="pc-name">{product.name}</h3>
+          <div className="pc-price">
+            <span className={`pc-now ${hasPrice ? '' : 'pc-soon'}`}>{hasPrice ? formatCOP(product.price) : 'Consultar precio'}</span>
+            {product.originalPrice > product.price && <s className="pc-was">{formatCOP(product.originalPrice)}</s>}
+          </div>
         </div>
       </article>
     </Link>
