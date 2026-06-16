@@ -2,8 +2,8 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { Star, ArrowUpRight, ArrowRight, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
-import { collections, testimonials } from '@/lib/products-constants';
+import { ArrowUpRight, ArrowRight, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
+import { collections } from '@/lib/products-constants';
 import ProductCard from '@/components/ui/ProductCard';
 import SmoothScroll from '@/components/fx/SmoothScroll';
 import Cursor from '@/components/fx/Cursor';
@@ -13,6 +13,9 @@ import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
 import VideoSlides from '@/components/fx/VideoSlides';
 import GraffitiBand from '@/components/fx/GraffitiBand';
+import BrandsMarquee from '@/components/blocks/BrandsMarquee';
+import LookbookGallery from '@/components/blocks/LookbookGallery';
+import TestimonialsEditorial from '@/components/blocks/TestimonialsEditorial';
 
 const COP = (n) => '$' + Number(n || 0).toLocaleString('es-CO');
 
@@ -97,6 +100,9 @@ export default function HomePageClient({ products = [] }) {
         {/* ===================== BANDA GRAFFITI (reactiva al scroll) ===================== */}
         <GraffitiBand />
 
+        {/* ===================== MARCAS — 21st.dev Marquee Logo Scroller ===================== */}
+        <BrandsMarquee />
+
         {/* ===================== DROP 01 — CARRUSEL 3D ===================== */}
         <section className="container sx6-section">
           <Reveal className="sx6-head sx6-head-row">
@@ -150,33 +156,8 @@ export default function HomePageClient({ products = [] }) {
           </div>
         </section>
 
-        {/* ===================== LOOKBOOK ===================== */}
-        <section className="sx6-lookbook">
-          <div className="container">
-            <Reveal className="sx6-head sx6-head-row">
-              <div>
-                <span className="sx6-tag">/// EDITORIAL</span>
-                <h2 className="sx6-head-title">LOOKBOOK <span className="o">FW26</span></h2>
-              </div>
-              <Link href="/tienda" className="sx6-head-link" data-cursor="hover">VER COLECCIÓN <ArrowRight size={16} /></Link>
-            </Reveal>
-            <div className="sx6-look-grid">
-              {[
-                { label: 'FIG.01 — OUTERWEAR', img: 'look-01' },
-                { label: 'FIG.02 — DENIM', img: 'look-02' },
-                { label: 'FIG.03 — HEADWEAR', img: 'look-03' },
-              ].map(({ label, img }, i) => (
-                <Reveal key={label} i={i} className={`sx6-look-cell ${i === 1 ? 'tall' : ''}`}>
-                  <div className="sx6-look-frame" data-cursor="hover"
-                    style={{ backgroundImage: `linear-gradient(180deg, transparent 38%, rgba(11,11,12,.88)), url(/img/gen/${img}.webp)`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
-                    <span className="sx6-look-label">{label}</span>
-                    <span className="sx6-look-corner">6IX</span>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+        {/* ===================== LOOKBOOK — 21st.dev Animated Gallery (3D scroll) ===================== */}
+        <LookbookGallery />
 
         {/* ===================== CAMPAÑA ===================== */}
         <section className="sx6-campaign">
@@ -255,25 +236,8 @@ export default function HomePageClient({ products = [] }) {
           </section>
         )}
 
-        {/* ===================== RESEÑAS ===================== */}
-        <section className="container sx6-section">
-          <Reveal className="sx6-head">
-            <span className="sx6-tag">/// LA GENTE HABLA</span>
-            <h2 className="sx6-head-title">RESEÑAS</h2>
-          </Reveal>
-          <div className="sx6-reviews">
-            {testimonials.map((t, i) => (
-              <Reveal key={t.id} i={i} as="figure" className="sx6-review">
-                <span className="sx6-review-idx">0{i + 1}</span>
-                <div className="sx6-review-stars">
-                  {Array.from({ length: t.rating }).map((_, j) => <Star key={j} size={14} fill="currentColor" />)}
-                </div>
-                <blockquote>{t.text}</blockquote>
-                <figcaption><strong>{t.name}</strong><span>{t.location} · {t.product}</span></figcaption>
-              </Reveal>
-            ))}
-          </div>
-        </section>
+        {/* ===================== RESEÑAS — 21st.dev Editorial Testimonial ===================== */}
+        <TestimonialsEditorial />
 
         {/* ===================== JOIN ===================== */}
         <section className="sx6-join">
