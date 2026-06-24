@@ -1,186 +1,215 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+const LETTERS = '6IXSTARS'.split('');
 
 export default function EntryScreen() {
   const [visible, setVisible] = useState(false);
   const [leaving, setLeaving] = useState(false);
-  const audioRef = useRef(null);
 
   useEffect(() => {
-    // Solo mostrar una vez por sesión
     if (!sessionStorage.getItem('6ix-entered')) {
       setVisible(true);
     }
-    // Montar el audio en este componente para tenerlo listo
-    const a = document.querySelector('audio[data-theme]');
-    if (a) audioRef.current = a;
   }, []);
 
   const enter = () => {
-    // Guardar sesión
+    if (leaving) return;
     sessionStorage.setItem('6ix-entered', '1');
 
-    // Arrancar música
     const a = document.querySelector('audio[data-theme]');
     if (a) {
       a.muted = false;
       a.play().catch(() => {});
     }
 
-    // Animar salida
     setLeaving(true);
-    setTimeout(() => setVisible(false), 700);
+    setTimeout(() => setVisible(false), 900);
   };
 
   if (!visible) return null;
 
   return (
     <>
-      <div className={`entry${leaving ? ' entry--out' : ''}`} role="dialog" aria-modal="true" aria-label="Bienvenida">
+      <div
+        className={`ix-entry${leaving ? ' ix-entry--out' : ''}`}
+        onClick={enter}
+        role="button"
+        tabIndex={0}
+        aria-label="Entrar al sitio"
+        onKeyDown={e => e.key === 'Enter' || e.key === ' ' ? enter() : null}
+      >
+        {/* Línea superior */}
+        <div className="ix-line ix-line--top" />
 
-        {/* Fondo con gradiente sutil */}
-        <div className="entry-bg" />
+        {/* Contenido */}
+        <div className="ix-center">
 
-        {/* Contenido central */}
-        <div className="entry-body">
+          {/* Ojo / punto decorativo */}
+          <div className="ix-dot" />
 
-          {/* Marca */}
-          <p className="entry-eyebrow">Bienvenido a</p>
-          <h1 className="entry-brand">6IXSTARS</h1>
-          <p className="entry-tagline">Streetwear · Colombia</p>
+          {/* Brand name con stagger por letra */}
+          <h1 className="ix-brand" aria-label="6ixstars">
+            {LETTERS.map((l, i) => (
+              <span
+                key={i}
+                className="ix-letter"
+                style={{ '--d': `${0.4 + i * 0.055}s` }}
+              >
+                {l}
+              </span>
+            ))}
+          </h1>
 
-          {/* Nota de audio */}
-          <div className="entry-sound">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M9 18V5l12-2v13" />
-              <circle cx="6" cy="18" r="3" /><circle cx="18" cy="16" r="3" />
-            </svg>
-            <span>Este sitio tiene música de fondo</span>
+          {/* Tagline */}
+          <p className="ix-tag">Streetwear · Colombia</p>
+
+          {/* Hint interacción */}
+          <div className="ix-hint">
+            <span className="ix-hint-dot" />
+            <span>toca para entrar</span>
           </div>
 
-          {/* Botón entrar */}
-          <button className="entry-btn" onClick={enter} autoFocus>
-            <span>ENTRAR</span>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M7 4.5v15a1 1 0 0 0 1.54.84l11-7.5a1 1 0 0 0 0-1.68l-11-7.5A1 1 0 0 0 7 4.5z" />
-            </svg>
-          </button>
-
         </div>
+
+        {/* Línea inferior */}
+        <div className="ix-line ix-line--bot" />
 
       </div>
 
       <style>{`
-        .entry {
+        /* ── Overlay ─────────────────────────────── */
+        .ix-entry {
           position: fixed;
           inset: 0;
           z-index: 9999;
+          background: #080604;
           display: flex;
+          flex-direction: column;
           align-items: center;
           justify-content: center;
-          background: #080705;
-          animation: entry-in .5s ease forwards;
+          cursor: pointer;
+          user-select: none;
+          animation: ix-fade-in .4s ease forwards;
+          overflow: hidden;
         }
-        .entry--out {
-          animation: entry-out .7s cubic-bezier(.4,0,.2,1) forwards;
+        .ix-entry--out {
+          animation: ix-fade-out .9s cubic-bezier(.4,0,.2,1) forwards !important;
         }
-        @keyframes entry-in {
+        @keyframes ix-fade-in {
           from { opacity: 0; }
           to   { opacity: 1; }
         }
-        @keyframes entry-out {
-          0%   { opacity: 1; transform: scale(1); }
-          100% { opacity: 0; transform: scale(1.04); }
+        @keyframes ix-fade-out {
+          0%   { opacity: 1; transform: scale(1); filter: blur(0px); }
+          100% { opacity: 0; transform: scale(1.06); filter: blur(6px); }
         }
 
-        .entry-bg {
+        /* ── Líneas horizontales ─────────────────── */
+        .ix-line {
           position: absolute;
-          inset: 0;
-          background:
-            radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,169,110,.07) 0%, transparent 70%);
-          pointer-events: none;
+          left: 0;
+          width: 0;
+          height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(201,169,110,.6), transparent);
+          animation: ix-line-in .9s .1s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        .ix-line--top { top: 80px; }
+        .ix-line--bot { bottom: 80px; }
+        @keyframes ix-line-in {
+          to { width: 100%; }
         }
 
-        .entry-body {
-          position: relative;
+        /* ── Centro ──────────────────────────────── */
+        .ix-center {
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 0;
           text-align: center;
           padding: 0 24px;
-          animation: entry-body-in .7s .15s cubic-bezier(.22,1,.36,1) both;
-        }
-        @keyframes entry-body-in {
-          from { opacity: 0; transform: translateY(18px); }
-          to   { opacity: 1; transform: translateY(0); }
         }
 
-        .entry-eyebrow {
+        /* ── Punto decorativo ────────────────────── */
+        .ix-dot {
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background: #C9A96E;
+          margin-bottom: 28px;
+          opacity: 0;
+          animation: ix-el-in .4s .3s ease forwards;
+        }
+
+        /* ── Brand ───────────────────────────────── */
+        .ix-brand {
+          font-family: var(--font-anton), 'Anton', sans-serif;
+          font-size: clamp(3.8rem, 14vw, 9rem);
+          font-weight: 400;
+          color: #F5EFE3;
+          letter-spacing: .06em;
+          line-height: 1;
+          margin: 0 0 16px;
+          display: flex;
+          gap: .01em;
+        }
+
+        .ix-letter {
+          display: inline-block;
+          opacity: 0;
+          transform: translateY(28px) skewX(-4deg);
+          animation: ix-letter-in .55s var(--d) cubic-bezier(.22,1,.36,1) forwards;
+        }
+        @keyframes ix-letter-in {
+          to { opacity: 1; transform: translateY(0) skewX(0deg); }
+        }
+
+        /* ── Tagline ─────────────────────────────── */
+        .ix-tag {
+          font-family: var(--font-montserrat), sans-serif;
           font-size: .65rem;
           letter-spacing: .3em;
           text-transform: uppercase;
-          color: rgba(201,169,110,.6);
-          margin: 0 0 16px;
-          font-family: var(--font-montserrat), sans-serif;
-          font-weight: 500;
+          color: rgba(201,169,110,.55);
+          margin: 0 0 52px;
+          opacity: 0;
+          animation: ix-el-in .5s 1.1s ease forwards;
         }
 
-        .entry-brand {
-          font-family: var(--font-anton), 'Anton', sans-serif;
-          font-size: clamp(3.5rem, 12vw, 7rem);
-          font-weight: 400;
-          color: #FAF6EE;
-          letter-spacing: .04em;
-          line-height: 1;
-          margin: 0 0 12px;
-        }
-
-        .entry-tagline {
-          font-size: .7rem;
-          letter-spacing: .25em;
-          text-transform: uppercase;
-          color: rgba(250,246,238,.35);
-          margin: 0 0 40px;
-          font-family: var(--font-montserrat), sans-serif;
-        }
-
-        .entry-sound {
+        /* ── Hint ────────────────────────────────── */
+        .ix-hint {
           display: flex;
           align-items: center;
-          gap: 8px;
-          font-size: .72rem;
-          letter-spacing: .08em;
-          color: rgba(201,169,110,.55);
-          margin-bottom: 32px;
-          font-family: var(--font-montserrat), sans-serif;
-        }
-
-        .entry-btn {
-          display: inline-flex;
-          align-items: center;
           gap: 10px;
-          padding: 14px 36px;
-          border: 1px solid rgba(201,169,110,.45);
-          border-radius: 999px;
-          background: transparent;
-          color: #C9A96E;
           font-family: var(--font-montserrat), sans-serif;
-          font-size: .75rem;
-          font-weight: 700;
+          font-size: .6rem;
           letter-spacing: .22em;
           text-transform: uppercase;
-          cursor: pointer;
-          transition: background .25s, border-color .25s, color .25s, transform .2s;
+          color: rgba(250,246,238,.25);
+          opacity: 0;
+          animation: ix-el-in .5s 1.6s ease forwards;
         }
-        .entry-btn:hover {
-          background: rgba(201,169,110,.1);
-          border-color: rgba(201,169,110,.8);
-          color: #FAF6EE;
-          transform: scale(1.03);
+        .ix-hint-dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          background: rgba(201,169,110,.5);
+          animation: ix-pulse 1.8s 1.6s ease-in-out infinite;
         }
-        .entry-btn:active {
-          transform: scale(.97);
+        @keyframes ix-pulse {
+          0%, 100% { opacity: .4; transform: scale(1); }
+          50%       { opacity: 1;  transform: scale(1.4); }
+        }
+
+        /* ── Utilidad ────────────────────────────── */
+        @keyframes ix-el-in {
+          from { opacity: 0; transform: translateY(8px); }
+          to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 480px) {
+          .ix-line--top { top: 52px; }
+          .ix-line--bot { bottom: 52px; }
         }
       `}</style>
     </>
