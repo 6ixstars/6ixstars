@@ -13,7 +13,9 @@ const COL_2 = ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-
 const COL_3 = ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'];
 
 const Img = ({ src }) => (
-  <img src={src} alt="" loading="lazy" className="aspect-video block h-auto max-h-full w-full rounded-xl object-cover shadow-lg" />
+  <div className="aspect-[3/4] w-full overflow-hidden rounded-xl shadow-lg">
+    <img src={src} alt="" loading="lazy" className="h-full w-full object-cover object-top" />
+  </div>
 );
 
 export default function LookbookGallery() {
