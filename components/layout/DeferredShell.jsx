@@ -13,12 +13,14 @@ const CartDrawer = dynamic(() => import('@/components/cart/CartDrawer'), { ssr: 
 const WhatsAppFloat = dynamic(() => import('@/components/ui/WhatsAppFloat'), { ssr: false });
 const ScrollToTop = dynamic(() => import('@/components/ui/ScrollToTop'), { ssr: false });
 const SoundToggle = dynamic(() => import('@/components/ui/SoundToggle'), { ssr: false });
+const EntryScreen = dynamic(() => import('@/components/ui/EntryScreen'), { ssr: false });
 
 export default function DeferredShell() {
   const pathname = usePathname();
   if (pathname === '/admin' || pathname?.startsWith('/admin/')) return null;
   return (
     <>
+      <EntryScreen />
       <CartDrawer />
       <WhatsAppFloat />
       <ScrollToTop />

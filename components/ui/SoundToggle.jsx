@@ -14,34 +14,19 @@ export default function SoundToggle() {
     const optedOut = localStorage.getItem('6ix-sound') === 'off';
     if (optedOut) { setReady(true); return; }
 
-    // Esperar a que el audio arranque muted (vía atributo autoPlay+muted del HTML)
-    // y luego desmutear. Si no arrancó solo, desmutear en primer gesto.
-    const tryUnmute = () => {
-      a.muted = false;
-      if (!a.paused) {
-        setPlaying(true);
-        return;
-      }
-      a.play().then(() => setPlaying(true)).catch(() => {});
-    };
-
-    // Intentar desmutear después de un tick (el navegador necesita un frame)
-    const t = setTimeout(tryUnmute, 300);
-
-    // Fallback: primer clic o toque en cualquier parte
-    const onGesture = () => {
-      a.muted = false;
-      a.play().then(() => setPlaying(true)).catch(() => {});
-    };
-    window.addEventListener('pointerdown', onGesture, { once: true });
-    window.addEventListener('touchstart', onGesture, { once: true, passive: true });
+    // El EntryScreen arranca el audio al hacer clic en "ENTRAR".
+    // SoundToggle solo necesita detectar si ya está sonando al montarse.
+    const onPlay = () => setPlaying(true);
+    const onPause = () => setPlaying(false);
+    a.addEventListener('play', onPlay);
+    a.addEventListener('pause', onPause);
+    if (!a.paused) setPlaying(true);
 
     setReady(true);
 
     return () => {
-      clearTimeout(t);
-      window.removeEventListener('pointerdown', onGesture);
-      window.removeEventListener('touchstart', onGesture);
+      a.removeEventListener('play', onPlay);
+      a.removeEventListener('pause', onPause);
     };
   }, []);
 
@@ -60,7 +45,7 @@ export default function SoundToggle() {
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/theme.mp3" loop preload="auto" autoPlay muted playsInline />
+      <audio ref={audioRef} src="/audio/theme.mp3" loop preload="auto" muted data-theme />
 
       <button
         type="button"
