@@ -14,31 +14,33 @@ export default function SoundToggle() {
     const optedOut = localStorage.getItem('6ix-sound') === 'off';
     if (optedOut) { setReady(true); return; }
 
-    const start = () => {
+    // Esperar a que el audio arranque muted (vía atributo autoPlay+muted del HTML)
+    // y luego desmutear. Si no arrancó solo, desmutear en primer gesto.
+    const tryUnmute = () => {
+      a.muted = false;
+      if (!a.paused) {
+        setPlaying(true);
+        return;
+      }
       a.play().then(() => setPlaying(true)).catch(() => {});
     };
 
-    // El scroll, cualquier clic o tecla cuenta como gesto — el navegador
-    // permite arrancar audio después de cualquiera de estos eventos.
-    const onGesture = () => {
-      start();
-      window.removeEventListener('scroll', onGesture);
-      window.removeEventListener('pointerdown', onGesture);
-      window.removeEventListener('keydown', onGesture);
-      window.removeEventListener('touchstart', onGesture);
-    };
+    // Intentar desmutear después de un tick (el navegador necesita un frame)
+    const t = setTimeout(tryUnmute, 300);
 
-    window.addEventListener('scroll', onGesture, { once: true, passive: true });
+    // Fallback: primer clic o toque en cualquier parte
+    const onGesture = () => {
+      a.muted = false;
+      a.play().then(() => setPlaying(true)).catch(() => {});
+    };
     window.addEventListener('pointerdown', onGesture, { once: true });
-    window.addEventListener('keydown', onGesture, { once: true });
     window.addEventListener('touchstart', onGesture, { once: true, passive: true });
 
     setReady(true);
 
     return () => {
-      window.removeEventListener('scroll', onGesture);
+      clearTimeout(t);
       window.removeEventListener('pointerdown', onGesture);
-      window.removeEventListener('keydown', onGesture);
       window.removeEventListener('touchstart', onGesture);
     };
   }, []);
@@ -58,7 +60,7 @@ export default function SoundToggle() {
 
   return (
     <>
-      <audio ref={audioRef} src="/audio/theme.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/audio/theme.mp3" loop preload="auto" autoPlay muted playsInline />
 
       <button
         type="button"
