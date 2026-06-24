@@ -14,26 +14,33 @@ export default function SoundToggle() {
     const optedOut = localStorage.getItem('6ix-sound') === 'off';
     if (optedOut) { setReady(true); return; }
 
-    // Truco: arrancar muted (los navegadores lo permiten) y luego desmutear.
-    // Funciona en Chrome, Edge y la mayoría de navegadores modernos.
-    a.muted = true;
-    a.play()
-      .then(() => {
-        a.muted = false;
-        setPlaying(true);
-      })
-      .catch(() => {
-        // Fallback: si el navegador bloquea incluso muted,
-        // arrancamos en el primer gesto del usuario.
-        a.muted = false;
-        const onGesture = () => {
-          a.play().then(() => setPlaying(true)).catch(() => {});
-        };
-        window.addEventListener('pointerdown', onGesture, { once: true });
-        window.addEventListener('keydown', onGesture, { once: true });
-      });
+    const start = () => {
+      a.play().then(() => setPlaying(true)).catch(() => {});
+    };
+
+    // El scroll, cualquier clic o tecla cuenta como gesto — el navegador
+    // permite arrancar audio después de cualquiera de estos eventos.
+    const onGesture = () => {
+      start();
+      window.removeEventListener('scroll', onGesture);
+      window.removeEventListener('pointerdown', onGesture);
+      window.removeEventListener('keydown', onGesture);
+      window.removeEventListener('touchstart', onGesture);
+    };
+
+    window.addEventListener('scroll', onGesture, { once: true, passive: true });
+    window.addEventListener('pointerdown', onGesture, { once: true });
+    window.addEventListener('keydown', onGesture, { once: true });
+    window.addEventListener('touchstart', onGesture, { once: true, passive: true });
 
     setReady(true);
+
+    return () => {
+      window.removeEventListener('scroll', onGesture);
+      window.removeEventListener('pointerdown', onGesture);
+      window.removeEventListener('keydown', onGesture);
+      window.removeEventListener('touchstart', onGesture);
+    };
   }, []);
 
   const toggle = () => {
