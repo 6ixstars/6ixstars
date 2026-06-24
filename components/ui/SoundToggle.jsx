@@ -98,7 +98,7 @@ export default function SoundToggle() {
           background: rgba(10, 9, 7, 0.80);
           backdrop-filter: blur(12px);
           -webkit-backdrop-filter: blur(12px);
-          border: 1px solid rgba(201, 169, 110, 0.20);
+          border: 1px solid rgba(175, 31, 58, 0.20);
           border-radius: 999px;
           color: rgba(243, 234, 215, 0.70);
           cursor: pointer;
@@ -107,13 +107,13 @@ export default function SoundToggle() {
           font-family: inherit;
         }
         .snd-btn:hover {
-          border-color: rgba(201, 169, 110, 0.55);
+          border-color: rgba(175, 31, 58, 0.55);
           color: #AF1F3A;
           transform: translateY(-2px);
           box-shadow: 0 8px 28px rgba(0,0,0,.45);
         }
         .snd-btn--on {
-          border-color: rgba(201, 169, 110, 0.45);
+          border-color: rgba(175, 31, 58, 0.45);
           color: #AF1F3A;
         }
 
@@ -125,15 +125,15 @@ export default function SoundToggle() {
           width: 26px;
           height: 26px;
           border-radius: 50%;
-          background: rgba(201, 169, 110, 0.12);
-          border: 1px solid rgba(201, 169, 110, 0.25);
+          background: rgba(175, 31, 58, 0.12);
+          border: 1px solid rgba(175, 31, 58, 0.25);
           flex-shrink: 0;
           transition: background .25s, border-color .25s;
         }
         .snd-btn:hover .snd-ico,
         .snd-btn--on .snd-ico {
-          background: rgba(201, 169, 110, 0.20);
-          border-color: rgba(201, 169, 110, 0.5);
+          background: rgba(175, 31, 58, 0.20);
+          border-color: rgba(175, 31, 58, 0.5);
         }
 
         /* Label */
