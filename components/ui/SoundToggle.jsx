@@ -89,7 +89,7 @@ export default function SoundToggle() {
         .snd-btn {
           position: fixed;
           right: 24px;
-          bottom: 24px;
+          bottom: 88px;
           z-index: 200;
           display: inline-flex;
           align-items: center;
