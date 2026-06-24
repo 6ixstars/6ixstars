@@ -19,8 +19,7 @@ export default function PromoPopup() {
   }, []);
 
   const startMusic = () => {
-    const a = document.querySelector('audio[data-theme]');
-    if (a) { a.muted = false; a.play().catch(() => {}); }
+    window.dispatchEvent(new CustomEvent('6ix:play'));
   };
 
   const dismiss = () => {

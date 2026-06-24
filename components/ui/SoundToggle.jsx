@@ -14,19 +14,25 @@ export default function SoundToggle() {
     const optedOut = localStorage.getItem('6ix-sound') === 'off';
     if (optedOut) { setReady(true); return; }
 
-    // El EntryScreen arranca el audio al hacer clic en "ENTRAR".
-    // SoundToggle solo necesita detectar si ya está sonando al montarse.
-    const onPlay = () => setPlaying(true);
+    const onPlay  = () => setPlaying(true);
     const onPause = () => setPlaying(false);
     a.addEventListener('play', onPlay);
     a.addEventListener('pause', onPause);
     if (!a.paused) setPlaying(true);
+
+    // Escuchar evento del popup promocional
+    const onPlayRequest = () => {
+      a.muted = false;
+      a.play().then(() => setPlaying(true)).catch(() => {});
+    };
+    window.addEventListener('6ix:play', onPlayRequest);
 
     setReady(true);
 
     return () => {
       a.removeEventListener('play', onPlay);
       a.removeEventListener('pause', onPause);
+      window.removeEventListener('6ix:play', onPlayRequest);
     };
   }, []);
 
