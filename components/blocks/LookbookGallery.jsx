@@ -12,12 +12,15 @@ const COL_1 = ['/img/gen/look-01.webp', '/img/gen/look-02.webp', '/img/gen/look-
 const COL_2 = ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-06.webp'];
 const COL_3 = ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'];
 
-// Cada foto mantiene su proporción vertical original (3:4). La altura manda
-// y el ancho se deriva solo; margin auto la centra dentro de su columna.
+// Cada foto llena el ancho de su columna en su proporción vertical natural
+// (900x1200 = 3:4). width 100% + height auto = sin recorte, compacto.
 const Img = ({ src }) => (
-  <div style={{ aspectRatio: '3 / 4', height: '26vh', margin: '0 auto', overflow: 'hidden', borderRadius: '10px', boxShadow: '0 6px 18px rgba(0,0,0,.45)' }}>
-    <img src={src} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-  </div>
+  <img
+    src={src}
+    alt=""
+    loading="lazy"
+    style={{ width: '100%', height: 'auto', display: 'block', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,.45)' }}
+  />
 );
 
 export default function LookbookGallery() {
@@ -38,16 +41,16 @@ export default function LookbookGallery() {
         </ContainerAnimated>
       </ContainerStagger>
 
-      <ContainerScroll className="relative h-[170vh]">
+      <ContainerScroll className="relative h-[220vh]">
         <ContainerSticky className="h-svh">
           <GalleryContainer className="container">
-            <GalleryCol style={{ marginTop: '4vh' }} yRange={['12%', '0%']}>
+            <GalleryCol className="-mt-2" yRange={['15%', '5%']}>
               {COL_1.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
-            <GalleryCol style={{ marginTop: '-2vh' }} yRange={['22%', '0%']}>
+            <GalleryCol className="mt-[-30%]" yRange={['30%', '5%']}>
               {COL_2.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
-            <GalleryCol style={{ marginTop: '4vh' }} yRange={['8%', '0%']}>
+            <GalleryCol yRange={['8%', '2%']}>
               {COL_3.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
           </GalleryContainer>
