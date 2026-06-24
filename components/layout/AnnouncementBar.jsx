@@ -31,8 +31,7 @@ export default function AnnouncementBar() {
           text-transform: uppercase;
           font-weight: 700;
           overflow: hidden;
-          position: sticky;
-          top: 0;
+          position: relative;
           z-index: 60;
           font-family: var(--font-sans);
           border-bottom: 1px solid var(--dark-4);

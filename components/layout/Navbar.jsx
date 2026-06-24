@@ -301,7 +301,7 @@ function NavbarInner({ products = [] }) {
 function NavStyles() {
   return (
     <style>{`
-      .sb-nav { position: sticky; top: var(--announce-h); z-index: 50; background: #0B0B0C; border-bottom: 1px solid var(--dark-4); transition: background .35s, border-color .35s; }
+      .sb-nav { position: sticky; top: 0; z-index: 50; background: #0B0B0C; border-bottom: 1px solid var(--dark-4); transition: background .35s, border-color .35s; }
       .sb-nav.scrolled { background: rgba(11,11,12,.92); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 8px 24px rgba(0,0,0,.5); }
 
       /* Fila única: logo · categorías · acciones */
