@@ -364,6 +364,40 @@ body::after {
   will-change: transform;
 }
 .marquee-track:hover { animation-play-state: paused; }
+
+/* ── Announcement bar ── */
+.sb-announce {
+  background: #060607;
+  overflow: hidden;
+  position: relative;
+  z-index: 60;
+  border-bottom: 1px solid var(--dark-4);
+}
+.sb-announce-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  white-space: nowrap;
+  animation: marquee 22s linear infinite;
+  will-change: transform;
+}
+.sb-announce-item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(32px, 5vw, 56px);
+  padding: 9px clamp(16px, 2.5vw, 28px);
+  font-family: var(--font-sans);
+  font-size: .68rem;
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--white);
+  white-space: nowrap;
+}
+.sb-announce-dot { color: var(--gold); font-size: .8em; }
+@media (max-width: 480px) {
+  .sb-announce-item { font-size: .6rem; letter-spacing: .18em; }
+}
 .marquee-item {
   font-size: .68rem;
   letter-spacing: .35em;
