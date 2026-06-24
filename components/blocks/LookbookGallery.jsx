@@ -8,12 +8,12 @@ import {
   ContainerStagger, ContainerAnimated,
 } from '@/components/blocks/animated-gallery';
 
-const COL_1 = ['/img/gen/look-01.webp', '/img/gen/look-02.webp'];
-const COL_2 = ['/img/gen/look-03.webp', '/img/gen/look-04.webp'];
-const COL_3 = ['/img/gen/look-05.webp', '/img/gen/look-06.webp'];
+const COL_1 = ['/img/gen/look-01.webp', '/img/gen/look-02.webp', '/img/gen/look-03.webp'];
+const COL_2 = ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-06.webp'];
+const COL_3 = ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'];
 
 const Img = ({ src }) => (
-  <div style={{ aspectRatio: '3/4', width: '100%', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,.4)' }}>
+  <div style={{ height: '28vh', width: '100%', overflow: 'hidden', borderRadius: '10px', boxShadow: '0 6px 18px rgba(0,0,0,.4)' }}>
     <img src={src} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} />
   </div>
 );
