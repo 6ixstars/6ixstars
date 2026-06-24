@@ -41,18 +41,18 @@ export default function LookbookGallery() {
         </ContainerAnimated>
       </ContainerStagger>
 
-      <ContainerScroll className="relative h-[320vh]">
+      <ContainerScroll className="relative h-[380vh]">
         <ContainerSticky className="h-svh">
           {/* Las columnas se deslizan hacia arriba durante el scroll para
               revelar todas las fotos verticales (que son más altas que el viewport). */}
           <GalleryContainer style={{ maxWidth: '820px', margin: '0 auto', padding: '0 16px' }}>
-            <GalleryCol className="-mt-2" yRange={['10%', '-35%']}>
+            <GalleryCol className="-mt-2" yRange={['8%', '-58%']}>
               {COL_1.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
-            <GalleryCol style={{ marginTop: '-8%' }} yRange={['18%', '-48%']}>
+            <GalleryCol style={{ marginTop: '-8%' }} yRange={['15%', '-68%']}>
               {COL_2.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
-            <GalleryCol yRange={['6%', '-30%']}>
+            <GalleryCol yRange={['4%', '-52%']}>
               {COL_3.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
           </GalleryContainer>
