@@ -61,7 +61,7 @@ export default function HomePageClient({ products = [] }) {
       <div className="sx6-frame" aria-hidden="true">
         <span className="sx6-frame-tl">★ EST. MMXXVI</span>
         <span className="sx6-frame-tr">TORONTO ⇄ CO</span>
-        <span className="sx6-frame-bl">FW26 / 6IX</span>
+        <span className="sx6-frame-bl">COL. 2026 / 6IX</span>
         <span className="sx6-frame-br">6IXSTARS®</span>
       </div>
 
@@ -80,8 +80,8 @@ export default function HomePageClient({ products = [] }) {
         <section className="container sx6-section">
           <Reveal className="sx6-head sx6-head-row">
             <div>
-              <span className="sx6-tag">/// SNEAKERS</span>
-              <h2 className="sx6-head-title">SNEAKERS</h2>
+              <span className="sx6-tag">/// TENIS</span>
+              <h2 className="sx6-head-title">TENIS</h2>
             </div>
             <Link href="/tienda?cat=gorras" className="sx6-head-link" data-cursor="hover">VER TODO <ArrowRight size={16} /></Link>
           </Reveal>
@@ -136,7 +136,7 @@ export default function HomePageClient({ products = [] }) {
         <section className="sx6-campaign">
           <img src="/img/gen/campaign.webp" alt="Campaña 6ixstars FW26" className="sx6-campaign-img" />
           <div className="container sx6-campaign-inner">
-            <span className="sx6-tag">/// CAMPAÑA FW26</span>
+            <span className="sx6-tag">/// CAMPAÑA 2026</span>
             <h2 className="sx6-campaign-title">EN LAS CALLES<br /><span>DE COLOMBIA</span></h2>
             <Magnetic strength={0.4}>
               <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA COLECCIÓN <ArrowUpRight size={18} /></Link>

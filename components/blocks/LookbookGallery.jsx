@@ -20,9 +20,9 @@ export default function LookbookGallery() {
   return (
     <section className="lookbook-21" style={{ background: 'var(--black)' }}>
       <ContainerStagger className="container relative z-[9] place-self-center px-6 pt-24 text-center">
-        <ContainerAnimated className="lk-tag">/// EDITORIAL · FW26</ContainerAnimated>
+        <ContainerAnimated className="lk-tag">/// EDITORIAL · COL. 2026</ContainerAnimated>
         <ContainerAnimated>
-          <h2 className="lk-title">LOOKBOOK <span>FW26</span></h2>
+          <h2 className="lk-title">GALERÍA <span>2026</span></h2>
         </ContainerAnimated>
         <ContainerAnimated className="lk-sub">
           La calle como pasarela. Piezas reales sobre gente real — así se ve el 6ix.
