@@ -18,9 +18,15 @@ export default function PromoPopup() {
     }
   }, []);
 
+  const startMusic = () => {
+    const a = document.querySelector('audio[data-theme]');
+    if (a) { a.muted = false; a.play().catch(() => {}); }
+  };
+
   const dismiss = () => {
     if (leaving) return;
     sessionStorage.setItem('6ix-promo-seen', '1');
+    startMusic();
     setLeaving(true);
     setTimeout(() => setVisible(false), 400);
   };
@@ -43,6 +49,7 @@ export default function PromoPopup() {
         body: JSON.stringify({ email }),
       });
       setSent(true);
+      startMusic();
       sessionStorage.setItem('6ix-promo-seen', '1');
     } catch {
       setSent(true);
