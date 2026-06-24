@@ -13,8 +13,8 @@ const COL_2 = ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-
 const COL_3 = ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'];
 
 const Img = ({ src }) => (
-  <div className="aspect-[3/4] w-full overflow-hidden rounded-xl shadow-lg">
-    <img src={src} alt="" loading="lazy" className="h-full w-full object-cover object-top" />
+  <div style={{ aspectRatio: '3/4', width: '100%', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,.4)' }}>
+    <img src={src} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} />
   </div>
 );
 
