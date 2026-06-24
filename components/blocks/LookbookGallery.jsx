@@ -34,7 +34,7 @@ export default function LookbookGallery() {
         </ContainerAnimated>
       </ContainerStagger>
 
-      <ContainerScroll className="relative h-[160vh]">
+      <ContainerScroll className="relative h-[110vh]">
         <ContainerSticky className="h-svh">
           <GalleryContainer className="container">
             <GalleryCol className="-mt-2" yRange={['15%', '5%']}>

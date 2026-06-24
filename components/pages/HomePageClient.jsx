@@ -408,7 +408,7 @@ function HomeStyles() {
       .sx6-join-ig { display: inline-flex; align-items: center; gap: 8px; color: #0B0B0C; font-family: var(--font-tech); font-weight: 700; font-size: .8rem; margin-top: 18px; }
 
       /* ---------- CAMPAÑA ---------- */
-      .sx6-campaign { position: relative; min-height: 80vh; display: flex; align-items: flex-end; overflow: clip; margin-top: 86px; border-top: 1px solid var(--dark-4); border-bottom: 1px solid var(--dark-4); }
+      .sx6-campaign { position: relative; min-height: 80vh; display: flex; align-items: flex-end; overflow: clip; margin-top: 0; border-top: 1px solid var(--dark-4); border-bottom: 1px solid var(--dark-4); }
       .sx6-campaign-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
       .sx6-campaign::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(11,11,12,.94), rgba(11,11,12,.3) 55%, rgba(11,11,12,.55)); }
       .sx6-campaign-inner { position: relative; z-index: 1; padding-top: 60px; padding-bottom: 64px; }
