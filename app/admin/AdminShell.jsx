@@ -68,10 +68,10 @@ export default function AdminShell({ children }) {
     <div className={`admin-shell ${collapsed ? 'is-collapsed' : ''}`}>
       <aside className="admin-sidebar">
         <div className="admin-brand">
-          <span className="admin-brand-mark">SB</span>
+          <span className="admin-brand-mark">6S</span>
           {!collapsed && (
             <div className="admin-brand-text">
-              <span className="admin-brand-name">ScentualBliss</span>
+              <span className="admin-brand-name">6ixstars</span>
               <span className="admin-brand-sub">Panel admin</span>
             </div>
           )}

@@ -1,8 +1,8 @@
 import { SITE_URL } from '@/lib/site';
 
 export const metadata = {
-  title: 'Términos y Condiciones | ScentualBliss',
-  description: 'Términos y condiciones de uso y compra en ScentualBliss. Conoce tus derechos y obligaciones.',
+  title: 'Términos y Condiciones | 6ixstars',
+  description: 'Términos y condiciones de uso y compra en 6ixstars. Conoce tus derechos y obligaciones.',
   alternates: { canonical: `${SITE_URL}/terminos` },
 };
 
@@ -33,7 +33,7 @@ export default function TerminosPage() {
 const sections = [
   {
     title: '1. Aceptación de los Términos',
-    content: 'Al acceder y usar scentualbliss.com.co, usted acepta estos términos y condiciones en su totalidad. Si no está de acuerdo, le pedimos no utilizar nuestro sitio.',
+    content: 'Al acceder y usar 6ixstars.com.co, usted acepta estos términos y condiciones en su totalidad. Si no está de acuerdo, le pedimos no utilizar nuestro sitio.',
   },
   {
     title: '2. Productos y Disponibilidad',
@@ -52,7 +52,7 @@ const sections = [
   },
   {
     title: '4. Precios y Pagos',
-    content: 'Los precios están expresados en dólares estadounidenses (USD) y se procesan en pesos colombianos (COP) según la tasa de cambio vigente. Los pagos son procesados de forma segura por Wompi/Bancolombia. ScentualBliss no almacena datos de tarjetas de crédito.',
+    content: 'Los precios están expresados en dólares estadounidenses (USD) y se procesan en pesos colombianos (COP) según la tasa de cambio vigente. Los pagos son procesados de forma segura por Wompi/Bancolombia. 6ixstars no almacena datos de tarjetas de crédito.',
   },
   {
     title: '5. Envíos',
@@ -64,11 +64,11 @@ const sections = [
   },
   {
     title: '6. Propiedad Intelectual',
-    content: 'Todo el contenido del sitio (textos, imágenes, logotipos, diseños) es propiedad de ScentualBliss o sus licenciantes. Queda prohibida su reproducción total o parcial sin autorización expresa.',
+    content: 'Todo el contenido del sitio (textos, imágenes, logotipos, diseños) es propiedad de 6ixstars o sus licenciantes. Queda prohibida su reproducción total o parcial sin autorización expresa.',
   },
   {
     title: '7. Limitación de Responsabilidad',
-    content: 'ScentualBliss no será responsable por daños indirectos, incidentales o consecuentes derivados del uso del sitio o los productos. Nuestra responsabilidad máxima se limita al valor del pedido realizado.',
+    content: '6ixstars no será responsable por daños indirectos, incidentales o consecuentes derivados del uso del sitio o los productos. Nuestra responsabilidad máxima se limita al valor del pedido realizado.',
   },
   {
     title: '8. Ley Aplicable',
@@ -76,6 +76,6 @@ const sections = [
   },
   {
     title: '9. Contacto',
-    content: 'Para cualquier consulta sobre estos términos: <a href="mailto:ventas@scentualbliss.com.co" style="color:var(--gold)">ventas@scentualbliss.com.co</a> · WhatsApp: <a href="https://wa.me/573169376436" style="color:var(--gold)">+57 316 937 6436</a>',
+    content: 'Para cualquier consulta sobre estos términos: <a href="mailto:ventas@6ixstars.com.co" style="color:var(--gold)">ventas@6ixstars.com.co</a> · WhatsApp: <a href="https://wa.me/573143776839" style="color:var(--gold)">+57 314 377 6839</a>',
   },
 ];

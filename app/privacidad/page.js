@@ -1,8 +1,8 @@
 import { SITE_URL } from '@/lib/site';
 
 export const metadata = {
-  title: 'Política de Privacidad | ScentualBliss',
-  description: 'Política de privacidad y tratamiento de datos personales de ScentualBliss conforme a la Ley 1581 de 2012.',
+  title: 'Política de Privacidad | 6ixstars',
+  description: 'Política de privacidad y tratamiento de datos personales de 6ixstars conforme a la Ley 1581 de 2012.',
   alternates: { canonical: `${SITE_URL}/privacidad` },
 };
 
@@ -39,8 +39,8 @@ function LegalContent() {
   return (
     <>
       <Section title="1. Responsable del Tratamiento">
-        <p>ScentualBliss (en adelante "la Empresa") es responsable del tratamiento de los datos personales que usted nos proporciona a través de nuestro sitio web <strong>scentualbliss.com.co</strong>.</p>
-        <p style={{ marginTop: 12 }}>Contacto: <a href="mailto:ventas@scentualbliss.com.co" style={{ color: 'var(--gold)' }}>ventas@scentualbliss.com.co</a></p>
+        <p>6ixstars (en adelante "la Empresa") es responsable del tratamiento de los datos personales que usted nos proporciona a través de nuestro sitio web <strong>6ixstars.com.co</strong>.</p>
+        <p style={{ marginTop: 12 }}>Contacto: <a href="mailto:ventas@6ixstars.com.co" style={{ color: 'var(--gold)' }}>ventas@6ixstars.com.co</a></p>
       </Section>
 
       <Section title="2. Datos que Recopilamos">
@@ -94,7 +94,7 @@ function LegalContent() {
           <li>Presentar quejas ante la Superintendencia de Industria y Comercio</li>
           <li>Revocar la autorización y solicitar la supresión de datos</li>
         </ul>
-        <p style={{ marginTop: 12 }}>Para ejercer sus derechos, escríbanos a <a href="mailto:ventas@scentualbliss.com.co" style={{ color: 'var(--gold)' }}>ventas@scentualbliss.com.co</a></p>
+        <p style={{ marginTop: 12 }}>Para ejercer sus derechos, escríbanos a <a href="mailto:ventas@6ixstars.com.co" style={{ color: 'var(--gold)' }}>ventas@6ixstars.com.co</a></p>
       </Section>
 
       <Section title="7. Cookies">

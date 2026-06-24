@@ -1,5 +1,5 @@
 -- =====================================================
--- ScentualBliss — Schema Supabase
+-- 6ixstars — Schema Supabase
 -- Ejecutar en: Supabase Dashboard → SQL Editor
 -- =====================================================
 

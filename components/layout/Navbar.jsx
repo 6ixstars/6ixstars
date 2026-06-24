@@ -6,6 +6,7 @@ import { ShoppingBag, Search, Menu, X, Heart, ArrowRight, ArrowUpRight, FileText
 import { useCartStore, useCartCount } from '@/lib/store/cartStore';
 import { useWishlistStore } from '@/lib/store/wishlistStore';
 import { collections, getImagePath } from '@/lib/products-constants';
+import TubelightNav from '@/components/layout/TubelightNav';
 
 const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 const COP = (n) => 'COP $' + Number(n || 0).toLocaleString('es-CO');
@@ -146,14 +147,10 @@ function NavbarInner({ products = [] }) {
 
           <HouseLogo />
 
-          {/* Categorías en la MISMA fila */}
-          <nav className="sb-nav-cats" aria-label="Categorías">
-            {NAV_ITEMS.map(item => (
-              <Link key={item.label} href={item.to} className={`sb-nav-link ${isItemActive(item) ? 'active' : ''}`}>
-                {item.label}
-              </Link>
-            ))}
-          </nav>
+          {/* Categorías en la MISMA fila — 21st.dev Tubelight Navbar */}
+          <div className="sb-nav-cats">
+            <TubelightNav items={NAV_ITEMS.map(item => ({ ...item, active: isItemActive(item) }))} />
+          </div>
 
           <div className="sb-nav-actions">
             <button onClick={() => setSearchOpen(s => !s)} className="sb-nav-icon-btn" aria-label="Buscar"><Search size={19} /></button>

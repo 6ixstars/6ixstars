@@ -27,7 +27,7 @@ const faqs = [
     category: 'Devoluciones y Garantías',
     items: [
       { q: '¿Puedo devolver un producto?', a: 'Aceptamos devoluciones dentro de los 30 días siguientes a la compra, siempre que el producto esté sin abrir y en su empaque original.' },
-      { q: '¿Qué hago si recibo un producto dañado?', a: 'Contáctanos dentro de las 48 horas de recibir tu pedido con fotos del daño a ventas@scentualbliss.com.co. Te enviaremos un reemplazo sin costo adicional.' },
+      { q: '¿Qué hago si recibo un producto dañado?', a: 'Contáctanos dentro de las 48 horas de recibir tu pedido con fotos del daño a ventas@6ixstars.com.co. Te enviaremos un reemplazo sin costo adicional.' },
       { q: '¿Cuánto tarda el reembolso?', a: 'Una vez aprobada la devolución, el reembolso se procesa en 3–5 días hábiles a tu método de pago original.' },
     ],
   },

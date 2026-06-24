@@ -38,8 +38,8 @@ export default function LoginForm({ next = '/admin' }) {
     <div className="login-shell">
       <div className="login-card">
         <div className="login-brand">
-          <span className="login-brand-mark">SB</span>
-          <h1 className="login-brand-name">ScentualBliss</h1>
+          <span className="login-brand-mark">6S</span>
+          <h1 className="login-brand-name">6ixstars</h1>
           <p className="login-brand-sub">Panel administrativo</p>
         </div>
 
@@ -67,7 +67,7 @@ export default function LoginForm({ next = '/admin' }) {
           </button>
 
           <p className="login-hint">
-            Acceso restringido al equipo de ScentualBliss.
+            Acceso restringido al equipo de 6ixstars.
           </p>
         </form>
       </div>

@@ -17,14 +17,14 @@ self.addEventListener('push', (event) => {
   try {
     data = event.data?.json() || {};
   } catch {
-    data = { title: 'ScentualBliss', body: event.data?.text() || 'Nueva notificación' };
+    data = { title: '6ixstars', body: event.data?.text() || 'Nueva notificación' };
   }
 
   const options = {
     body: data.body || '',
     icon: '/icon-192.png',
     badge: '/icon-192.png',
-    tag: data.tag || 'scentualbliss-order',
+    tag: data.tag || '6ixstars-order',
     requireInteraction: true,
     data: { url: data.url || '/admin/orders' },
     actions: [

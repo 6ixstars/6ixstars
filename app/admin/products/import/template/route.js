@@ -18,7 +18,7 @@ export async function GET() {
     status: 200,
     headers: {
       'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-      'Content-Disposition': 'attachment; filename="plantilla-productos-scentualbliss.xlsx"',
+      'Content-Disposition': 'attachment; filename="plantilla-productos-6ixstars.xlsx"',
       'Content-Length': String(buffer.length),
       'Cache-Control': 'no-store',
     },

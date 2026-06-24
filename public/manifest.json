@@ -1,7 +1,7 @@
 {
-  "name": "ScentualBliss Admin",
-  "short_name": "ScentualBliss",
-  "description": "Panel de administración de ScentualBliss",
+  "name": "6ixstars Admin",
+  "short_name": "6ixstars",
+  "description": "Panel de administración de 6ixstars",
   "start_url": "/admin/orders",
   "scope": "/",
   "display": "standalone",

@@ -3,7 +3,7 @@
 Guía paso a paso para montar la tienda en Vercel con dominio propio.
 Orden recomendado: **Supabase → Variables → Vercel → Dominio → Wompi**.
 
-> ⚠️ Todo va en cuentas NUEVAS (Vercel, Supabase, Wompi), separadas de ScentualBliss.
+> ⚠️ Todo va en cuentas NUEVAS (Vercel, Supabase, Wompi) para 6ixstars.
 
 ---
 
@@ -42,7 +42,7 @@ npm run dev      # http://localhost:3000  → ya deberías ver los productos del
 ## 3) Vercel — primer deploy (vía CLI)
 El CLI ya está instalado. Cambia a tu cuenta nueva:
 ```bash
-vercel logout                  # sale de la cuenta vieja (scentualbliss25-dev)
+vercel logout                  # cierra sesión de la cuenta anterior
 vercel login                   # entra con TU cuenta nueva
 vercel link                    # crea/enlaza el proyecto nuevo (acepta defaults)
 ```

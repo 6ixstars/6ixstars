@@ -21,9 +21,9 @@ function buildWhatsAppLink(order, type = 'general') {
   const name = order.customer_name?.split(' ')[0] || '';
 
   const templates = {
-    general: `Hola ${name}! 🌸 Te escribo de ScentualBliss sobre tu pedido ${order.reference}.`,
-    shipped: `Hola ${name}! 🎉 Tu pedido ${order.reference} de ScentualBliss ya está en camino. ${order.tracking_carrier ? `Guía ${order.tracking_carrier}: ${order.tracking_number}` : ''}`,
-    delivered: `Hola ${name}! 🌸 Esperamos que estés disfrutando tu pedido ${order.reference}. ¿Nos dejarías una reseña?`,
+    general: `Hola ${name}! 🔥 Te escribo de 6ixstars sobre tu pedido ${order.reference}.`,
+    shipped: `Hola ${name}! 🎉 Tu pedido ${order.reference} de 6ixstars ya está en camino. ${order.tracking_carrier ? `Guía ${order.tracking_carrier}: ${order.tracking_number}` : ''}`,
+    delivered: `Hola ${name}! 🔥 Esperamos que estés disfrutando tu pedido ${order.reference}. ¿Nos dejarías una reseña?`,
   };
   return `https://wa.me/${phoneWithCountry}?text=${encodeURIComponent(templates[type] || templates.general)}`;
 }

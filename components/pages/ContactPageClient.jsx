@@ -7,7 +7,7 @@ import { PageTransition } from '@/components/ui/ScrollAnimations';
 const TOAST_STYLE = { style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(201,169,110,.3)' }, iconTheme: { primary: '#C9A96E', secondary: '#000' } };
 
 const info = [
-  { icon: Mail, label: 'Email', value: 'ventas@scentualbliss.com.co', href: 'mailto:ventas@scentualbliss.com.co' },
+  { icon: Mail, label: 'Email', value: 'ventas@6ixstars.com.co', href: 'mailto:ventas@6ixstars.com.co' },
   { icon: Phone, label: 'Teléfono', value: '+1 (234) 567-890', href: 'tel:+1234567890' },
   { icon: MapPin, label: 'Ubicación', value: 'Ciudad de México, México', href: null },
   { icon: Clock, label: 'Horario', value: 'Lun–Vie 9:00–18:00', href: null },
@@ -32,7 +32,7 @@ export default function ContactPageClient() {
     <main style={{ minHeight: '80vh' }}>
       <div style={{ background: 'var(--dark-2)', borderBottom: '1px solid rgba(201,169,110,.1)', padding: '48px 0 32px' }}>
         <div className="container">
-          <p style={{ fontSize: '.75rem', color: 'var(--gold)', letterSpacing: '.15em', textTransform: 'uppercase', marginBottom: '8px' }}>ScentualBliss</p>
+          <p style={{ fontSize: '.75rem', color: 'var(--gold)', letterSpacing: '.15em', textTransform: 'uppercase', marginBottom: '8px' }}>6ixstars</p>
           <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, color: 'var(--white)', marginBottom: '8px' }}>Contáctanos</h1>
           <p style={{ color: 'var(--gray)' }}>Estamos aquí para ayudarte. Escríbenos y te respondemos pronto.</p>
         </div>

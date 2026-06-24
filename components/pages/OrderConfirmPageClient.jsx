@@ -7,7 +7,7 @@ import { PageTransition } from '@/components/ui/ScrollAnimations';
 import { useCartStore } from '@/lib/store/cartStore';
 import { formatCOP } from '@/lib/format';
 
-const PHONE_WHATSAPP = '573169376436';
+const PHONE_WHATSAPP = '573143776839';
 
 // Estados Wompi: APPROVED, DECLINED, VOIDED, ERROR, PENDING
 const STATUS_CONFIG = {
@@ -162,7 +162,7 @@ export default function OrderConfirmPageClient() {
         {isFailed && (
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '40px' }}>
             <Link href="/checkout" className="btn btn-primary">Intentar de nuevo</Link>
-            <a href={`https://wa.me/${PHONE_WHATSAPP}?text=${encodeURIComponent('Hola, tuve problemas con mi pago en ScentualBliss. Mi referencia es ' + finalOrderId)}`}
+            <a href={`https://wa.me/${PHONE_WHATSAPP}?text=${encodeURIComponent('Hola, tuve problemas con mi pago en 6ixstars. Mi referencia es ' + finalOrderId)}`}
               target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ display: 'inline-flex', gap: '8px', alignItems: 'center' }}>
               <MessageCircle size={16} /> Contactar Soporte
             </a>

@@ -2,8 +2,7 @@
 
 Tienda en línea de **ropa urbana / streetwear** para el público juvenil en Colombia.
 
-Construida sobre Next.js 15 (App Router) + React 19. El sistema base proviene
-del e-commerce ScentualBliss, re-adaptado por completo al catálogo de ropa
+Construida sobre Next.js 15 (App Router) + React 19. El sistema base fue adaptado por completo al catálogo de ropa
 (tallas S/M/L/XL, colores, categorías como hoodies, camisetas, pantalones, etc.).
 
 ## Stack

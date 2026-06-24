@@ -49,7 +49,7 @@ export default function GlobalError({ error }) {
               marginBottom: 18,
             }}
           >
-            ScentualBliss
+            6ixstars
           </div>
           <h1
             style={{

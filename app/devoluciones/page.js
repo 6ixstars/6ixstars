@@ -1,13 +1,13 @@
 import { SITE_URL } from '@/lib/site';
 
 export const metadata = {
-  title: 'Política de Devoluciones — 30 Días de Garantía | ScentualBliss',
-  description: 'Política de devoluciones, cambios y reembolsos de ScentualBliss. 30 días de garantía sin complicaciones.',
+  title: 'Política de Devoluciones — 30 Días de Garantía | 6ixstars',
+  description: 'Política de devoluciones, cambios y reembolsos de 6ixstars. 30 días de garantía sin complicaciones.',
   alternates: { canonical: `${SITE_URL}/devoluciones` },
 };
 
 const steps = [
-  { n: '01', title: 'Contáctanos', desc: 'Escríbenos a ventas@scentualbliss.com.co o por WhatsApp dentro de los 30 días posteriores a recibir tu pedido.' },
+  { n: '01', title: 'Contáctanos', desc: 'Escríbenos a ventas@6ixstars.com.co o por WhatsApp dentro de los 30 días posteriores a recibir tu pedido.' },
   { n: '02', title: 'Aprobación', desc: 'Revisamos tu caso y te confirmamos si aplica la devolución en pocos días hábiles.' },
   { n: '03', title: 'Envío', desc: 'Nos envías el producto en su empaque original, sin uso y con todos sus accesorios.' },
   { n: '04', title: 'Reembolso', desc: 'Una vez recibido y verificado el producto, procesamos el reembolso en 5–7 días hábiles.' },
@@ -84,8 +84,8 @@ export default function DevolucionesPage() {
         <div style={{ padding: '32px', background: 'var(--bg-2)', borderLeft: '3px solid var(--gold)', marginTop: 40 }}>
           <p style={{ fontFamily: 'var(--font-serif)', fontSize: '1.2rem', color: 'var(--white)', marginBottom: 12 }}>¿Necesitas iniciar una devolución?</p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a href="mailto:ventas@scentualbliss.com.co" className="btn btn-primary btn-sm">ventas@scentualbliss.com.co</a>
-            <a href="https://wa.me/573169376436?text=Hola, quiero iniciar una devolución" target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">WhatsApp</a>
+            <a href="mailto:ventas@6ixstars.com.co" className="btn btn-primary btn-sm">ventas@6ixstars.com.co</a>
+            <a href="https://wa.me/573143776839?text=Hola, quiero iniciar una devolución" target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-sm">WhatsApp</a>
           </div>
         </div>
       </div>

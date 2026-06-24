@@ -2,7 +2,7 @@ import { ServiceWorkerRegister } from './ServiceWorkerRegister';
 import AdminShell from './AdminShell';
 
 export const metadata = {
-  title: 'Admin — ScentualBliss',
+  title: 'Admin — 6ixstars',
   robots: { index: false, follow: false },
 };
 

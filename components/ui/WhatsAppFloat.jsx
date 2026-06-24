@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
-const PHONE = '573169376436'; // +57 (Colombia) + 3169376436
-const DEFAULT_MESSAGE = 'Hola! Me interesa un perfume de ScentualBliss 🌸';
+const PHONE = '573143776839'; // +57 (Colombia) + 3143776839
+const DEFAULT_MESSAGE = 'Hola! Me interesa ropa de 6ixstars 🔥';
 
 export default function WhatsAppFloat() {
   const [showTooltip, setShowTooltip] = useState(false);

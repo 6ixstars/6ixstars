@@ -37,7 +37,7 @@ function buildWhatsAppLink(order) {
   if (!phone) return null;
   const ref = order.reference || '';
   const name = order.customer_name?.split(' ')[0] || '';
-  const text = `Hola ${name}! 🌸 Te escribo de ScentualBliss sobre tu pedido ${ref}.`;
+  const text = `Hola ${name}! 🔥 Te escribo de 6ixstars sobre tu pedido ${ref}.`;
   const phoneWithCountry = phone.length === 10 ? '57' + phone : phone;
   return `https://wa.me/${phoneWithCountry}?text=${encodeURIComponent(text)}`;
 }
@@ -62,7 +62,7 @@ function exportToCSV(orders) {
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `ordenes-scentualbliss-${new Date().toISOString().slice(0, 10)}.csv`;
+  a.download = `ordenes-6ixstars-${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
