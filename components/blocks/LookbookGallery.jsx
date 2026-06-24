@@ -41,13 +41,15 @@ export default function LookbookGallery() {
         </ContainerAnimated>
       </ContainerStagger>
 
-      <ContainerScroll className="relative h-[220vh]">
+      <ContainerScroll className="relative h-[180vh]">
         <ContainerSticky className="h-svh">
-          <GalleryContainer className="container">
-            <GalleryCol className="-mt-2" yRange={['15%', '5%']}>
+          {/* Contenedor estrecho: columnas angostas → fotos verticales pequeñas,
+              compactas y las 9 visibles en una sola vista. */}
+          <GalleryContainer style={{ maxWidth: '560px', margin: '0 auto', padding: '0 16px' }}>
+            <GalleryCol className="-mt-2" yRange={['12%', '4%']}>
               {COL_1.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
-            <GalleryCol className="mt-[-30%]" yRange={['30%', '5%']}>
+            <GalleryCol style={{ marginTop: '-8%' }} yRange={['20%', '4%']}>
               {COL_2.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
             <GalleryCol yRange={['8%', '2%']}>
