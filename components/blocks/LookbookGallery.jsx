@@ -8,9 +8,9 @@ import {
   ContainerStagger, ContainerAnimated,
 } from '@/components/blocks/animated-gallery';
 
-const COL_1 = ['/img/gen/look-01.webp', '/img/gen/look-02.webp', '/img/gen/look-03.webp'];
-const COL_2 = ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-06.webp'];
-const COL_3 = ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'];
+const COL_1 = ['/img/gen/look-01.webp', '/img/gen/look-02.webp'];
+const COL_2 = ['/img/gen/look-03.webp', '/img/gen/look-04.webp'];
+const COL_3 = ['/img/gen/look-05.webp', '/img/gen/look-06.webp'];
 
 const Img = ({ src }) => (
   <div style={{ aspectRatio: '3/4', width: '100%', overflow: 'hidden', borderRadius: '12px', boxShadow: '0 8px 24px rgba(0,0,0,.4)' }}>
@@ -36,7 +36,7 @@ export default function LookbookGallery() {
         </ContainerAnimated>
       </ContainerStagger>
 
-      <ContainerScroll className="relative h-[110vh]">
+      <ContainerScroll className="relative h-[150vh]">
         <ContainerSticky className="h-svh">
           <GalleryContainer className="container">
             <GalleryCol className="-mt-2" yRange={['15%', '5%']}>
