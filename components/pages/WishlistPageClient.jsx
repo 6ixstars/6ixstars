@@ -15,15 +15,15 @@ export default function WishlistPageClient() {
   const handleAddAll = () => {
     items.forEach(p => addItem(p, p.sizes?.[1]?.ml || p.sizes?.[0]?.ml));
     toast.success(`${items.length} fragancias agregadas al carrito`, {
-      style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(201,169,110,.3)' },
-      iconTheme: { primary: '#C9A96E', secondary: '#000' },
+      style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(175,31,58,.3)' },
+      iconTheme: { primary: '#AF1F3A', secondary: '#000' },
     });
   };
 
   return (
     <PageTransition>
     <main style={{ minHeight: '80vh' }}>
-      <div style={{ background: 'var(--dark-2)', borderBottom: '1px solid rgba(201,169,110,.1)', padding: '48px 0 32px' }}>
+      <div style={{ background: 'var(--dark-2)', borderBottom: '1px solid rgba(175,31,58,.1)', padding: '48px 0 32px' }}>
         <div className="container" style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
@@ -47,7 +47,7 @@ export default function WishlistPageClient() {
       <div className="container" style={{ padding: '40px 24px' }}>
         {items.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '100px 24px' }}>
-            <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(201,169,110,.08)', border: '1px solid rgba(201,169,110,.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+            <div style={{ width: 80, height: 80, borderRadius: '50%', background: 'rgba(175,31,58,.08)', border: '1px solid rgba(175,31,58,.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
               <Heart size={36} style={{ color: 'var(--dark-4)' }} />
             </div>
             <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', marginBottom: '12px', fontWeight: 300 }}>

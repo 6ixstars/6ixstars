@@ -159,10 +159,10 @@ export default function PromoPopup() {
           display: flex;
           width: min(440px, calc(100vw - 32px));
           background: #0E0B08;
-          border: 1px solid rgba(201,169,110,.25);
+          border: 1px solid rgba(175,31,58,.25);
           border-radius: 18px;
           overflow: hidden;
-          box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(201,169,110,.06) inset;
+          box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(175,31,58,.06) inset;
           animation: pp-card-in .45s cubic-bezier(.22,1,.36,1) forwards;
         }
         .pp-card--out { animation: pp-card-out .4s cubic-bezier(.4,0,.2,1) forwards !important; }
@@ -178,7 +178,7 @@ export default function PromoPopup() {
         .pp-side {
           width: 44px;
           flex-shrink: 0;
-          background: linear-gradient(180deg, #C9A96E 0%, #8A6936 100%);
+          background: linear-gradient(180deg, #AF1F3A 0%, #8A1830 100%);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -227,7 +227,7 @@ export default function PromoPopup() {
           font-size: .6rem;
           letter-spacing: .22em;
           text-transform: uppercase;
-          color: #C9A96E;
+          color: #AF1F3A;
           margin: 0 0 10px;
           font-weight: 600;
         }
@@ -242,7 +242,7 @@ export default function PromoPopup() {
         .pp-pct {
           font-family: var(--font-anton), 'Anton', sans-serif;
           font-size: 5.5rem;
-          color: #C9A96E;
+          color: #AF1F3A;
           line-height: 1;
         }
         .pp-sym {
@@ -251,7 +251,7 @@ export default function PromoPopup() {
         .pp-off {
           font-family: var(--font-anton), 'Anton', sans-serif;
           font-size: 2rem;
-          color: rgba(201,169,110,.5);
+          color: rgba(175,31,58,.5);
           letter-spacing: .08em;
           align-self: flex-end;
           padding-bottom: 10px;
@@ -287,7 +287,7 @@ export default function PromoPopup() {
           width: 100%;
           padding: 11px 14px;
           background: rgba(250,246,238,.05);
-          border: 1px solid rgba(201,169,110,.2);
+          border: 1px solid rgba(175,31,58,.2);
           border-radius: 10px;
           color: #F5EFE3;
           font-family: var(--font-montserrat), sans-serif;
@@ -297,12 +297,12 @@ export default function PromoPopup() {
           box-sizing: border-box;
         }
         .pp-input::placeholder { color: rgba(250,246,238,.25); }
-        .pp-input:focus { border-color: rgba(201,169,110,.55); }
+        .pp-input:focus { border-color: rgba(175,31,58,.55); }
 
         .pp-btn {
           width: 100%;
           padding: 12px;
-          background: #C9A96E;
+          background: #AF1F3A;
           border: none;
           border-radius: 10px;
           color: #0E0B08;
@@ -316,7 +316,7 @@ export default function PromoPopup() {
           text-align: center;
           display: block;
         }
-        .pp-btn:hover { background: #D4B47A; transform: translateY(-1px); }
+        .pp-btn:hover { background: #EEB1C3; transform: translateY(-1px); }
         .pp-btn:disabled { opacity: .6; cursor: not-allowed; }
         .pp-btn--link { margin-top: 12px; }
 
@@ -340,10 +340,10 @@ export default function PromoPopup() {
           justify-content: space-between;
           width: 100%;
           padding: 12px 16px;
-          background: rgba(201,169,110,.1);
-          border: 1px dashed rgba(201,169,110,.4);
+          background: rgba(175,31,58,.1);
+          border: 1px dashed rgba(175,31,58,.4);
           border-radius: 10px;
-          color: #C9A96E;
+          color: #AF1F3A;
           font-family: var(--font-montserrat), sans-serif;
           font-size: .95rem;
           font-weight: 700;
@@ -352,7 +352,7 @@ export default function PromoPopup() {
           transition: background .2s;
           margin-bottom: 6px;
         }
-        .pp-code:hover { background: rgba(201,169,110,.16); }
+        .pp-code:hover { background: rgba(175,31,58,.16); }
         .pp-copy-ico { opacity: .7; }
 
         .pp-legal {

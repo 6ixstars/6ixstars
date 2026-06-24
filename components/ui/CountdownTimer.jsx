@@ -31,7 +31,7 @@ export default function CountdownTimer({ endDate }) {
       ].map(({ label, value }, i) => (
         <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <div style={{
-            background: 'var(--dark-3)', border: '1px solid rgba(201,169,110,.3)',
+            background: 'var(--dark-3)', border: '1px solid rgba(175,31,58,.3)',
             borderRadius: '8px', padding: '10px 14px', minWidth: '60px', textAlign: 'center',
           }}>
             <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: 'var(--gold)', lineHeight: 1, fontWeight: 600 }}>

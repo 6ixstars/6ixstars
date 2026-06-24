@@ -14,13 +14,12 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  /* ACENTO — rosa chicle del logo + rojo/carmín del contorno.
-     (--gold* conserva el nombre, ahora es ROSA/ROJO) */
-  --gold: #FF2E7E;             /* acento principal — hot pink */
-  --gold-light: #FF8FB8;       /* rosa claro — detalles suaves */
-  --gold-dark: #E11D48;        /* rojo/carmín — estados fuertes, hovers */
-  --pink: #FF2E7E;
-  --red: #E11D48;
+  /* ACENTO — colores oficiales de la marca 6ixstars */
+  --gold: #AF1F3A;             /* carmín/rojo — acento principal, CTAs */
+  --gold-light: #EEB1C3;       /* rosa suave — detalles, highlights */
+  --gold-dark: #8A1830;        /* carmín oscuro — hovers, estados activos */
+  --pink: #EEB1C3;
+  --red: #AF1F3A;
 
   /* TEMA OSCURO — backgrounds */
   --black: #0B0B0C;            /* body bg principal — casi negro */
@@ -58,7 +57,7 @@
   --shadow-sm: 0 1px 3px rgba(0,0,0,.4);
   --shadow-md: 0 4px 20px rgba(0,0,0,.5);
   --shadow-lg: 0 8px 40px rgba(0,0,0,.6);
-  --shadow-gold: 0 4px 30px rgba(255,46,126,.35);
+  --shadow-gold: 0 4px 30px rgba(175,31,58,.35);
 
   --ease: cubic-bezier(.4,0,.2,1);
   --t-fast: 150ms var(--ease);
@@ -169,7 +168,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   background: var(--gold); color: #0B0B0C; border: 2px solid var(--gold);
   box-shadow: var(--shadow-gold);
 }
-.btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); color: #FFFFFF; transform: translateY(-1px); box-shadow: 0 8px 40px rgba(255,46,126,.5); }
+.btn-primary:hover { background: var(--gold-dark); border-color: var(--gold-dark); color: #FFFFFF; transform: translateY(-1px); box-shadow: 0 8px 40px rgba(175,31,58,.5); }
 
 .btn-outline {
   background: transparent; color: var(--white); border: 1.5px solid var(--gold);
@@ -228,7 +227,7 @@ button { cursor: pointer; border: none; background: none; font-family: var(--fon
   border-radius: var(--r-md); color: var(--white); font-family: var(--font-sans); font-size: .95rem;
   transition: border-color var(--t-fast), box-shadow var(--t-fast); outline: none;
 }
-.input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(255,46,126,.15); }
+.input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(175,31,58,.15); }
 .input::placeholder { color: var(--gray); }
 
 .form-group { display: flex; flex-direction: column; gap: var(--sp-2); margin-bottom: var(--sp-5); }
@@ -583,7 +582,7 @@ body::after {
 .shop-search-input::placeholder { color: var(--gray); }
 .shop-search-input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px rgba(255,46,126,.15);
+  box-shadow: 0 0 0 3px rgba(175,31,58,.15);
 }
 .shop-search-clear {
   position: absolute;
@@ -678,7 +677,7 @@ body::after {
 }
 .shop-filter-btn:hover {
   border-color: var(--gold);
-  background: rgba(255,46,126,.08);
+  background: rgba(175,31,58,.08);
   color: var(--gold);
 }
 .shop-filter-badge {
@@ -966,7 +965,7 @@ body::after {
   transition: transform .3s cubic-bezier(.16,1,.3,1), border-color .3s, box-shadow .3s;
   will-change: transform;
 }
-.pc-card:hover { border-color: var(--gold); box-shadow: 0 24px 50px rgba(0,0,0,.55), 0 0 26px rgba(255,46,126,.18); }
+.pc-card:hover { border-color: var(--gold); box-shadow: 0 24px 50px rgba(0,0,0,.55), 0 0 26px rgba(175,31,58,.18); }
 
 .pc-media { position: relative; aspect-ratio: 3/4; overflow: hidden; background: #141416; }
 .pc-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.16,1,.3,1), opacity .5s; }
@@ -1002,7 +1001,7 @@ body::after {
 .pc-add:hover { background: #fff; }
 .pc-add:disabled { background: var(--dark-4); color: var(--gray); cursor: not-allowed; }
 .pc-eye { width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #fff; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s; }
-.pc-eye:hover { background: rgba(255,46,126,.32); }
+.pc-eye:hover { background: rgba(175,31,58,.32); }
 
 .pc-info { padding: 14px 14px 16px; }
 .pc-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }

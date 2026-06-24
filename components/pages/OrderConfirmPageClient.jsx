@@ -18,7 +18,7 @@ const STATUS_CONFIG = {
   ERROR:         { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Error',     icon: AlertCircle, title: 'Error en el Pago',     msg: 'Ocurrió un error procesando tu pago. Intenta de nuevo.' },
   DEMO:          { color: 'var(--success)', bg: 'rgba(124,158,135,.15)', label: 'Confirmado', icon: CheckCircle, title: '¡Pedido Confirmado!', msg: 'Hemos recibido tu pedido y lo estamos preparando con cuidado.' },
   COD:           { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Por Pagar',  icon: Package,    title: '¡Pedido Recibido!',    msg: 'Pagas al recibir el producto. Te contactaremos para confirmar la entrega.' },
-  LOADING:       { color: 'var(--gold)',    bg: 'rgba(201,169,110,.10)', label: 'Verificando', icon: Loader2,   title: 'Verificando Pago...', msg: 'Estamos confirmando el estado de tu transacción con Wompi.' },
+  LOADING:       { color: 'var(--gold)',    bg: 'rgba(175,31,58,.10)', label: 'Verificando', icon: Loader2,   title: 'Verificando Pago...', msg: 'Estamos confirmando el estado de tu transacción con Wompi.' },
 };
 
 export default function OrderConfirmPageClient() {
@@ -109,7 +109,7 @@ export default function OrderConfirmPageClient() {
         )}
 
         {(isSuccess || isLoading) && (
-          <div style={{ background: 'var(--dark-2)', border: '1px solid rgba(201,169,110,.2)', borderRadius: '16px', padding: '28px', marginBottom: '32px', textAlign: 'left' }}>
+          <div style={{ background: 'var(--dark-2)', border: '1px solid rgba(175,31,58,.2)', borderRadius: '16px', padding: '28px', marginBottom: '32px', textAlign: 'left' }}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
               <div>
                 <p style={{ fontSize: '.75rem', color: 'var(--gray)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: '6px' }}>Número de Pedido</p>

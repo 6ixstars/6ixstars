@@ -253,7 +253,7 @@ export function OrderActions({ order }) {
         }
         .oa-btn-resend:hover:not(:disabled) {
           background: #faf6ee;
-          border-color: #c9a96e;
+          border-color: #AF1F3A;
           color: #6b4f24;
         }
         .oa-select, .oa-input, .oa-textarea {
@@ -271,7 +271,7 @@ export function OrderActions({ order }) {
           min-height: 80px;
         }
         .oa-select:focus, .oa-input:focus, .oa-textarea:focus {
-          outline: 2px solid #c9a96e;
+          outline: 2px solid #AF1F3A;
           outline-offset: -1px;
         }
         .oa-msg {

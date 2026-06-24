@@ -40,8 +40,8 @@ export default function QuickView({ product, isOpen, onClose }) {
     }
     addItem(product, selSize);
     toast.success(`${product.name} agregado al carrito`, {
-      style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(201,169,110,.3)' },
-      iconTheme: { primary: '#C9A96E', secondary: '#000' },
+      style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(175,31,58,.3)' },
+      iconTheme: { primary: '#AF1F3A', secondary: '#000' },
     });
     onClose();
   };
@@ -79,7 +79,7 @@ export default function QuickView({ product, isOpen, onClose }) {
             transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             style={{
               width: '100%', maxWidth: '860px', maxHeight: '90vh', overflow: 'auto',
-              background: 'var(--dark-2)', border: '1px solid rgba(201,169,110,.2)',
+              background: 'var(--dark-2)', border: '1px solid rgba(175,31,58,.2)',
               borderRadius: '20px', boxShadow: '0 24px 80px rgba(31,26,18,.30)',
               pointerEvents: 'auto',
               position: 'relative',
@@ -91,7 +91,7 @@ export default function QuickView({ product, isOpen, onClose }) {
               backdropFilter: 'blur(8px)', display: 'flex', alignItems: 'center', justifyContent: 'center',
               color: 'var(--gray)', border: '1px solid rgba(31,26,18,.08)', transition: 'all .2s', cursor: 'pointer',
             }}
-              onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'rgba(201,169,110,.4)'; }}
+              onMouseEnter={e => { e.currentTarget.style.color = 'var(--white)'; e.currentTarget.style.borderColor = 'rgba(175,31,58,.4)'; }}
               onMouseLeave={e => { e.currentTarget.style.color = 'var(--gray)'; e.currentTarget.style.borderColor = 'rgba(31,26,18,.08)'; }}>
               <X size={18} />
             </button>
@@ -156,7 +156,7 @@ export default function QuickView({ product, isOpen, onClose }) {
 
                   <p style={{ fontSize: '.85rem', color: 'var(--gray-light)', lineHeight: 1.65, marginBottom: '16px' }}>{product.description}</p>
 
-                  <div style={{ display: 'flex', gap: '12px', padding: '10px', background: 'rgba(201,169,110,.05)', border: '1px solid rgba(201,169,110,.12)', borderRadius: '8px' }}>
+                  <div style={{ display: 'flex', gap: '12px', padding: '10px', background: 'rgba(175,31,58,.05)', border: '1px solid rgba(175,31,58,.12)', borderRadius: '8px' }}>
                     {[['Salida', product.notes.top], ['Corazón', product.notes.heart], ['Fondo', product.notes.base]].map(([l, n]) => (
                       <div key={l} style={{ flex: 1 }}>
                         <p style={{ fontSize: '.6rem', fontWeight: 700, letterSpacing: '.1em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: '2px' }}>{l}</p>
@@ -167,7 +167,7 @@ export default function QuickView({ product, isOpen, onClose }) {
                 </div>
 
                 {/* Tamaños + botones: siempre visibles al fondo */}
-                <div style={{ padding: '14px 24px 24px', borderTop: '1px solid rgba(201,169,110,.12)', background: 'var(--dark-2)' }}>
+                <div style={{ padding: '14px 24px 24px', borderTop: '1px solid rgba(175,31,58,.12)', background: 'var(--dark-2)' }}>
                   <div style={{ marginBottom: '12px' }}>
                     <label style={{ fontSize: '.68rem', fontWeight: 600, letterSpacing: '.08em', textTransform: 'uppercase', color: 'var(--gray)', marginBottom: '8px', display: 'block' }}>Tamaño</label>
                     <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
@@ -175,7 +175,7 @@ export default function QuickView({ product, isOpen, onClose }) {
                         <button key={s.ml} onClick={() => setSelSize(s.ml)} style={{
                           padding: '7px 14px', borderRadius: '6px', border: '1.5px solid',
                           borderColor: selSize === s.ml ? 'var(--gold)' : 'var(--dark-4)',
-                          background: selSize === s.ml ? 'rgba(201,169,110,.1)' : 'transparent',
+                          background: selSize === s.ml ? 'rgba(175,31,58,.1)' : 'transparent',
                           color: selSize === s.ml ? 'var(--gold)' : 'var(--gray-light)',
                           fontSize: '.8rem', fontWeight: 600, cursor: 'pointer', transition: 'all .2s',
                           display: 'flex', flexDirection: 'column', alignItems: 'center', lineHeight: 1.15,

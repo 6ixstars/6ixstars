@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { PageTransition } from '@/components/ui/ScrollAnimations';
 
-const TOAST_STYLE = { style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(201,169,110,.3)' }, iconTheme: { primary: '#C9A96E', secondary: '#000' } };
+const TOAST_STYLE = { style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(175,31,58,.3)' }, iconTheme: { primary: '#AF1F3A', secondary: '#000' } };
 
 const info = [
   { icon: Mail, label: 'Email', value: 'ventas@6ixstars.com.co', href: 'mailto:ventas@6ixstars.com.co' },
@@ -30,7 +30,7 @@ export default function ContactPageClient() {
   return (
     <PageTransition>
     <main style={{ minHeight: '80vh' }}>
-      <div style={{ background: 'var(--dark-2)', borderBottom: '1px solid rgba(201,169,110,.1)', padding: '48px 0 32px' }}>
+      <div style={{ background: 'var(--dark-2)', borderBottom: '1px solid rgba(175,31,58,.1)', padding: '48px 0 32px' }}>
         <div className="container">
           <p style={{ fontSize: '.75rem', color: 'var(--gold)', letterSpacing: '.15em', textTransform: 'uppercase', marginBottom: '8px' }}>6ixstars</p>
           <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, color: 'var(--white)', marginBottom: '8px' }}>Contáctanos</h1>
@@ -48,7 +48,7 @@ export default function ContactPageClient() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {info.map(({ icon: Icon, label, value, href }) => (
                 <div key={label} style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-                  <div style={{ width: 44, height: 44, borderRadius: '10px', background: 'rgba(201,169,110,.08)', border: '1px solid rgba(201,169,110,.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                  <div style={{ width: 44, height: 44, borderRadius: '10px', background: 'rgba(175,31,58,.08)', border: '1px solid rgba(175,31,58,.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
                     <Icon size={18} style={{ color: 'var(--gold)' }} />
                   </div>
                   <div>
@@ -63,7 +63,7 @@ export default function ContactPageClient() {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} style={{ background: 'var(--dark-2)', border: '1px solid rgba(201,169,110,.15)', borderRadius: '16px', padding: '36px' }}>
+          <form onSubmit={handleSubmit} style={{ background: 'var(--dark-2)', border: '1px solid rgba(175,31,58,.15)', borderRadius: '16px', padding: '36px' }}>
             <h3 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', marginBottom: '28px', fontWeight: 300, fontSize: '1.5rem' }}>Envíanos un mensaje</h3>
             <div className="grid-2" style={{ gap: '16px' }}>
               <div className="form-group">

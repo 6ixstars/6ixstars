@@ -386,7 +386,7 @@ export function OrdersTable({ orders }) {
           min-width: 260px;
         }
         .ot-search-input:focus {
-          outline: 2px solid #c9a96e;
+          outline: 2px solid #AF1F3A;
           outline-offset: -1px;
         }
         .ot-export-btn {

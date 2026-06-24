@@ -231,8 +231,8 @@ export default function CheckoutPageClient() {
         <div style={{
           display: 'flex', alignItems: 'center', gap: '16px',
           padding: '14px 20px', borderRadius: '12px',
-          background: 'linear-gradient(90deg, rgba(201,169,110,.10), rgba(201,169,110,.04))',
-          border: '1px solid rgba(201,169,110,.30)',
+          background: 'linear-gradient(90deg, rgba(175,31,58,.10), rgba(175,31,58,.04))',
+          border: '1px solid rgba(175,31,58,.30)',
           marginBottom: '24px', flexWrap: 'wrap',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -262,7 +262,7 @@ export default function CheckoutPageClient() {
                 <div style={{
                   width: 32, height: 32, borderRadius: '50%', border: '2px solid',
                   borderColor: i <= step ? 'var(--gold)' : 'var(--dark-4)',
-                  background: i < step ? 'var(--gold)' : i === step ? 'rgba(201,169,110,.15)' : 'transparent',
+                  background: i < step ? 'var(--gold)' : i === step ? 'rgba(175,31,58,.15)' : 'transparent',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   color: i < step ? '#1F1A12' : i === step ? 'var(--gold-dark)' : 'var(--gray)',
                   fontSize: '.85rem', fontWeight: 700, transition: 'all .3s',
@@ -382,7 +382,7 @@ export default function CheckoutPageClient() {
                           display: 'flex', alignItems: 'center', gap: '12px',
                           padding: '14px', borderRadius: '10px',
                           border: '1px solid var(--dark-4)',
-                          background: 'rgba(201,169,110,.04)',
+                          background: 'rgba(175,31,58,.04)',
                         }}>
                           <Icon size={20} style={{ color: 'var(--gold)', flexShrink: 0 }} />
                           <div style={{ minWidth: 0 }}>
@@ -435,7 +435,7 @@ export default function CheckoutPageClient() {
           <aside style={{ position: 'relative' }}>
             <div className="checkout-sidebar" style={{
               background: 'var(--dark-2)', borderRadius: '16px',
-              border: '1px solid rgba(201,169,110,.25)',
+              border: '1px solid rgba(175,31,58,.25)',
               padding: '24px', position: 'sticky', top: '90px',
               boxShadow: 'var(--shadow-md)',
             }}>
@@ -444,7 +444,7 @@ export default function CheckoutPageClient() {
 
               {/* FREE SHIPPING PROGRESS */}
               {remainingForFreeShipping > 0 ? (
-                <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(201,169,110,.08)', borderRadius: '10px', border: '1px solid rgba(201,169,110,.25)' }}>
+                <div style={{ marginBottom: '16px', padding: '12px', background: 'rgba(175,31,58,.08)', borderRadius: '10px', border: '1px solid rgba(175,31,58,.25)' }}>
                   <p style={{ fontSize: '.78rem', color: 'var(--white)', marginBottom: '8px' }}>
                     🚚 Te faltan <strong style={{ color: 'var(--gold)' }}>{formatCOP(remainingForFreeShipping)}</strong> para envío GRATIS
                   </p>
@@ -547,7 +547,7 @@ export default function CheckoutPageClient() {
               </div>
 
               {/* SOCIAL PROOF: rating */}
-              <div style={{ marginTop: '14px', padding: '12px', background: 'rgba(201,169,110,.05)', borderRadius: '10px', border: '1px solid rgba(201,169,110,.15)' }}>
+              <div style={{ marginTop: '14px', padding: '12px', background: 'rgba(175,31,58,.05)', borderRadius: '10px', border: '1px solid rgba(175,31,58,.15)' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '4px' }}>
                   {[1,2,3,4,5].map(s => <Star key={s} size={13} fill="var(--gold)" stroke="var(--gold)" />)}
                   <span style={{ fontSize: '.82rem', fontWeight: 700, color: 'var(--white)', marginLeft: '4px' }}>4.9/5</span>
@@ -576,7 +576,7 @@ export default function CheckoutPageClient() {
         <div style={{
           position: 'fixed', bottom: '24px', left: '50%', transform: 'translateX(-50%)',
           background: 'rgba(31,26,18,.92)', backdropFilter: 'blur(20px)',
-          border: '1px solid rgba(201,169,110,.30)',
+          border: '1px solid rgba(175,31,58,.30)',
           borderRadius: '99px', padding: '10px 18px', zIndex: 100,
           display: 'flex', alignItems: 'center', gap: '10px',
           boxShadow: '0 8px 30px rgba(31,26,18,.30)',
@@ -593,7 +593,7 @@ export default function CheckoutPageClient() {
       <div className="checkout-cta-mobile" style={{
         position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 90,
         background: 'rgba(255,255,255,.98)', backdropFilter: 'blur(20px)',
-        borderTop: '1px solid rgba(201,169,110,.25)',
+        borderTop: '1px solid rgba(175,31,58,.25)',
         padding: '12px 16px', display: 'none',
         boxShadow: '0 -4px 20px rgba(31,26,18,.10)',
       }}>

@@ -57,7 +57,7 @@ export default function FaqPageClient() {
   return (
     <PageTransition>
     <main style={{ minHeight: '80vh' }}>
-      <div style={{ background: 'var(--dark-2)', borderBottom: '1px solid rgba(201,169,110,.1)', padding: '48px 0 32px' }}>
+      <div style={{ background: 'var(--dark-2)', borderBottom: '1px solid rgba(175,31,58,.1)', padding: '48px 0 32px' }}>
         <div className="container">
           <p style={{ fontSize: '.75rem', color: 'var(--gold)', letterSpacing: '.15em', textTransform: 'uppercase', marginBottom: '8px' }}>Ayuda</p>
           <h1 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, color: 'var(--white)', marginBottom: '8px' }}>
@@ -74,14 +74,14 @@ export default function FaqPageClient() {
               <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--gold)', fontSize: '1.4rem', fontWeight: 400, marginBottom: '4px' }}>
                 {category}
               </h2>
-              <div style={{ height: 1, background: 'rgba(201,169,110,.2)', marginBottom: '8px' }} />
+              <div style={{ height: 1, background: 'rgba(175,31,58,.2)', marginBottom: '8px' }} />
               {items.map(item => <FaqItem key={item.q} {...item} />)}
             </div>
           </Reveal>
         ))}
 
         <Reveal>
-          <div style={{ background: 'var(--dark-2)', border: '1px solid rgba(201,169,110,.15)', borderRadius: '16px', padding: '36px', textAlign: 'center', marginTop: '16px' }}>
+          <div style={{ background: 'var(--dark-2)', border: '1px solid rgba(175,31,58,.15)', borderRadius: '16px', padding: '36px', textAlign: 'center', marginTop: '16px' }}>
             <MessageCircle size={32} style={{ color: 'var(--gold)', margin: '0 auto 16px' }} />
             <h3 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', marginBottom: '8px', fontWeight: 300 }}>
               ¿No encontraste tu respuesta?

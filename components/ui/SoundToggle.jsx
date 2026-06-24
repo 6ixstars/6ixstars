@@ -108,13 +108,13 @@ export default function SoundToggle() {
         }
         .snd-btn:hover {
           border-color: rgba(201, 169, 110, 0.55);
-          color: #C9A96E;
+          color: #AF1F3A;
           transform: translateY(-2px);
           box-shadow: 0 8px 28px rgba(0,0,0,.45);
         }
         .snd-btn--on {
           border-color: rgba(201, 169, 110, 0.45);
-          color: #C9A96E;
+          color: #AF1F3A;
         }
 
         /* Círculo del icono */
