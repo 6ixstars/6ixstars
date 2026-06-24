@@ -12,29 +12,28 @@ export default function SoundToggle() {
     a.volume = 0.35;
 
     const optedOut = localStorage.getItem('6ix-sound') === 'off';
+    if (optedOut) { setReady(true); return; }
 
-    const tryPlay = () => {
-      if (optedOut) return;
-      a.play().then(() => setPlaying(true)).catch(() => {});
-    };
-
-    // Los navegadores bloquean autoplay con sonido hasta primer gesto
-    // → arrancamos en el primer toque/clic en cualquier parte de la página
-    const onFirstGesture = () => {
-      tryPlay();
-      window.removeEventListener('pointerdown', onFirstGesture);
-      window.removeEventListener('keydown', onFirstGesture);
-    };
-
-    window.addEventListener('pointerdown', onFirstGesture, { once: true });
-    window.addEventListener('keydown', onFirstGesture, { once: true });
+    // Truco: arrancar muted (los navegadores lo permiten) y luego desmutear.
+    // Funciona en Chrome, Edge y la mayoría de navegadores modernos.
+    a.muted = true;
+    a.play()
+      .then(() => {
+        a.muted = false;
+        setPlaying(true);
+      })
+      .catch(() => {
+        // Fallback: si el navegador bloquea incluso muted,
+        // arrancamos en el primer gesto del usuario.
+        a.muted = false;
+        const onGesture = () => {
+          a.play().then(() => setPlaying(true)).catch(() => {});
+        };
+        window.addEventListener('pointerdown', onGesture, { once: true });
+        window.addEventListener('keydown', onGesture, { once: true });
+      });
 
     setReady(true);
-
-    return () => {
-      window.removeEventListener('pointerdown', onFirstGesture);
-      window.removeEventListener('keydown', onFirstGesture);
-    };
   }, []);
 
   const toggle = () => {
