@@ -12,9 +12,11 @@ const COL_1 = ['/img/gen/look-01.webp', '/img/gen/look-02.webp', '/img/gen/look-
 const COL_2 = ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-06.webp'];
 const COL_3 = ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'];
 
+// Cada foto mantiene su proporción vertical original (3:4). La altura manda
+// y el ancho se deriva solo; margin auto la centra dentro de su columna.
 const Img = ({ src }) => (
-  <div style={{ height: '20vh', width: '100%', overflow: 'hidden', borderRadius: '10px', boxShadow: '0 6px 18px rgba(0,0,0,.4)' }}>
-    <img src={src} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', display: 'block' }} />
+  <div style={{ aspectRatio: '3 / 4', height: '26vh', margin: '0 auto', overflow: 'hidden', borderRadius: '10px', boxShadow: '0 6px 18px rgba(0,0,0,.45)' }}>
+    <img src={src} alt="" loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
   </div>
 );
 
@@ -36,16 +38,16 @@ export default function LookbookGallery() {
         </ContainerAnimated>
       </ContainerStagger>
 
-      <ContainerScroll className="relative h-[200vh]">
+      <ContainerScroll className="relative h-[170vh]">
         <ContainerSticky className="h-svh">
           <GalleryContainer className="container">
-            <GalleryCol className="-mt-2" yRange={['20%', '0%']}>
+            <GalleryCol style={{ marginTop: '4vh' }} yRange={['12%', '0%']}>
               {COL_1.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
-            <GalleryCol className="mt-[-15%]" yRange={['35%', '0%']}>
+            <GalleryCol style={{ marginTop: '-2vh' }} yRange={['22%', '0%']}>
               {COL_2.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
-            <GalleryCol yRange={['10%', '0%']}>
+            <GalleryCol style={{ marginTop: '4vh' }} yRange={['8%', '0%']}>
               {COL_3.map((s, i) => <Img key={i} src={s} />)}
             </GalleryCol>
           </GalleryContainer>
