@@ -8,9 +8,9 @@ import {
   ContainerStagger, ContainerAnimated,
 } from '@/components/blocks/animated-gallery';
 
-const COL_1 = ['/img/gen/cat-buzos.webp', '/img/gen/look-01.webp', '/img/gen/cat-jeans.webp'];
-const COL_2 = ['/img/gen/look-02.webp', '/img/gen/cat-conjuntos.webp', '/img/gen/spotlight.webp'];
-const COL_3 = ['/img/gen/look-03.webp', '/img/gen/cat-camisas.webp', '/img/gen/campaign.webp'];
+const COL_1 = ['/img/gen/look-01.webp', '/img/gen/look-02.webp', '/img/gen/look-03.webp'];
+const COL_2 = ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-06.webp'];
+const COL_3 = ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'];
 
 const Img = ({ src }) => (
   <img src={src} alt="" loading="lazy" className="aspect-video block h-auto max-h-full w-full rounded-xl object-cover shadow-lg" />
