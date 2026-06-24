@@ -7,17 +7,18 @@ const ITEMS = [
   '10% OFF EN TU PRIMERA COMPRA',
 ];
 
+// Duplicamos 2 veces para el loop seamless (marquee usa translateX(-50%))
+const TRACK = [...ITEMS, ...ITEMS];
+
 export default function AnnouncementBar() {
   return (
     <div className="sb-announce">
-      <div className="sb-announce-track">
-        {[...Array(3)].map((_, dup) => (
-          ITEMS.map((t, i) => (
-            <span key={`${dup}-${i}`} className="sb-announce-item">
-              {t}
-              <span className="sb-announce-dot" aria-hidden="true">★</span>
-            </span>
-          ))
+      <div className="marquee-track" style={{ animationDuration: '22s' }}>
+        {TRACK.map((t, i) => (
+          <span key={i} className="sb-announce-item">
+            {t}
+            <span className="sb-announce-dot" aria-hidden="true">★</span>
+          </span>
         ))}
       </div>
 
@@ -36,17 +37,12 @@ export default function AnnouncementBar() {
           font-family: var(--font-sans);
           border-bottom: 1px solid var(--dark-4);
         }
-        .sb-announce-track {
-          display: flex;
-          gap: clamp(24px, 5vw, 48px);
-          white-space: nowrap;
-          animation: sb-announce-scroll 40s linear infinite;
-          width: max-content;
-        }
         .sb-announce-item {
           display: inline-flex;
           align-items: center;
-          gap: clamp(24px, 5vw, 48px);
+          gap: clamp(32px, 5vw, 56px);
+          padding: 0 clamp(16px, 2.5vw, 28px);
+          white-space: nowrap;
         }
         .sb-announce-dot {
           color: var(--gold);
@@ -54,18 +50,7 @@ export default function AnnouncementBar() {
           line-height: 1;
         }
         @media (max-width: 480px) {
-          .sb-announce {
-            font-size: .6rem;
-            letter-spacing: .18em;
-            padding: 7px 0;
-          }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .sb-announce-track { animation: none; }
-        }
-        @keyframes sb-announce-scroll {
-          from { transform: translateX(0); }
-          to { transform: translateX(-33.333%); }
+          .sb-announce { font-size: .6rem; letter-spacing: .18em; padding: 7px 0; }
         }
       `}</style>
     </div>
