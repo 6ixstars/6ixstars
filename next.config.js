@@ -16,6 +16,26 @@ const nextConfig = {
       bodySizeLimit: '5mb',
     },
   },
+  // El navegador NO debe cachear el documento HTML: así cada deploy se ve al
+  // instante sin tener que borrar datos de navegación. Los assets de _next/*
+  // (con hash en el nombre) se siguen cacheando de forma inmutable.
+  async headers() {
+    return [
+      {
+        source: '/((?!_next/static|_next/image|favicon.ico|sw.js).*)',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=0, must-revalidate' },
+        ],
+      },
+      {
+        // El propio service worker nunca debe quedar cacheado.
+        source: '/sw.js',
+        headers: [
+          { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -1,14 +1,22 @@
 // Service Worker: maneja push notifications + cache offline básica
 // Auto-actualización: usa skipWaiting para activar la versión nueva inmediatamente
 
-const CACHE_VERSION = 'v1';
+const CACHE_VERSION = 'v2';
 
 self.addEventListener('install', () => {
   self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+    (async () => {
+      // Kill-switch: borra cualquier caché que haya quedado de versiones
+      // anteriores para que nunca se sirva contenido viejo.
+      const keys = await caches.keys();
+      await Promise.all(keys.map((k) => caches.delete(k)));
+      await self.clients.claim();
+    })()
+  );
 });
 
 // Push notification recibida
