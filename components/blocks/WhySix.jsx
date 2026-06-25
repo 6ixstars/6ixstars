@@ -28,9 +28,9 @@ const ITEMS = [
 export default function WhySix() {
   return (
     <section className="container why6" style={{ paddingTop: 86, paddingBottom: 10 }}>
-      <div className="why6-head">
-        <span className="why6-kicker">/// POR QUÉ 6IX</span>
-        <h2 className="why6-h">STREETWEAR ORIGINAL,<br /><span>ELEGIDO PIEZA A PIEZA</span></h2>
+      <div className="sx6-head why6-head">
+        <span className="sx6-tag">/// FILOSOFÍA · 03</span>
+        <h2 className="sx6-head-title">POR QUÉ 6IX</h2>
       </div>
 
       <div className="why6-grid">
@@ -50,10 +50,7 @@ export default function WhySix() {
       </div>
 
       <style>{`
-        .why6-head { margin-bottom: 30px; }
-        .why6-kicker { display:inline-block; font-family: var(--font-tech); font-size:.64rem; letter-spacing:.2em; color: var(--gold); border:1px solid var(--dark-4); padding:5px 10px; margin-bottom:14px; }
-        .why6-h { font-family: var(--font-display); font-size: clamp(1.9rem, 5vw, 4rem); color: var(--white); line-height:.92; margin:0; text-transform:uppercase; }
-        .why6-h span { color: transparent; -webkit-text-stroke: 1.5px var(--gold); }
+        .why6-head { margin-bottom: 34px; }
 
         .why6-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 
