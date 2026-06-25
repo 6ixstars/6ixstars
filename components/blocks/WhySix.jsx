@@ -8,8 +8,8 @@ const ITEMS = [
   {
     Icon: Sparkles,
     tag: 'SELECCIÓN',
-    title: 'CURADO',
-    text: 'Cada pieza elegida a mano. Nada de relleno — solo lo que manda en la calle.',
+    title: 'ELEGIDO',
+    text: 'Cada pieza escogida a mano. Nada de relleno — solo lo que manda en la calle.',
   },
   {
     Icon: BadgeCheck,
@@ -30,7 +30,7 @@ export default function WhySix() {
     <section className="container why6" style={{ paddingTop: 86, paddingBottom: 10 }}>
       <div className="why6-head">
         <span className="why6-kicker">/// POR QUÉ 6IX</span>
-        <h2 className="why6-h">STREETWEAR ORIGINAL,<br /><span>CURADO PIEZA A PIEZA</span></h2>
+        <h2 className="why6-h">STREETWEAR ORIGINAL,<br /><span>ELEGIDO PIEZA A PIEZA</span></h2>
       </div>
 
       <div className="why6-grid">
