@@ -10,7 +10,7 @@ import Reveal from '@/components/fx/Reveal';
 import Magnetic from '@/components/fx/Magnetic';
 import TiltShoes from '@/components/fx/TiltShoes';
 import GraffitiBand from '@/components/fx/GraffitiBand';
-import BrandsMarquee from '@/components/blocks/BrandsMarquee';
+import WhySix from '@/components/blocks/WhySix';
 import LookbookGallery from '@/components/blocks/LookbookGallery';
 import TestimonialsEditorial from '@/components/blocks/TestimonialsEditorial';
 import HeroVideo21 from '@/components/blocks/HeroVideo21';
@@ -73,8 +73,8 @@ export default function HomePageClient({ products = [] }) {
         {/* ===================== BANDA GRAFFITI (reactiva al scroll) ===================== */}
         <GraffitiBand />
 
-        {/* ===================== MARCAS — 21st.dev Marquee Logo Scroller ===================== */}
-        <BrandsMarquee />
+        {/* ===================== POR QUÉ 6IX — banda editorial (reemplaza marcas) ===================== */}
+        <WhySix />
 
         {/* ===================== DROP 01 — CARRUSEL 3D ===================== */}
         <section className="container sx6-section">
