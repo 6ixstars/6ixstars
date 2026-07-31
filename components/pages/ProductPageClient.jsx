@@ -333,7 +333,7 @@ export default function ProductPageClient({ product, resolvedImages, related = [
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', marginBottom: '24px' }}>
               {[
                 { icon: Truck, title: 'Envío 24–48h', desc: 'a toda Colombia' },
-                { icon: ShieldCheck, title: 'Pago seguro', desc: 'Wompi' },
+                { icon: ShieldCheck, title: 'Pago seguro', desc: 'Bold' },
                 { icon: RefreshCw, title: 'Cambios', desc: '15 días' },
               ].map(({ icon: Icon, title, desc }) => (
                 <div key={title} style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '12px', background: 'var(--dark-2)', borderRadius: '8px', border: '1px solid var(--dark-4)' }}>
@@ -405,7 +405,7 @@ export default function ProductPageClient({ product, resolvedImages, related = [
             {[
               { icon: Truck, value: '24–48h', label: 'Envío a toda Colombia' },
               { icon: RefreshCw, value: '15 días', label: 'Para cambios de talla' },
-              { icon: ShieldCheck, value: 'Wompi', label: 'Pago 100% seguro' },
+              { icon: ShieldCheck, value: 'Bold', label: 'Pago 100% seguro' },
               { icon: Star, value: '4.9/5', label: 'Valoración promedio' },
             ].map(({ icon: Icon, value, label }) => (
               <div key={label} className="pdp-social-proof-item">

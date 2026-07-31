@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS orders (
   currency                 TEXT DEFAULT 'COP',
   payment_method           TEXT,
   status                   TEXT DEFAULT 'pending',
-  wompi_tx_id              TEXT,
+  bold_tx_id               TEXT,
   notes                    TEXT,
   admin_notes              TEXT,
   tracking_carrier         TEXT,

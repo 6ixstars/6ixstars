@@ -31,7 +31,7 @@ export function SyncOrderButton({ orderId }) {
           opacity: isPending ? 0.7 : 1,
         }}
       >
-        {isPending ? 'Sincronizando…' : 'Sincronizar con Wompi'}
+        {isPending ? 'Sincronizando…' : 'Sincronizar con Bold'}
       </button>
       {msg && (
         <span style={{ fontSize: '.82rem', color: msg.ok ? '#059669' : '#b91c1c' }}>

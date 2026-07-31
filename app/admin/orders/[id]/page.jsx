@@ -153,7 +153,7 @@ export default async function OrderDetailPage({ params }) {
       {/* Meta técnica */}
       <div style={{ marginTop: 24, padding: '16px 18px', background: '#f9fafb', border: '1px solid #e5e7eb', borderRadius: 8, display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14, fontSize: '.78rem' }} className="od-meta">
         <Field label="Método de pago" value={order.payment_method} />
-        <Field label="Wompi TX ID" value={order.wompi_tx_id} mono />
+        <Field label="Bold TX ID" value={order.bold_tx_id} mono />
         <Field label="Última actualización" value={new Date(order.updated_at).toLocaleString('es-CO')} />
       </div>
 

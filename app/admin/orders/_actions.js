@@ -1,11 +1,11 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { fetchTransactionByReference } from '@/lib/wompi';
+import { fetchTransactionByReference } from '@/lib/bold';
 import { supabaseAdmin } from '@/lib/supabase';
 import { sendOrderEmail, sendCustomerOrderConfirmation } from '@/lib/notifications';
 
-// === Sync con Wompi ===
+// === Sync con Bold ===
 export async function syncOrderAction(orderId) {
   if (!supabaseAdmin) return { ok: false, error: 'Supabase no configurado' };
 
@@ -21,11 +21,11 @@ export async function syncOrderAction(orderId) {
   try {
     tx = await fetchTransactionByReference(order.reference);
   } catch (e) {
-    return { ok: false, error: `Wompi API: ${e.message}` };
+    return { ok: false, error: `Bold API: ${e.message}` };
   }
 
   if (!tx) {
-    return { ok: false, error: 'Sin transacciones registradas en Wompi para esta referencia' };
+    return { ok: false, error: 'Sin transacciones registradas en Bold para esta referencia' };
   }
 
   const newStatus = tx.status?.toLowerCase();
@@ -33,7 +33,7 @@ export async function syncOrderAction(orderId) {
     .from('orders')
     .update({
       status: newStatus,
-      wompi_tx_id: tx.id,
+      bold_tx_id: tx.id,
       updated_at: new Date().toISOString(),
     })
     .eq('id', orderId);
@@ -72,7 +72,7 @@ export async function syncAllPendingAction() {
       const newStatus = tx.status?.toLowerCase();
       await supabaseAdmin
         .from('orders')
-        .update({ status: newStatus, wompi_tx_id: tx.id, updated_at: new Date().toISOString() })
+        .update({ status: newStatus, bold_tx_id: tx.id, updated_at: new Date().toISOString() })
         .eq('id', o.id);
       if (newStatus === 'approved' && o.status !== 'approved') {
         await decrementInventoryForOrder(o.id);

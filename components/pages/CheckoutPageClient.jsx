@@ -18,7 +18,7 @@ const PHONE_WHATSAPP = '573169376436';
 const steps = ['Información', 'Pago'];
 
 // Métodos de pago recomendados para e-commerce de lujo en Colombia
-// Wompi Widget maneja todos los métodos internamente, este listado es solo informativo
+// Bold maneja todos los métodos internamente, este listado es solo informativo
 const PAYMENT_METHODS = [
   { id: 'card', label: 'Tarjeta de crédito / débito', icon: CreditCard, desc: 'Visa, Mastercard, AMEX, Diners' },
   { id: 'pse',  label: 'PSE',                          icon: Building2,  desc: 'Transferencia bancaria en línea' },
@@ -40,9 +40,9 @@ export default function CheckoutPageClient() {
     city: '', department: '', zip: '', country: 'CO',
   });
   const [errors, setErrors] = useState({});
-  // Wompi muestra todos los métodos disponibles en su pasarela; este campo es solo
+  // Bold muestra todos los métodos disponibles en su pasarela; este campo es solo
   // para registro nuestro de la orden.
-  const [paymentMethod] = useState('wompi');
+  const [paymentMethod] = useState('bold');
   const [loading, setLoading] = useState(false);
   const [coupon, setCoupon] = useState('');
   const [couponApplied, setCouponApplied] = useState(false);
@@ -141,10 +141,10 @@ export default function CheckoutPageClient() {
   };
 
   const handlePay = async () => {
-    // Todos los métodos → Wompi Web Checkout
+    // Todos los métodos → Bold Web Checkout
     setLoading(true);
     try {
-      const res = await fetch('/api/wompi/checkout', {
+      const res = await fetch('/api/bold/checkout', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -164,9 +164,9 @@ export default function CheckoutPageClient() {
       });
       const data = await res.json();
       if (!res.ok) {
-        // Si Wompi no está configurado, fallback a checkout simulado
+        // Si Bold no está configurado, fallback a checkout simulado
         if (res.status === 503) {
-          console.warn('[Wompi] no configurado, usando flujo simulado');
+          console.warn('[Bold] no configurado, usando flujo simulado');
           await new Promise(r => setTimeout(r, 1500));
           clearCart();
           const orderId = 'SB-' + Date.now().toString(36).toUpperCase();
@@ -175,7 +175,7 @@ export default function CheckoutPageClient() {
         }
         throw new Error(data.error || 'Error al iniciar el pago');
       }
-      // Redirigir a Wompi (el carrito se limpia al volver con éxito)
+      // Redirigir a Bold (el carrito se limpia al volver con éxito)
       window.location.href = data.checkoutUrl;
     } catch (err) {
       console.error('[Checkout error]', err);
@@ -395,12 +395,12 @@ export default function CheckoutPageClient() {
                   </div>
                 </div>
 
-                {/* Aviso: todos los métodos redirigen a Wompi */}
+                {/* Aviso: todos los métodos redirigen a Bold */}
                 <div style={{ padding: '14px 16px', background: 'rgba(124,158,135,.10)', border: '1px solid rgba(124,158,135,.3)', borderRadius: '10px', marginBottom: '20px', display: 'flex', gap: '12px', alignItems: 'flex-start' }}>
                   <Shield size={18} style={{ color: 'var(--success)', flexShrink: 0, marginTop: '2px' }} />
                   <div>
-                    <p style={{ fontSize: '.85rem', fontWeight: 600, color: 'var(--white)', marginBottom: '3px' }}>Pago procesado por Wompi</p>
-                    <p style={{ fontSize: '.78rem', color: 'var(--gray-light)' }}>Serás redirigido a la pasarela segura de Wompi (Bancolombia) para elegir tu método y completar el pago. La transacción se confirma al instante.</p>
+                    <p style={{ fontSize: '.85rem', fontWeight: 600, color: 'var(--white)', marginBottom: '3px' }}>Pago procesado por Bold</p>
+                    <p style={{ fontSize: '.78rem', color: 'var(--gray-light)' }}>Serás redirigido a la pasarela segura de Bold para elegir tu método y completar el pago. La transacción se confirma al instante.</p>
                   </div>
                 </div>
 

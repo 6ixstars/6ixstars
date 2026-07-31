@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
 import {
-  WOMPI_CONFIGURED, WOMPI_PUBLIC_KEY, WOMPI_IS_TEST,
+  BOLD_CONFIGURED, BOLD_PUBLIC_KEY, BOLD_IS_TEST,
   generateReference, generateSignature, toAmountInCents, buildCheckoutUrl,
-} from '@/lib/wompi';
+} from '@/lib/bold';
 import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(req) {
   try {
-    if (!WOMPI_CONFIGURED) {
+    if (!BOLD_CONFIGURED) {
       return NextResponse.json({
-        error: 'Wompi no está configurado. Define NEXT_PUBLIC_WOMPI_PUBLIC_KEY y WOMPI_INTEGRITY_SECRET en .env.local',
+        error: 'Bold no está configurado. Define NEXT_PUBLIC_BOLD_PUBLIC_KEY y BOLD_INTEGRITY_SECRET en .env.local',
       }, { status: 503 });
     }
 
@@ -28,7 +28,7 @@ export async function POST(req) {
     const currency = 'COP';
     const signature = generateSignature({ reference, amountInCents, currency });
 
-    // Wompi requiere teléfono solo con dígitos, sin +, espacios ni guiones
+    // Bold requiere teléfono solo con dígitos, sin +, espacios ni guiones
     const cleanPhone = (customer.phone || '').replace(/\D/g, '').slice(-10);
 
     const origin = req.headers.get('origin')
@@ -114,11 +114,11 @@ export async function POST(req) {
       amountInCents,
       currency,
       checkoutUrl,
-      isTest: WOMPI_IS_TEST,
+      isTest: BOLD_IS_TEST,
       paymentMethod,
     });
   } catch (err) {
-    console.error('[Wompi checkout error]', err);
+    console.error('[Bold checkout error]', err);
     return NextResponse.json({ error: err.message || 'Error interno' }, { status: 500 });
   }
 }

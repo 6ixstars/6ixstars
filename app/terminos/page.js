@@ -46,13 +46,13 @@ const sections = [
       <li>Seleccionar el producto y talla deseados</li>
       <li>Agregar al carrito y proceder al checkout</li>
       <li>Proporcionar datos de envío correctos y completos</li>
-      <li>Completar el pago a través de Wompi (Bancolombia)</li>
+      <li>Completar el pago a través de Bold</li>
     </ul>
     <p style="margin-top:12px">Recibirá una confirmación por email una vez procesado el pedido.</p>`,
   },
   {
     title: '4. Precios y Pagos',
-    content: 'Los precios están expresados en dólares estadounidenses (USD) y se procesan en pesos colombianos (COP) según la tasa de cambio vigente. Los pagos son procesados de forma segura por Wompi/Bancolombia. 6ixstars no almacena datos de tarjetas de crédito.',
+    content: 'Los precios están expresados en dólares estadounidenses (USD) y se procesan en pesos colombianos (COP) según la tasa de cambio vigente. Los pagos son procesados de forma segura por Bold. 6ixstars no almacena datos de tarjetas de crédito.',
   },
   {
     title: '5. Envíos',

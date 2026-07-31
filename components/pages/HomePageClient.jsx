@@ -92,7 +92,7 @@ export default function HomePageClient({ products = [] }) {
         <section className="container sx6-trust">
           {[
             { Icon: Truck, t: 'Envío a toda Colombia', d: '24–48H' },
-            { Icon: ShieldCheck, t: 'Pago seguro', d: 'WOMPI' },
+            { Icon: ShieldCheck, t: 'Pago seguro', d: 'BOLD' },
             { Icon: RefreshCw, t: 'Cambios fáciles', d: '15 DÍAS' },
           ].map(({ Icon, t, d }, i) => (
             <Reveal key={t} i={i} className="sx6-trust-item">

@@ -1,16 +1,16 @@
 # 🚀 Despliegue de 6ixstars (cuenta nueva)
 
 Guía paso a paso para montar la tienda en Vercel con dominio propio.
-Orden recomendado: **Supabase → Variables → Vercel → Dominio → Wompi**.
+Orden recomendado: **Supabase → Variables → Vercel → Dominio → Bold**.
 
-> ⚠️ Todo va en cuentas NUEVAS (Vercel, Supabase, Wompi) para 6ixstars.
+> ⚠️ Todo va en cuentas NUEVAS (Vercel, Supabase, Bold) para 6ixstars.
 
 ---
 
 ## 0) Cuentas que necesitas crear
 - [ ] **Vercel** — https://vercel.com/signup (puedes entrar con tu GitHub nuevo)
 - [ ] **Supabase** — https://supabase.com/dashboard (proyecto nuevo)
-- [ ] **Wompi** — https://comercios.wompi.co (para cobrar; empieza en modo TEST)
+- [ ] **Bold** — (agregar aquí el link de registro de Bold; para cobrar, empieza en modo TEST)
 - [ ] *(opcional)* **GitHub** nuevo si quieres deploy automático en cada push
 
 ---
@@ -31,7 +31,7 @@ Orden recomendado: **Supabase → Variables → Vercel → Dominio → Wompi**.
 ```bash
 cp .env.local.example .env.local
 ```
-Edita `.env.local` con las llaves de Supabase y Wompi. Para probar local:
+Edita `.env.local` con las llaves de Supabase y Bold. Para probar local:
 ```bash
 npm install
 npm run dev      # http://localhost:3000  → ya deberías ver los productos del seed
@@ -51,9 +51,9 @@ Carga las variables de entorno en Vercel (Production + Preview):
 vercel env add NEXT_PUBLIC_SUPABASE_URL
 vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
 vercel env add SUPABASE_SERVICE_ROLE_KEY
-vercel env add NEXT_PUBLIC_WOMPI_PUBLIC_KEY
-vercel env add WOMPI_INTEGRITY_SECRET
-vercel env add WOMPI_EVENTS_SECRET
+vercel env add NEXT_PUBLIC_BOLD_PUBLIC_KEY
+vercel env add BOLD_INTEGRITY_SECRET
+vercel env add BOLD_EVENTS_SECRET
 vercel env add NEXT_PUBLIC_SITE_URL          # https://6ixstars.com.co
 vercel env add NEXT_PUBLIC_USD_TO_COP_RATE   # 1  (precios ya en COP)
 ```
@@ -78,9 +78,9 @@ En el dashboard de Vercel: **Project → Settings → Domains → Add**.
 
 ---
 
-## 5) Wompi (pagos) — post-deploy
-1. En el dashboard de Wompi → **Configuración → API**, copia las llaves (empieza con `pub_test_`).
-2. Configura el **webhook**: `https://6ixstars.com.co/api/wompi/webhook`
+## 5) Bold (pagos) — post-deploy
+1. En el dashboard de Bold → **Configuración → API**, copia las llaves (empieza con `pub_test_`).
+2. Configura el **webhook**: `https://6ixstars.com.co/api/bold/webhook`
 3. Prueba con tarjeta sandbox: `4242 4242 4242 4242` (aprobada).
 4. Cuando todo funcione, cambia a llaves `pub_prod_` y vuelve a desplegar.
 
@@ -89,7 +89,7 @@ En el dashboard de Vercel: **Project → Settings → Domains → Add**.
 ## ✅ Checklist final
 - [ ] Productos del seed visibles en la home y `/tienda`
 - [ ] Una PDP abre (ej. `/producto/hoodie-oversize-shadow`)
-- [ ] Carrito + checkout llegan a la pasarela Wompi
+- [ ] Carrito + checkout llegan a la pasarela Bold
 - [ ] Dominio con candado SSL
 - [ ] `SITE_URL` actualizado y redeploy hecho
 

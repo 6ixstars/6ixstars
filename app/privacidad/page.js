@@ -48,7 +48,7 @@ function LegalContent() {
         <ul style={{ marginTop: 12, paddingLeft: 20, display: 'flex', flexDirection: 'column', gap: 8 }}>
           <li>Nombre completo y datos de contacto (email, teléfono)</li>
           <li>Dirección de envío</li>
-          <li>Información de pago (procesada de forma segura por Wompi/Bancolombia)</li>
+          <li>Información de pago (procesada de forma segura por Bold)</li>
           <li>Historial de compras</li>
           <li>Datos de navegación (cookies, IP, dispositivo)</li>
         </ul>
@@ -102,7 +102,7 @@ function LegalContent() {
       </Section>
 
       <Section title="8. Seguridad">
-        <p>Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos contra acceso no autorizado, pérdida o destrucción. Los pagos son procesados por Wompi (Bancolombia) con cifrado SSL.</p>
+        <p>Implementamos medidas de seguridad técnicas y organizativas para proteger sus datos contra acceso no autorizado, pérdida o destrucción. Los pagos son procesados por Bold con cifrado SSL.</p>
       </Section>
 
       <Section title="9. Cambios en esta Política">

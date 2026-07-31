@@ -9,7 +9,7 @@ Construida sobre Next.js 15 (App Router) + React 19. El sistema base fue adaptad
 - **Next.js 15** + React 19 — App Router, SSR/SSG
 - **Zustand v5** — carrito y wishlist (persist en localStorage)
 - **Supabase (PostgreSQL)** — catálogo, órdenes
-- **Wompi** — pasarela de pago (Colombia)
+- **Bold** — pasarela de pago (Colombia)
 - **Framer Motion** — animaciones
 - **CSS variables** globales (sin Tailwind) en `app/globals.css`
 
@@ -27,5 +27,5 @@ npm run dev
 - `lib/schema.sql` — schema de Supabase para el catálogo de ropa
 
 ## Alcance actual (fase 1 — esencial)
-Catálogo · Tienda · Carrito · Checkout (Wompi) · PDP.
+Catálogo · Tienda · Carrito · Checkout (Bold) · PDP.
 Admin, push, newsletter, reseñas y pSEO quedan para fases posteriores.

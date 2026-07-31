@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { validateWebhookSignature } from '@/lib/wompi';
+import { validateWebhookSignature } from '@/lib/bold';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notifyAdminNewOrder } from '@/lib/notifications';
 import { sendOrderPush } from '@/lib/push';
@@ -9,7 +9,7 @@ export async function POST(req) {
     const payload = await req.json();
 
     if (!validateWebhookSignature(payload)) {
-      console.warn('[Wompi webhook] Firma inválida');
+      console.warn('[Bold webhook] Firma inválida');
       return NextResponse.json({ error: 'invalid signature' }, { status: 401 });
     }
 
@@ -17,15 +17,15 @@ export async function POST(req) {
     const tx = data?.transaction;
 
     if (event !== 'transaction.updated' || !tx) {
-      console.log(`[Wompi webhook] Evento ignorado: ${event}`);
+      console.log(`[Bold webhook] Evento ignorado: ${event}`);
       return NextResponse.json({ ok: true, ignored: event });
     }
 
     const status = tx.status?.toLowerCase(); // approved, declined, voided, error, pending
-    console.log(`[Wompi] ${tx.reference} → ${status} (txId: ${tx.id})`);
+    console.log(`[Bold] ${tx.reference} → ${status} (txId: ${tx.id})`);
 
     if (!supabaseAdmin) {
-      console.error('[Wompi webhook] supabaseAdmin no disponible — saltando persistencia');
+      console.error('[Bold webhook] supabaseAdmin no disponible — saltando persistencia');
       return NextResponse.json({ ok: true, persisted: false });
     }
 
@@ -34,7 +34,7 @@ export async function POST(req) {
       .from('orders')
       .update({
         status,
-        wompi_tx_id: tx.id,
+        bold_tx_id: tx.id,
         updated_at: new Date().toISOString(),
       })
       .eq('reference', tx.reference)
@@ -42,7 +42,7 @@ export async function POST(req) {
       .single();
 
     if (updateErr || !updated) {
-      console.warn(`[Wompi webhook] No se encontró orden con reference=${tx.reference}`, updateErr?.message);
+      console.warn(`[Bold webhook] No se encontró orden con reference=${tx.reference}`, updateErr?.message);
       return NextResponse.json({ ok: true, found: false });
     }
 
@@ -51,7 +51,7 @@ export async function POST(req) {
     // IMPORTANTE: usamos `await` (NO fire-and-forget). En Vercel Functions, apenas
     // retornamos la respuesta al webhook, el container muere y las promesas en
     // background se cancelan a mitad — antes incluso de que se haga la llamada
-    // HTTP a Resend. Por eso los emails automáticos no llegaban. Wompi tolera
+    // HTTP a Resend. Por eso los emails automáticos no llegaban. Bold tolera
     // webhooks lentos (hasta 30s), así que esperar 1-2s extra es aceptable.
     //
     // Las 3 tareas corren en paralelo (Promise.allSettled) para que el fallo de
@@ -82,7 +82,7 @@ export async function POST(req) {
 
     return NextResponse.json({ ok: true, orderId: updated.id, status });
   } catch (err) {
-    console.error('[Wompi webhook error]', err);
+    console.error('[Bold webhook error]', err);
     return NextResponse.json({ error: 'internal error' }, { status: 500 });
   }
 }

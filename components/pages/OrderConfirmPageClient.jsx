@@ -9,7 +9,7 @@ import { formatCOP } from '@/lib/format';
 
 const PHONE_WHATSAPP = '573143776839';
 
-// Estados Wompi: APPROVED, DECLINED, VOIDED, ERROR, PENDING
+// Estados Bold: APPROVED, DECLINED, VOIDED, ERROR, PENDING
 const STATUS_CONFIG = {
   APPROVED:      { color: 'var(--success)', bg: 'rgba(124,158,135,.15)', label: 'Aprobado',  icon: CheckCircle, title: '¡Pago Aprobado!',     msg: 'Hemos recibido tu pago y estamos preparando tu pedido.' },
   PENDING:       { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Pendiente', icon: Loader2,     title: 'Pago en Verificación', msg: 'Tu pago está siendo procesado. Te notificaremos cuando se confirme.' },
@@ -18,17 +18,17 @@ const STATUS_CONFIG = {
   ERROR:         { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Error',     icon: AlertCircle, title: 'Error en el Pago',     msg: 'Ocurrió un error procesando tu pago. Intenta de nuevo.' },
   DEMO:          { color: 'var(--success)', bg: 'rgba(124,158,135,.15)', label: 'Confirmado', icon: CheckCircle, title: '¡Pedido Confirmado!', msg: 'Hemos recibido tu pedido y lo estamos preparando con cuidado.' },
   COD:           { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Por Pagar',  icon: Package,    title: '¡Pedido Recibido!',    msg: 'Pagas al recibir el producto. Te contactaremos para confirmar la entrega.' },
-  LOADING:       { color: 'var(--gold)',    bg: 'rgba(175,31,58,.10)', label: 'Verificando', icon: Loader2,   title: 'Verificando Pago...', msg: 'Estamos confirmando el estado de tu transacción con Wompi.' },
+  LOADING:       { color: 'var(--gold)',    bg: 'rgba(175,31,58,.10)', label: 'Verificando', icon: Loader2,   title: 'Verificando Pago...', msg: 'Estamos confirmando el estado de tu transacción con Bold.' },
 };
 
 export default function OrderConfirmPageClient() {
   const searchParams = useSearchParams();
   const { clearCart } = useCartStore();
 
-  // Wompi devuelve ?id=TXID&env=test|prod en el redirect
-  const wompiTxId = searchParams.get('id');
-  const wompiEnv = searchParams.get('env');
-  const wompiReference = searchParams.get('reference');
+  // Bold devuelve ?id=TXID&env=test|prod en el redirect
+  const boldTxId = searchParams.get('id');
+  const boldEnv = searchParams.get('env');
+  const boldReference = searchParams.get('reference');
 
   // Path simulado / COD
   const orderId = searchParams.get('orderId');
@@ -37,22 +37,22 @@ export default function OrderConfirmPageClient() {
   const isSimulated = searchParams.get('simulated') === '1';
 
   const [tx, setTx] = useState(null);
-  const [statusKey, setStatusKey] = useState(wompiTxId ? 'LOADING' : (method === 'cod' ? 'COD' : 'DEMO'));
+  const [statusKey, setStatusKey] = useState(boldTxId ? 'LOADING' : (method === 'cod' ? 'COD' : 'DEMO'));
   const [error, setError] = useState(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  // Si viene de Wompi, consultar el estado de la transacción
+  // Si viene de Bold, consultar el estado de la transacción
   useEffect(() => {
-    if (!wompiTxId) {
-      // Si es flujo COD/simulado, limpiar carrito (Wompi lo limpia tras success en webhook idealmente)
+    if (!boldTxId) {
+      // Si es flujo COD/simulado, limpiar carrito (Bold lo limpia tras success en webhook idealmente)
       if (method === 'cod' || isSimulated) clearCart();
       return;
     }
     let cancelled = false;
     const fetchStatus = async () => {
       try {
-        const res = await fetch(`/api/wompi/transaction?id=${encodeURIComponent(wompiTxId)}`, { cache: 'no-store' });
+        const res = await fetch(`/api/bold/transaction?id=${encodeURIComponent(boldTxId)}`, { cache: 'no-store' });
         const data = await res.json();
         if (cancelled) return;
         if (!res.ok) throw new Error(data.error || 'Error consultando transacción');
@@ -73,11 +73,11 @@ export default function OrderConfirmPageClient() {
       if (statusKey === 'PENDING' || statusKey === 'LOADING') fetchStatus();
     }, 4000);
     return () => { cancelled = true; clearInterval(interval); };
-  }, [wompiTxId, method, isSimulated, clearCart, statusKey]);
+  }, [boldTxId, method, isSimulated, clearCart, statusKey]);
 
   const status = STATUS_CONFIG[statusKey] || STATUS_CONFIG.LOADING;
   const Icon = status.icon;
-  const finalOrderId = tx?.reference || wompiReference || orderId || 'SB-DEMO';
+  const finalOrderId = tx?.reference || boldReference || orderId || 'SB-DEMO';
   const finalTotal = tx ? (tx.amount_in_cents / 100 / 4000) : totalParam; // div COP rate
   const isLoading = statusKey === 'LOADING' || statusKey === 'PENDING';
   const isSuccess = statusKey === 'APPROVED' || statusKey === 'DEMO' || statusKey === 'COD';
@@ -178,7 +178,7 @@ export default function OrderConfirmPageClient() {
 
         {isSimulated && (
           <p style={{ marginTop: '32px', fontSize: '.78rem', color: 'var(--gray)', fontStyle: 'italic' }}>
-            ⚠️ Modo simulación: Wompi no está configurado. Define las claves en <code style={{ color: 'var(--gold)' }}>.env.local</code> para procesar pagos reales.
+            ⚠️ Modo simulación: Bold no está configurado. Define las claves en <code style={{ color: 'var(--gold)' }}>.env.local</code> para procesar pagos reales.
           </p>
         )}
       </div>
