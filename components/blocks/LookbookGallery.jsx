@@ -3,8 +3,10 @@
 // Al hacer hover sobre una foto, su columna Y su fila se expanden (60/15/15)
 // mientras el resto se atenúa en B/N; la activa recupera color y hace zoom.
 // 100% CSS con :has() + container queries. Paleta y tipografías de la marca.
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 // 9 looks → grid de 3 columnas × 3 filas.
 const COLS = [
@@ -13,9 +15,12 @@ const COLS = [
   ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'],
 ];
 
-function Cell({ src, n }) {
+// Orden de COLS (column-major) coincide con la numeración [01..09] de cada celda.
+const LOOKS = COLS.flat();
+
+function Cell({ src, n, onOpen }) {
   return (
-    <article className="gx-cell" data-cursor="hover">
+    <article className="gx-cell" data-cursor="hover" onClick={onOpen}>
       <img src={src} alt={`Look ${String(n).padStart(2, '0')}`} loading="lazy" />
       <span className="gx-idx">[ {String(n).padStart(2, '0')} ]</span>
     </article>
@@ -24,6 +29,26 @@ function Cell({ src, n }) {
 
 export default function LookbookGallery() {
   let counter = 0;
+  const [activeIdx, setActiveIdx] = useState(null);
+  const isOpen = activeIdx !== null;
+
+  useEffect(() => {
+    if (isOpen) document.body.style.overflow = 'hidden';
+    else document.body.style.overflow = '';
+    return () => { document.body.style.overflow = ''; };
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') setActiveIdx(null);
+      if (e.key === 'ArrowRight') setActiveIdx((i) => (i + 1) % LOOKS.length);
+      if (e.key === 'ArrowLeft') setActiveIdx((i) => (i - 1 + LOOKS.length) % LOOKS.length);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [isOpen]);
+
   return (
     <section className="lookbook-21">
       <div className="container lk-head">
@@ -37,8 +62,8 @@ export default function LookbookGallery() {
           {COLS.map((col, ci) => (
             <div className="gx-col" key={ci}>
               {col.map((src) => {
-                counter += 1;
-                return <Cell key={src} src={src} n={counter} />;
+                const n = ++counter;
+                return <Cell key={src} src={src} n={n} onOpen={() => setActiveIdx(n - 1)} />;
               })}
             </div>
           ))}
@@ -50,6 +75,48 @@ export default function LookbookGallery() {
           VER COLECCIÓN COMPLETA <ArrowUpRight size={18} />
         </Link>
       </div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="gx-lightbox"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setActiveIdx(null)}
+          >
+            <button className="gx-lb-close" aria-label="Cerrar" onClick={() => setActiveIdx(null)}>
+              <X size={22} />
+            </button>
+            <button
+              className="gx-lb-nav gx-lb-nav--prev"
+              aria-label="Anterior"
+              onClick={(e) => { e.stopPropagation(); setActiveIdx((i) => (i - 1 + LOOKS.length) % LOOKS.length); }}
+            >
+              <ChevronLeft size={28} />
+            </button>
+            <motion.img
+              key={activeIdx}
+              className="gx-lb-img"
+              src={LOOKS[activeIdx]}
+              alt={`Look ${String(activeIdx + 1).padStart(2, '0')}`}
+              initial={{ opacity: 0, scale: .96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: .96 }}
+              transition={{ duration: .25 }}
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              className="gx-lb-nav gx-lb-nav--next"
+              aria-label="Siguiente"
+              onClick={(e) => { e.stopPropagation(); setActiveIdx((i) => (i + 1) % LOOKS.length); }}
+            >
+              <ChevronRight size={28} />
+            </button>
+            <span className="gx-lb-idx">[ {String(activeIdx + 1).padStart(2, '0')} / {String(LOOKS.length).padStart(2, '0')} ]</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
         .lookbook-21 { background: var(--black); padding: 96px 0 80px; overflow: hidden; }
@@ -162,6 +229,51 @@ export default function LookbookGallery() {
 
         @media (prefers-reduced-motion: reduce) {
           .gx-cols, .gx-col, .gx-cell img { transition: none; }
+        }
+
+        /* ---------- LIGHTBOX ---------- */
+        .gx-lightbox {
+          position: fixed; inset: 0; z-index: 1000;
+          background: rgba(6,6,7,.94); backdrop-filter: blur(6px);
+          display: flex; align-items: center; justify-content: center;
+          padding: 24px;
+        }
+        .gx-lb-img {
+          max-width: min(90vw, 720px); max-height: 86vh;
+          width: auto; height: auto;
+          object-fit: contain;
+          border-radius: 14px;
+          border: 1px solid var(--dark-4);
+          box-shadow: 0 24px 64px rgba(0,0,0,.6);
+          cursor: default;
+        }
+        .gx-lb-close {
+          position: absolute; top: 20px; right: 20px;
+          display: flex; align-items: center; justify-content: center;
+          width: 42px; height: 42px; border-radius: 50%;
+          background: rgba(255,255,255,.06); border: 1px solid var(--dark-4);
+          color: var(--white); cursor: pointer; transition: background .25s, border-color .25s;
+        }
+        .gx-lb-close:hover { background: var(--gold); border-color: var(--gold); color: #0B0B0C; }
+        .gx-lb-nav {
+          position: absolute; top: 50%; transform: translateY(-50%);
+          display: flex; align-items: center; justify-content: center;
+          width: 48px; height: 48px; border-radius: 50%;
+          background: rgba(255,255,255,.06); border: 1px solid var(--dark-4);
+          color: var(--white); cursor: pointer; transition: background .25s, border-color .25s;
+        }
+        .gx-lb-nav:hover { background: var(--gold); border-color: var(--gold); color: #0B0B0C; }
+        .gx-lb-nav--prev { left: 20px; }
+        .gx-lb-nav--next { right: 20px; }
+        .gx-lb-idx {
+          position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+          font-family: var(--font-tech); font-size: .68rem; letter-spacing: .16em;
+          color: var(--gray-light);
+        }
+        @media (max-width: 600px) {
+          .gx-lb-nav { width: 40px; height: 40px; }
+          .gx-lb-nav--prev { left: 8px; }
+          .gx-lb-nav--next { right: 8px; }
         }
       `}</style>
     </section>
