@@ -14,7 +14,7 @@ const ITEMS = [
   {
     Icon: BadgeCheck,
     tag: 'CALIDAD',
-    title: '100% ORIGINAL',
+    title: 'CALIDAD GARANTIZADA',
     text: 'Productos auténticos y verificados. Sin réplicas, sin excusas.',
   },
   {
