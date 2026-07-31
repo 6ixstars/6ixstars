@@ -136,6 +136,7 @@ const organizationSchema = {
   sameAs: [
     'https://www.instagram.com/6ixstars/',
     'https://www.tiktok.com/@6ixstars',
+    'https://www.facebook.com/share/1DSfh6HH2g/?mibextid=wwXIfr',
   ],
 };
 
