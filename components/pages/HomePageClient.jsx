@@ -181,7 +181,7 @@ export default function HomePageClient({ products = [] }) {
             <Reveal as="h2" className="sx6-mani-title">HECHO PARA LA CALLE.<br /><span>NO PARA EL CLÓSET.</span></Reveal>
             <Reveal i={1} as="p" className="sx6-mani-text">
               6ixstars reúne las mejores marcas de streetwear en un solo lugar.
-              Piezas seleccionadas y originales. Cuando se agota, se agota.
+              Piezas seleccionadas y elegidas a mano. Cuando se agota, se agota.
             </Reveal>
           </div>
         </section>

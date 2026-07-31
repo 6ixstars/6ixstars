@@ -222,7 +222,7 @@ export default function CheckoutPageClient() {
               <Shield size={13} style={{ color: 'var(--gold)' }} /> Pago Seguro
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: 'var(--gray)', fontSize: '.78rem' }}>
-              <Award size={13} style={{ color: 'var(--gold)' }} /> 100% Original
+              <Award size={13} style={{ color: 'var(--gold)' }} /> 100% Garantizado
             </div>
           </div>
         </div>
@@ -534,7 +534,7 @@ export default function CheckoutPageClient() {
                   { Icon: Truck,    title: 'Envío gratis', desc: 'a toda Colombia' },
                   { Icon: RotateCcw, title: 'Garantía 30 días', desc: 'Devolución sin preguntas' },
                   { Icon: Shield,   title: 'Pago Seguro', desc: 'SSL 256-bit · PCI-DSS' },
-                  { Icon: Award,    title: '100% Original', desc: 'Auténtico o te devolvemos el dinero' },
+                  { Icon: Award,    title: '100% Garantizado', desc: 'Auténtico o te devolvemos el dinero' },
                 ].map(b => (
                   <div key={b.title} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', marginBottom: '10px' }}>
                     <b.Icon size={16} style={{ color: 'var(--gold)', flexShrink: 0, marginTop: '2px' }} />

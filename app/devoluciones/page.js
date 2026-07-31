@@ -9,7 +9,7 @@ export const metadata = {
 const steps = [
   { n: '01', title: 'Contáctanos', desc: 'Escríbenos a ventas@6ixstars.com.co o por WhatsApp dentro de los 30 días posteriores a recibir tu pedido.' },
   { n: '02', title: 'Aprobación', desc: 'Revisamos tu caso y te confirmamos si aplica la devolución en pocos días hábiles.' },
-  { n: '03', title: 'Envío', desc: 'Nos envías el producto en su empaque original, sin uso y con todos sus accesorios.' },
+  { n: '03', title: 'Envío', desc: 'Nos envías el producto en su empaque de fábrica, sin uso y con todos sus accesorios.' },
   { n: '04', title: 'Reembolso', desc: 'Una vez recibido y verificado el producto, procesamos el reembolso en 5–7 días hábiles.' },
 ];
 
@@ -47,16 +47,16 @@ export default function DevolucionesPage() {
           {
             title: 'Condiciones para Devolución',
             items: [
-              'El producto debe estar en perfecto estado, sin uso y con su empaque original',
+              'El producto debe estar en perfecto estado, sin uso y con su empaque de fábrica',
               'Debes solicitarlo dentro de los 30 días posteriores a la recepción',
               'Debes presentar el comprobante de compra o número de pedido',
-              'Los productos deben incluir todos sus accesorios y muestras originales',
+              'Los productos deben incluir todos sus accesorios y etiquetas',
             ],
           },
           {
             title: 'Casos No Aplican Devolución',
             items: [
-              'Productos usados, abiertos o sin empaque original',
+              'Productos usados, abiertos o sin empaque de fábrica',
               'Solicitudes después de 30 días de la recepción',
               'Productos en promoción especial o liquidación (indicado en la descripción)',
               'Daños causados por mal uso del producto',

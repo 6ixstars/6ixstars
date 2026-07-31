@@ -158,7 +158,7 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
           <Field label="Precio base (COP)">
             <input name="base_price" type="number" min="0" step="100" defaultValue={product.base_price ?? ''} />
           </Field>
-          <Field label="Precio original (tachado)" hint="Opcional. Para mostrar descuento.">
+          <Field label="Precio antes de descuento (tachado)" hint="Opcional. Para mostrar descuento.">
             <input name="original_price" type="number" min="0" step="100" defaultValue={product.original_price ?? ''} />
           </Field>
         </div>

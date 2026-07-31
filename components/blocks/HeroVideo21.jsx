@@ -58,7 +58,7 @@ export default function HeroVideo21() {
             </span>
           </h1>
 
-          <p className="hero21-sub">Las mejores marcas de streetwear, originales y curadas. Lo que se usa en el 6ix.</p>
+          <p className="hero21-sub">Las mejores marcas de streetwear, curadas. Lo que se usa en el 6ix.</p>
 
           <div className="flex flex-row flex-wrap gap-3 justify-center">
             <Magnetic strength={0.5}>
