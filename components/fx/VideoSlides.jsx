@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 // Slideshow de videos de fondo con crossfade. Ambos reproducen en loop;
 // se alterna la opacidad cada N segundos.
 const VIDEOS = [
-  { src: '/video/hero.mp4', poster: '/video/hero-poster.webp' },
   { src: '/video/hero2.mp4', poster: '/video/hero2-poster.webp' },
+  { src: '/video/hero3.mp4', poster: '/video/hero3-poster.webp' },
 ];
 
 export default function VideoSlides() {
