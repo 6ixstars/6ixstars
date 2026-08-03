@@ -74,35 +74,28 @@ function parseProductForm(formData, { productId } = {}) {
     return { error: `Máximo 5 familias olfativas por producto (recibimos ${categories.length})` };
   }
 
+  // NOTA: product_type, type, longevity, sillage, season, notes_top/heart/base
+  // y occasion son campos de la era "perfumes" que el form todavía pide pero
+  // que ya no existen como columnas en `products` (ver lib/supabase/schema.sql
+  // y el comentario en lib/products-db.js rowToProduct). Se ignoran acá para
+  // no romper el INSERT/UPDATE con "column not found" — quedan pendientes de
+  // sacarse del form en el pase de diseño.
   const data = {
     name,
     slug,
     brand: str('brand'),
-    product_type: str('product_type'),
     category: categories[0] || null,  // compat con código viejo
     categories,                        // todas las familias (text[] en DB)
-    type: str('type'),
     gender: str('gender'),
     description: str('description'),
     base_price: num('base_price'),
     original_price: num('original_price'),
     stock: num('stock') ?? 0,
-    longevity: str('longevity'),
-    sillage: str('sillage'),
-    season: str('season'),
-    notes_top: str('notes_top'),
-    notes_heart: str('notes_heart'),
-    notes_base: str('notes_base'),
     badge: str('badge'),
     badge_color: str('badge_color'),
     featured: bool('featured'),
     bestseller: bool('bestseller'),
   };
-
-  const occasionRaw = str('occasion');
-  if (occasionRaw != null) {
-    data.occasion = occasionRaw.split(',').map((s) => s.trim()).filter(Boolean);
-  }
 
   // ─── Sizes (arrays paralelos) ────────────────────────────────────────
   const mls    = formData.getAll('sizes_ml');
