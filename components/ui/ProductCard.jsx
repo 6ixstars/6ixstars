@@ -39,6 +39,11 @@ export default function ProductCard({ product, priority = false }) {
 
   // Tallas reales (no la talla "Única" genérica que se usa cuando el producto no tiene variantes)
   const realSizes = (product.sizes || []).filter(s => s.size && s.size !== 'Única');
+  // El stock por talla es opcional — muchos productos nunca lo cargan y queda en 0
+  // por default de la DB. Solo bloqueamos tallas "agotadas" cuando el producto
+  // realmente tiene stock trackeado (al menos una talla con stock > 0); si no,
+  // asumimos disponible para no tapar ventas por falta de dato.
+  const stockTracked = realSizes.some(s => s.stock > 0);
   const [pickedSize, setPickedSize] = useState(null);
   const [justAdded, setJustAdded] = useState(false);
   const addedTimer = useRef(null);
@@ -50,7 +55,7 @@ export default function ProductCard({ product, priority = false }) {
   };
 
   const addWithSize = (sizeObj) => {
-    if (sizeObj && sizeObj.stock === 0) return;
+    if (sizeObj && stockTracked && sizeObj.stock === 0) return;
     addItem(product, sizeObj?.ml);
     toast.success(`${product.name}${sizeObj ? ` · ${sizeObj.size}` : ''} agregado`, TOAST);
     flashAdded();
@@ -66,7 +71,7 @@ export default function ProductCard({ product, priority = false }) {
 
   const handlePickSize = (e, sizeObj) => {
     e.preventDefault(); e.stopPropagation();
-    if (sizeObj.stock === 0) return;
+    if (stockTracked && sizeObj.stock === 0) return;
     setPickedSize(sizeObj);
     addWithSize(sizeObj);
   };
@@ -113,18 +118,21 @@ export default function ProductCard({ product, priority = false }) {
           <div className="pc-actions">
             {realSizes.length > 1 ? (
               <div className="pc-sizes" role="group" aria-label="Elegir talla">
-                {realSizes.map(s => (
-                  <button
-                    key={s.size}
-                    type="button"
-                    className={`pc-size ${pickedSize?.size === s.size ? 'is-picked' : ''} ${s.stock === 0 ? 'is-out' : ''}`}
-                    disabled={s.stock === 0}
-                    onClick={(e) => handlePickSize(e, s)}
-                    aria-label={s.stock === 0 ? `Talla ${s.size} agotada` : `Añadir talla ${s.size}`}
-                  >
-                    {s.size}
-                  </button>
-                ))}
+                {realSizes.map(s => {
+                  const out = stockTracked && s.stock === 0;
+                  return (
+                    <button
+                      key={s.size}
+                      type="button"
+                      className={`pc-size ${pickedSize?.size === s.size ? 'is-picked' : ''} ${out ? 'is-out' : ''}`}
+                      disabled={out}
+                      onClick={(e) => handlePickSize(e, s)}
+                      aria-label={out ? `Talla ${s.size} agotada` : `Añadir talla ${s.size}`}
+                    >
+                      {s.size}
+                    </button>
+                  );
+                })}
               </div>
             ) : (
               <button className={`pc-add ${justAdded ? 'is-added' : ''}`} onClick={handleAdd} disabled={!hasPrice}>

@@ -47,8 +47,8 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
   // Arrays dinámicos
   const [sizes, setSizes] = useState(
     product.product_sizes?.length
-      ? product.product_sizes.map((s) => ({ ml: s.ml || '', price: s.price ?? '' }))
-      : [{ ml: '100ml', price: '' }]
+      ? product.product_sizes.map((s) => ({ ml: s.ml || '', price: s.price ?? '', stock: s.stock ?? '' }))
+      : [{ ml: '100ml', price: '', stock: '' }]
   );
   const initialImageUrls = (product.product_images || []).map((i) => i.url).filter(Boolean);
 
@@ -178,11 +178,12 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
       </Section>
 
       {/* ── Tamaños ───────────────────────────────────────────────────── */}
-      <Section title="Tamaños y precios" desc="Cada fila es un tamaño disponible.">
+      <Section title="Tamaños y precios" desc="Cada fila es un tamaño disponible. El stock es opcional — si lo dejas vacío en todas las filas, la talla se muestra siempre disponible.">
         <div className="sizes">
           <div className="sizes-head">
             <span>Tamaño</span>
             <span>Precio (COP)</span>
+            <span>Stock</span>
             <span></span>
           </div>
           {sizes.map((s, i) => (
@@ -202,6 +203,15 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
                 onChange={(e) => updateAt(setSizes, i, { price: e.target.value })}
                 placeholder="250000"
               />
+              <input
+                name="sizes_stock"
+                type="number"
+                min="0"
+                step="1"
+                value={s.stock}
+                onChange={(e) => updateAt(setSizes, i, { stock: e.target.value })}
+                placeholder="0"
+              />
               <button
                 type="button"
                 className="row-del"
@@ -215,7 +225,7 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
           <button
             type="button"
             className="row-add"
-            onClick={() => setSizes((arr) => [...arr, { ml: '', price: '' }])}
+            onClick={() => setSizes((arr) => [...arr, { ml: '', price: '', stock: '' }])}
           >
             + Agregar tamaño
           </button>
@@ -602,7 +612,7 @@ function FormStyles() {
       .sizes { display: flex; flex-direction: column; gap: 0.5rem; }
       .sizes-head {
         display: grid;
-        grid-template-columns: 1fr 1fr 40px;
+        grid-template-columns: 1fr 1fr 1fr 40px;
         gap: 0.6rem;
         padding: 0 0.2rem;
         font-size: 0.7rem;
@@ -612,7 +622,7 @@ function FormStyles() {
       }
       .sizes-row {
         display: grid;
-        grid-template-columns: 1fr 1fr 40px;
+        grid-template-columns: 1fr 1fr 1fr 40px;
         gap: 0.6rem;
         align-items: center;
       }

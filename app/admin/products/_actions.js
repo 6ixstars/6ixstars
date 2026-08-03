@@ -107,12 +107,15 @@ function parseProductForm(formData, { productId } = {}) {
   // ─── Sizes (arrays paralelos) ────────────────────────────────────────
   const mls    = formData.getAll('sizes_ml');
   const prices = formData.getAll('sizes_price');
+  const stocks = formData.getAll('sizes_stock');
   const sizes = [];
   for (let i = 0; i < Math.max(mls.length, prices.length); i++) {
     const ml = String(mls[i] ?? '').trim();
     const price = Number(prices[i]);
     if (!ml || !Number.isFinite(price) || price <= 0) continue;
-    const row = { ml, price, order_index: i };
+    const stockRaw = stocks[i];
+    const stock = stockRaw != null && String(stockRaw).trim() !== '' ? Number(stockRaw) : 0;
+    const row = { ml, price, stock: Number.isFinite(stock) ? stock : 0, order_index: i };
     if (productId != null) row.product_id = productId;
     sizes.push(row);
   }
