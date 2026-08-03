@@ -148,7 +148,7 @@ export default function CheckoutPageClient() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          amountUsd: grand, // COP value — toAmountInCents lo multiplica x100
+          amountUsd: grand, // valor en COP (pesos enteros, Bold no usa centavos)
           discount,
           shippingCost: shipping,
           items,

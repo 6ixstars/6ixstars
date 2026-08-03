@@ -52,8 +52,7 @@ vercel env add NEXT_PUBLIC_SUPABASE_URL
 vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
 vercel env add SUPABASE_SERVICE_ROLE_KEY
 vercel env add NEXT_PUBLIC_BOLD_PUBLIC_KEY
-vercel env add BOLD_INTEGRITY_SECRET
-vercel env add BOLD_EVENTS_SECRET
+vercel env add BOLD_SECRET_KEY
 vercel env add NEXT_PUBLIC_SITE_URL          # https://6ixstars.com.co
 vercel env add NEXT_PUBLIC_USD_TO_COP_RATE   # 1  (precios ya en COP)
 ```
@@ -79,10 +78,11 @@ En el dashboard de Vercel: **Project → Settings → Domains → Add**.
 ---
 
 ## 5) Bold (pagos) — post-deploy
-1. En el dashboard de Bold → **Configuración → API**, copia las llaves (empieza con `pub_test_`).
-2. Configura el **webhook**: `https://6ixstars.com.co/api/bold/webhook`
-3. Prueba con tarjeta sandbox: `4242 4242 4242 4242` (aprobada).
-4. Cuando todo funcione, cambia a llaves `pub_prod_` y vuelve a desplegar.
+1. En el dashboard de Bold → **Integraciones → Llaves de integración**, activa **Pagos en línea / Link de pagos** y copia la llave de identidad (pública) y la llave secreta.
+   ⚠️ La API de Link de pagos puede requerir activación aparte con Bold (formulario/contacto comercial) — confírmalo con ellos si `createPaymentLink` responde con error de autorización.
+2. Configura el **webhook** en el dashboard de Bold → **Webhooks**: `https://6ixstars.com.co/api/bold/webhook`
+3. Haz una compra de prueba en modo sandbox y confirma en los logs de Vercel que el webhook llega con firma válida (`lib/bold.js` → `validateWebhookSignature`).
+4. Cuando todo funcione, cambia a las llaves de producción y vuelve a desplegar.
 
 ---
 

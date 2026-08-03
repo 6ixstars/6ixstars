@@ -1,15 +1,12 @@
 import { NextResponse } from 'next/server';
-import {
-  BOLD_CONFIGURED, BOLD_PUBLIC_KEY, BOLD_IS_TEST,
-  generateReference, generateSignature, toAmountInCents, buildCheckoutUrl,
-} from '@/lib/bold';
+import { BOLD_CONFIGURED, generateReference, createPaymentLink } from '@/lib/bold';
 import { supabaseAdmin } from '@/lib/supabase';
 
 export async function POST(req) {
   try {
     if (!BOLD_CONFIGURED) {
       return NextResponse.json({
-        error: 'Bold no está configurado. Define NEXT_PUBLIC_BOLD_PUBLIC_KEY y BOLD_INTEGRITY_SECRET en .env.local',
+        error: 'Bold no está configurado. Define NEXT_PUBLIC_BOLD_PUBLIC_KEY en .env.local',
       }, { status: 503 });
     }
 
@@ -24,31 +21,22 @@ export async function POST(req) {
     }
 
     const reference = generateReference();
-    const amountInCents = toAmountInCents(amountUsd);
+    // El monto que llega en `amountUsd` ya está en pesos COP (ver comentario en CheckoutPageClient).
+    // Bold, a diferencia de Wompi, espera el monto en pesos enteros, no en centavos.
+    const amountCop = amountUsd;
     const currency = 'COP';
-    const signature = generateSignature({ reference, amountInCents, currency });
-
-    // Bold requiere teléfono solo con dígitos, sin +, espacios ni guiones
-    const cleanPhone = (customer.phone || '').replace(/\D/g, '').slice(-10);
 
     const origin = req.headers.get('origin')
       || process.env.NEXT_PUBLIC_SITE_URL
       || 'http://localhost:3000';
     const redirectUrl = `${origin}/order-confirm?reference=${encodeURIComponent(reference)}`;
 
-    const checkoutUrl = buildCheckoutUrl({
+    const { url: checkoutUrl } = await createPaymentLink({
       reference,
-      amountInCents,
-      signature,
-      redirectUrl,
+      amountCop,
       currency,
-      customerEmail: customer.email,
-      customerFullName: customer.name,
-      customerPhoneNumber: cleanPhone,
-      shippingLine1: shipping.address,
-      shippingCity: shipping.city,
-      shippingRegion: shipping.department,
-      shippingCountry: shipping.country || 'CO',
+      description: `Compra 6ixstars — ${items.length} producto${items.length === 1 ? '' : 's'}`,
+      redirectUrl,
     });
 
     // Guardar orden en Supabase
@@ -111,10 +99,9 @@ export async function POST(req) {
 
     return NextResponse.json({
       reference,
-      amountInCents,
+      amountCop,
       currency,
       checkoutUrl,
-      isTest: BOLD_IS_TEST,
       paymentMethod,
     });
   } catch (err) {

@@ -1,28 +1,40 @@
 import { NextResponse } from 'next/server';
-import { validateWebhookSignature } from '@/lib/bold';
+import { validateWebhookSignature, mapBoldStatus } from '@/lib/bold';
 import { supabaseAdmin } from '@/lib/supabase';
 import { notifyAdminNewOrder } from '@/lib/notifications';
 import { sendOrderPush } from '@/lib/push';
 
 export async function POST(req) {
   try {
-    const payload = await req.json();
+    // La firma se calcula sobre el body CRUDO (ver lib/bold.js) — hay que leerlo como texto
+    // antes de parsearlo, si no la firma nunca va a coincidir.
+    const rawBody = await req.text();
+    const signatureHeader = req.headers.get('x-bold-signature');
 
-    if (!validateWebhookSignature(payload)) {
+    if (!validateWebhookSignature(rawBody, signatureHeader)) {
       console.warn('[Bold webhook] Firma inválida');
       return NextResponse.json({ error: 'invalid signature' }, { status: 401 });
     }
 
-    const { event, data } = payload;
-    const tx = data?.transaction;
+    const payload = JSON.parse(rawBody);
+    const { type, data } = payload;
+    const status = mapBoldStatus(type); // SALE_APPROVED/SALE_REJECTED/VOID_APPROVED → approved/declined/voided
 
-    if (event !== 'transaction.updated' || !tx) {
-      console.log(`[Bold webhook] Evento ignorado: ${event}`);
-      return NextResponse.json({ ok: true, ignored: event });
+    // TODO(pasarela-bold): el nombre exacto del campo que trae nuestra referencia dentro de
+    // `data` para transacciones de Botón/Link de pagos no está 100% confirmado en la doc
+    // pública de Bold (sí lo está para la API de pagos en línea cruda: `metadata.reference`).
+    // Se prueban los candidatos más probables; si Bold cambia el nombre, el cron diario y el
+    // botón "Sincronizar pendientes" en /admin/orders (que consultan por referencia, no por
+    // webhook) siguen cubriendo el caso como respaldo.
+    const reference = data?.metadata?.reference || data?.reference_id || data?.order_id;
+    const txId = data?.payment_id || data?.bold_code || null;
+
+    if (!status || !reference) {
+      console.log(`[Bold webhook] Evento ignorado: type=${type} reference=${reference}`, JSON.stringify(data));
+      return NextResponse.json({ ok: true, ignored: type });
     }
 
-    const status = tx.status?.toLowerCase(); // approved, declined, voided, error, pending
-    console.log(`[Bold] ${tx.reference} → ${status} (txId: ${tx.id})`);
+    console.log(`[Bold] ${reference} → ${status} (txId: ${txId})`);
 
     if (!supabaseAdmin) {
       console.error('[Bold webhook] supabaseAdmin no disponible — saltando persistencia');
@@ -34,15 +46,15 @@ export async function POST(req) {
       .from('orders')
       .update({
         status,
-        bold_tx_id: tx.id,
+        bold_tx_id: txId,
         updated_at: new Date().toISOString(),
       })
-      .eq('reference', tx.reference)
+      .eq('reference', reference)
       .select('id, status')
       .single();
 
     if (updateErr || !updated) {
-      console.warn(`[Bold webhook] No se encontró orden con reference=${tx.reference}`, updateErr?.message);
+      console.warn(`[Bold webhook] No se encontró orden con reference=${reference}`, updateErr?.message);
       return NextResponse.json({ ok: true, found: false });
     }
 

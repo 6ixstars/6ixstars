@@ -9,25 +9,34 @@ import { formatCOP } from '@/lib/format';
 
 const PHONE_WHATSAPP = '573143776839';
 
-// Estados Bold: APPROVED, DECLINED, VOIDED, ERROR, PENDING
+// payment_status real de Bold: APPROVED, PROCESSING, PENDING (solo PSE), REJECTED, FAILED,
+// VOIDED, NO_TRANSACTION_FOUND (Bold puede tardar hasta ~10min en indexar la transacción).
 const STATUS_CONFIG = {
-  APPROVED:      { color: 'var(--success)', bg: 'rgba(124,158,135,.15)', label: 'Aprobado',  icon: CheckCircle, title: '¡Pago Aprobado!',     msg: 'Hemos recibido tu pago y estamos preparando tu pedido.' },
-  PENDING:       { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Pendiente', icon: Loader2,     title: 'Pago en Verificación', msg: 'Tu pago está siendo procesado. Te notificaremos cuando se confirme.' },
-  DECLINED:      { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Rechazado', icon: AlertCircle, title: 'Pago Rechazado',       msg: 'Tu banco rechazó la transacción. Intenta con otro método de pago.' },
-  VOIDED:        { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Anulado',   icon: AlertCircle, title: 'Pago Anulado',         msg: 'La transacción fue anulada. No se realizó ningún cargo.' },
-  ERROR:         { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Error',     icon: AlertCircle, title: 'Error en el Pago',     msg: 'Ocurrió un error procesando tu pago. Intenta de nuevo.' },
-  DEMO:          { color: 'var(--success)', bg: 'rgba(124,158,135,.15)', label: 'Confirmado', icon: CheckCircle, title: '¡Pedido Confirmado!', msg: 'Hemos recibido tu pedido y lo estamos preparando con cuidado.' },
-  COD:           { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Por Pagar',  icon: Package,    title: '¡Pedido Recibido!',    msg: 'Pagas al recibir el producto. Te contactaremos para confirmar la entrega.' },
-  LOADING:       { color: 'var(--gold)',    bg: 'rgba(175,31,58,.10)', label: 'Verificando', icon: Loader2,   title: 'Verificando Pago...', msg: 'Estamos confirmando el estado de tu transacción con Bold.' },
+  APPROVED:            { color: 'var(--success)', bg: 'rgba(124,158,135,.15)', label: 'Aprobado',  icon: CheckCircle, title: '¡Pago Aprobado!',     msg: 'Hemos recibido tu pago y estamos preparando tu pedido.' },
+  PENDING:             { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Pendiente', icon: Loader2,     title: 'Pago en Verificación', msg: 'Tu pago está siendo procesado. Te notificaremos cuando se confirme.' },
+  PROCESSING:          { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Pendiente', icon: Loader2,     title: 'Pago en Verificación', msg: 'Tu pago está siendo procesado. Te notificaremos cuando se confirme.' },
+  NO_TRANSACTION_FOUND:{ color: 'var(--gold)',    bg: 'rgba(175,31,58,.10)',   label: 'Verificando', icon: Loader2,   title: 'Verificando Pago...', msg: 'Bold puede tardar unos minutos en confirmar tu transacción. Te avisaremos por email en cuanto se apruebe.' },
+  REJECTED:            { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Rechazado', icon: AlertCircle, title: 'Pago Rechazado',       msg: 'Tu banco rechazó la transacción. Intenta con otro método de pago.' },
+  FAILED:              { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Rechazado', icon: AlertCircle, title: 'Pago Rechazado',       msg: 'Ocurrió un error procesando tu pago. Intenta de nuevo.' },
+  VOIDED:              { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Anulado',   icon: AlertCircle, title: 'Pago Anulado',         msg: 'La transacción fue anulada. No se realizó ningún cargo.' },
+  ERROR:               { color: 'var(--error)',   bg: 'rgba(192,74,92,.15)',   label: 'Error',     icon: AlertCircle, title: 'Error en el Pago',     msg: 'Ocurrió un error consultando tu pago. Contáctanos si el cobro sí se realizó.' },
+  DEMO:                { color: 'var(--success)', bg: 'rgba(124,158,135,.15)', label: 'Confirmado', icon: CheckCircle, title: '¡Pedido Confirmado!', msg: 'Hemos recibido tu pedido y lo estamos preparando con cuidado.' },
+  COD:                 { color: '#F5A623',        bg: 'rgba(245,166,35,.15)',  label: 'Por Pagar',  icon: Package,    title: '¡Pedido Recibido!',    msg: 'Pagas al recibir el producto. Te contactaremos para confirmar la entrega.' },
+  LOADING:             { color: 'var(--gold)',    bg: 'rgba(175,31,58,.10)', label: 'Verificando', icon: Loader2,   title: 'Verificando Pago...', msg: 'Estamos confirmando el estado de tu transacción con Bold.' },
 };
+
+// Reintentos mientras el estado siga "en proceso" (Bold puede tardar en indexar la transacción)
+const MAX_POLL_ATTEMPTS = 10;
+const POLL_INTERVAL_MS = 4000;
+const PENDING_STATUSES = new Set(['LOADING', 'PENDING', 'PROCESSING', 'NO_TRANSACTION_FOUND']);
 
 export default function OrderConfirmPageClient() {
   const searchParams = useSearchParams();
   const { clearCart } = useCartStore();
 
-  // Bold devuelve ?id=TXID&env=test|prod en el redirect
-  const boldTxId = searchParams.get('id');
-  const boldEnv = searchParams.get('env');
+  // Nosotros generamos `redirectUrl` al crear el link de pago (ver app/api/bold/checkout),
+  // así que la referencia siempre viaja de vuelta en la URL — no dependemos de qué
+  // parámetros exactos agregue Bold.
   const boldReference = searchParams.get('reference');
 
   // Path simulado / COD
@@ -37,28 +46,28 @@ export default function OrderConfirmPageClient() {
   const isSimulated = searchParams.get('simulated') === '1';
 
   const [tx, setTx] = useState(null);
-  const [statusKey, setStatusKey] = useState(boldTxId ? 'LOADING' : (method === 'cod' ? 'COD' : 'DEMO'));
+  const [statusKey, setStatusKey] = useState(boldReference ? 'LOADING' : (method === 'cod' ? 'COD' : 'DEMO'));
   const [error, setError] = useState(null);
 
   useEffect(() => { window.scrollTo(0, 0); }, []);
 
-  // Si viene de Bold, consultar el estado de la transacción
+  // Si viene de Bold, consultar el estado del pago por referencia
   useEffect(() => {
-    if (!boldTxId) {
-      // Si es flujo COD/simulado, limpiar carrito (Bold lo limpia tras success en webhook idealmente)
+    if (!boldReference) {
       if (method === 'cod' || isSimulated) clearCart();
       return;
     }
     let cancelled = false;
+    let attempts = 0;
     const fetchStatus = async () => {
       try {
-        const res = await fetch(`/api/bold/transaction?id=${encodeURIComponent(boldTxId)}`, { cache: 'no-store' });
+        const res = await fetch(`/api/bold/transaction?reference=${encodeURIComponent(boldReference)}`, { cache: 'no-store' });
         const data = await res.json();
         if (cancelled) return;
-        if (!res.ok) throw new Error(data.error || 'Error consultando transacción');
+        if (!res.ok) throw new Error(data.error || 'Error consultando el pago');
         setTx(data);
-        setStatusKey(data.status || 'PENDING');
-        if (data.status === 'APPROVED') clearCart();
+        setStatusKey(data.payment_status || 'NO_TRANSACTION_FOUND');
+        if (data.payment_status === 'APPROVED') clearCart();
       } catch (err) {
         if (cancelled) return;
         setError(err.message);
@@ -66,22 +75,23 @@ export default function OrderConfirmPageClient() {
       }
     };
     fetchStatus();
-    // Si está PENDING, reintentar cada 4s (max 5 veces)
-    let attempts = 0;
     const interval = setInterval(() => {
-      if (attempts++ >= 5) { clearInterval(interval); return; }
-      if (statusKey === 'PENDING' || statusKey === 'LOADING') fetchStatus();
-    }, 4000);
+      if (cancelled || attempts++ >= MAX_POLL_ATTEMPTS) { clearInterval(interval); return; }
+      setStatusKey(current => {
+        if (PENDING_STATUSES.has(current)) fetchStatus();
+        return current;
+      });
+    }, POLL_INTERVAL_MS);
     return () => { cancelled = true; clearInterval(interval); };
-  }, [boldTxId, method, isSimulated, clearCart, statusKey]);
+  }, [boldReference, method, isSimulated, clearCart]);
 
   const status = STATUS_CONFIG[statusKey] || STATUS_CONFIG.LOADING;
   const Icon = status.icon;
-  const finalOrderId = tx?.reference || boldReference || orderId || 'SB-DEMO';
-  const finalTotal = tx ? (tx.amount_in_cents / 100 / 4000) : totalParam; // div COP rate
-  const isLoading = statusKey === 'LOADING' || statusKey === 'PENDING';
+  const finalOrderId = tx?.reference_id || boldReference || orderId || 'SB-DEMO';
+  const finalTotal = tx?.total != null ? tx.total : totalParam;
+  const isLoading = PENDING_STATUSES.has(statusKey);
   const isSuccess = statusKey === 'APPROVED' || statusKey === 'DEMO' || statusKey === 'COD';
-  const isFailed = statusKey === 'DECLINED' || statusKey === 'VOIDED' || statusKey === 'ERROR';
+  const isFailed = statusKey === 'REJECTED' || statusKey === 'FAILED' || statusKey === 'VOIDED' || statusKey === 'ERROR';
 
   return (
     <PageTransition>
@@ -130,13 +140,10 @@ export default function OrderConfirmPageClient() {
                 </span>
               </div>
             </div>
-            {tx?.payment_method?.type && (
+            {tx?.payment_method && (
               <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid var(--dark-4)' }}>
                 <p style={{ fontSize: '.75rem', color: 'var(--gray)', textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: '6px' }}>Método de Pago</p>
-                <p style={{ fontWeight: 600, color: 'var(--white)', fontSize: '.95rem' }}>
-                  {tx.payment_method.type}
-                  {tx.payment_method.extra?.last_four && ` •••• ${tx.payment_method.extra.last_four}`}
-                </p>
+                <p style={{ fontWeight: 600, color: 'var(--white)', fontSize: '.95rem' }}>{tx.payment_method}</p>
               </div>
             )}
           </div>
