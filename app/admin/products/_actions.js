@@ -108,7 +108,10 @@ function parseProductForm(formData, { productId } = {}) {
     if (!ml || !Number.isFinite(price) || price <= 0) continue;
     const stockRaw = stocks[i];
     const stock = stockRaw != null && String(stockRaw).trim() !== '' ? Number(stockRaw) : 0;
-    const row = { ml, price, stock: Number.isFinite(stock) ? stock : 0, order_index: i };
+    // La columna real en product_sizes es `size` (ver schema.sql), no `ml`
+    // (nombre heredado de la era perfumes). El form sigue mandando el campo
+    // como sizes_ml — solo se remapea acá al insertar.
+    const row = { size: ml, price, stock: Number.isFinite(stock) ? stock : 0, order_index: i };
     if (productId != null) row.product_id = productId;
     sizes.push(row);
   }
