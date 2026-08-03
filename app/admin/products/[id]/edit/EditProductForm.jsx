@@ -47,7 +47,7 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
   // Arrays dinámicos
   const [sizes, setSizes] = useState(
     product.product_sizes?.length
-      ? product.product_sizes.map((s) => ({ ml: s.ml || '', price: s.price ?? '', stock: s.stock ?? '' }))
+      ? product.product_sizes.map((s) => ({ ml: s.size || '', price: s.price ?? '', stock: s.stock ?? '' }))
       : [{ ml: '100ml', price: '', stock: '' }]
   );
   const initialImageUrls = (product.product_images || []).map((i) => i.url).filter(Boolean);

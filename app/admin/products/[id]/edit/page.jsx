@@ -16,7 +16,7 @@ async function fetchProduct(id) {
     .from('products')
     .select(`
       *,
-      product_sizes ( id, ml, price, order_index ),
+      product_sizes ( id, size, price, order_index ),
       product_images ( id, url, order_index )
     `)
     .eq('id', id)

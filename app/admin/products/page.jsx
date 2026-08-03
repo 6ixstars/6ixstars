@@ -28,9 +28,9 @@ async function fetchProducts({ page, q, type, brand }) {
   let query = supabaseAdmin
     .from('products')
     .select(`
-      id, slug, name, brand, product_type, gender,
+      id, slug, name, brand, gender,
       featured, bestseller, stock, categories,
-      product_sizes ( ml, price, order_index ),
+      product_sizes ( size, price, order_index ),
       product_images ( url, order_index )
     `, { count: 'exact' });
 
@@ -38,7 +38,9 @@ async function fetchProducts({ page, q, type, brand }) {
     // ilike sobre name OR brand OR slug
     query = query.or(`name.ilike.%${q}%,brand.ilike.%${q}%,slug.ilike.%${q}%`);
   }
-  if (type) query = query.eq('product_type', type);
+  // El filtro "Tipo" del UI filtra por género (hombre/mujer/unisex) — no existe
+  // una columna product_type separada, era de la era perfumes (nicho/diseñador/árabe).
+  if (type) query = query.ilike('gender', type);
   if (brand) query = query.eq('brand', brand);
 
   const from = (page - 1) * PAGE_SIZE;
@@ -62,14 +64,13 @@ async function fetchProducts({ page, q, type, brand }) {
       slug: p.slug,
       name: p.name,
       brand: p.brand,
-      productType: p.product_type,
       gender: p.gender,
       featured: p.featured,
       bestseller: p.bestseller,
       stock: Number(p.stock) || 0,
       categories: Array.isArray(p.categories) ? p.categories : [],
       lowestPrice: lowest?.price,
-      lowestMl: lowest?.ml,
+      lowestSize: lowest?.size,
       thumb,
     };
   });
@@ -171,7 +172,7 @@ export default async function AdminProductsPage({ searchParams }) {
                   <td className="prods-brand">{r.brand || '—'}</td>
                   <td>
                     <span className="type-chip">
-                      {productTypeLabels[r.productType] || r.productType || '—'}
+                      {productTypeLabels[(r.gender || '').toLowerCase()] || r.gender || '—'}
                     </span>
                     {r.categories?.length > 0 && (
                       <div className="cat-chips">
@@ -188,7 +189,7 @@ export default async function AdminProductsPage({ searchParams }) {
                     {r.lowestPrice != null
                       ? <>
                           <span className="prods-price">{cop.format(Number(r.lowestPrice))}</span>
-                          {r.lowestMl && <span className="prods-ml"> · {r.lowestMl}ml</span>}
+                          {r.lowestSize && <span className="prods-ml"> · {r.lowestSize}</span>}
                         </>
                       : <span className="prods-muted">sin precio</span>}
                   </td>
