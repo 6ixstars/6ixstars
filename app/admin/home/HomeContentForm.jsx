@@ -1,9 +1,60 @@
 'use client';
 
-import { useState, useTransition } from 'react';
-import { saveHomeSection, resetHomeSection } from './_actions';
+import { useRef, useState, useTransition } from 'react';
+import { saveHomeSection, resetHomeSection, uploadHomeAsset } from './_actions';
 import { HOME_ICON_NAMES } from '@/lib/home-content-defaults';
 import { collections as CATEGORY_LIST } from '@/lib/products-constants';
+
+// ─── Subida de archivos (arrastrar/soltar o click) ─────────────────────────
+// No asumimos que quien edita tenga acceso al filesystem del proyecto — todo
+// se sube a Supabase Storage y el campo se completa solo con la URL pública.
+
+function FileUploadField({ value, onChange, kind = 'image' }) {
+  const inputRef = useRef(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState('');
+  const [isDrag, setIsDrag] = useState(false);
+  const accept = kind === 'video' ? 'video/mp4,video/webm,video/quicktime' : 'image/jpeg,image/png,image/webp,image/avif';
+
+  async function upload(file) {
+    if (!file) return;
+    setBusy(true);
+    setError('');
+    const fd = new FormData();
+    fd.append('file', file);
+    const res = await uploadHomeAsset(fd);
+    if (res.ok) onChange(res.url);
+    else setError(res.error || 'Error subiendo');
+    setBusy(false);
+  }
+
+  return (
+    <div className="hcf-upload">
+      {value && (
+        <div className="hcf-upload-preview">
+          {kind === 'video'
+            ? <video src={value} muted loop autoPlay playsInline />
+            : <img src={value} alt="" onError={(e) => { e.currentTarget.style.opacity = 0.3; }} />}
+          <button type="button" className="hcf-upload-clear" onClick={() => onChange('')} title="Quitar" aria-label="Quitar">×</button>
+        </div>
+      )}
+      <div
+        className={`hcf-upload-drop ${isDrag ? 'is-drag' : ''} ${busy ? 'is-busy' : ''}`}
+        onClick={() => !busy && inputRef.current?.click()}
+        onDragOver={(e) => { e.preventDefault(); setIsDrag(true); }}
+        onDragLeave={() => setIsDrag(false)}
+        onDrop={(e) => { e.preventDefault(); setIsDrag(false); upload(e.dataTransfer.files?.[0]); }}
+      >
+        {busy ? 'Subiendo…' : value ? 'Cambiar archivo' : `Subir ${kind === 'video' ? 'video' : 'imagen'} (o arrastrar acá)`}
+        <input
+          ref={inputRef} type="file" accept={accept} hidden
+          onChange={(e) => { upload(e.target.files?.[0]); e.target.value = ''; }}
+        />
+      </div>
+      {error && <span className="hcf-upload-error">{error}</span>}
+    </div>
+  );
+}
 
 // ─── Wrappers compartidos (mismo lenguaje visual que EditProductForm) ──────
 
@@ -40,11 +91,6 @@ function Field({ label, children, hint, wide }) {
   );
 }
 
-function ImgPreview({ src }) {
-  if (!src) return null;
-  return <img src={src} alt="" className="hcf-preview" onError={(e) => { e.currentTarget.style.display = 'none'; }} />;
-}
-
 // ─── Editor genérico de arrays de objetos (whysix, shoes, trust, testimonios) ──
 
 function ObjectListEditor({ items, fields, onChange, addLabel = '+ Agregar', emptyItem }) {
@@ -72,10 +118,11 @@ function ObjectListEditor({ items, fields, onChange, addLabel = '+ Agregar', emp
                     <input type="color" value={item[f.key] || '#AF1F3A'} onChange={(e) => update(i, { [f.key]: e.target.value })} />
                     <input type="text" value={item[f.key] ?? ''} onChange={(e) => update(i, { [f.key]: e.target.value })} />
                   </div>
+                ) : f.type === 'image' ? (
+                  <FileUploadField value={item[f.key] ?? ''} onChange={(url) => update(i, { [f.key]: url })} kind="image" />
                 ) : (
                   <input type="text" value={item[f.key] ?? ''} onChange={(e) => update(i, { [f.key]: e.target.value })} placeholder={f.placeholder} />
                 )}
-                {f.key === 'img' && <ImgPreview src={item.img} />}
               </Field>
             ))}
           </div>
@@ -134,21 +181,19 @@ function SectionBody({ section, data }) {
           <Field label="Botón secundario — link"><input value={v.ctaSecondaryHref} onChange={(e) => set({ ...v, ctaSecondaryHref: e.target.value })} /></Field>
         </div>
         <div className="hcf-row two">
-          <Field label="Video 1 (URL .mp4)" hint="Se ve con recorte 'cover' — ideal horizontal.">
-            <input value={v.video1} onChange={(e) => set({ ...v, video1: e.target.value })} />
+          <Field label="Video 1" hint="Se ve con recorte 'cover' — ideal horizontal.">
+            <FileUploadField value={v.video1} onChange={(url) => set({ ...v, video1: url })} kind="video" />
           </Field>
           <Field label="Poster video 1 (imagen mientras carga)">
-            <input value={v.video1Poster} onChange={(e) => set({ ...v, video1Poster: e.target.value })} />
-            <ImgPreview src={v.video1Poster} />
+            <FileUploadField value={v.video1Poster} onChange={(url) => set({ ...v, video1Poster: url })} kind="image" />
           </Field>
         </div>
         <div className="hcf-row two">
-          <Field label="Video 2 (URL .mp4)" hint="Se ve completo sin recortar — ideal vertical/celular.">
-            <input value={v.video2} onChange={(e) => set({ ...v, video2: e.target.value })} />
+          <Field label="Video 2" hint="Se ve completo sin recortar — ideal vertical/celular.">
+            <FileUploadField value={v.video2} onChange={(url) => set({ ...v, video2: url })} kind="video" />
           </Field>
           <Field label="Poster video 2">
-            <input value={v.video2Poster} onChange={(e) => set({ ...v, video2Poster: e.target.value })} />
-            <ImgPreview src={v.video2Poster} />
+            <FileUploadField value={v.video2Poster} onChange={(url) => set({ ...v, video2Poster: url })} kind="image" />
           </Field>
         </div>
       </>
@@ -158,9 +203,8 @@ function SectionBody({ section, data }) {
   if (section === 'graffiti') {
     return (
       <>
-        <Field label="Imagen de fondo (URL)">
-          <input value={v.bgImage} onChange={(e) => set({ ...v, bgImage: e.target.value })} />
-          <ImgPreview src={v.bgImage} />
+        <Field label="Imagen de fondo">
+          <FileUploadField value={v.bgImage} onChange={(url) => set({ ...v, bgImage: url })} kind="image" />
         </Field>
         <Field label="Frases de la banda (se repiten en loop)">
           <StringListEditor items={v.phrases} onChange={(phrases) => set({ ...v, phrases })} placeholder="FRASE EN MAYÚSCULAS" />
@@ -211,7 +255,7 @@ function SectionBody({ section, data }) {
             emptyItem={{ name: '', img: '', color: '#AF1F3A', href: '/tienda' }}
             fields={[
               { key: 'name', label: 'Nombre' },
-              { key: 'img', label: 'Imagen (URL)' },
+              { key: 'img', label: 'Imagen', type: 'image', wide: true },
               { key: 'color', label: 'Color de acento', type: 'color' },
               { key: 'href', label: 'Link "Comprar"' },
             ]}
@@ -241,16 +285,15 @@ function SectionBody({ section, data }) {
   if (section === 'categories') {
     return (
       <>
-        <p className="hcf-note">Dejá vacío para usar la imagen default de cada categoría (/img/gen/cat-&#123;id&#125;.webp).</p>
+        <p className="hcf-note">Dejá sin subir para usar la imagen default de cada categoría.</p>
         <div className="hcf-row two">
           {CATEGORY_LIST.map((cat) => (
             <Field key={cat.id} label={cat.name}>
-              <input
+              <FileUploadField
                 value={v.images?.[cat.id] || ''}
-                onChange={(e) => set({ ...v, images: { ...v.images, [cat.id]: e.target.value } })}
-                placeholder={`/img/gen/cat-${cat.id}.webp`}
+                onChange={(url) => set({ ...v, images: { ...v.images, [cat.id]: url } })}
+                kind="image"
               />
-              <ImgPreview src={v.images?.[cat.id]} />
             </Field>
           ))}
         </div>
@@ -275,15 +318,15 @@ function SectionBody({ section, data }) {
             {Array.from({ length: 9 }).map((_, i) => (
               <div key={i} className="hcf-field">
                 <span className="hcf-field-label">Foto {i + 1}</span>
-                <input
+                <FileUploadField
                   value={v.images?.[i] || ''}
-                  onChange={(e) => {
+                  onChange={(url) => {
                     const next = [...(v.images || [])];
-                    next[i] = e.target.value;
+                    next[i] = url;
                     set({ ...v, images: next });
                   }}
+                  kind="image"
                 />
-                <ImgPreview src={v.images?.[i]} />
               </div>
             ))}
           </div>
@@ -296,8 +339,7 @@ function SectionBody({ section, data }) {
     return (
       <>
         <Field label="Imagen de fondo">
-          <input value={v.image} onChange={(e) => set({ ...v, image: e.target.value })} />
-          <ImgPreview src={v.image} />
+          <FileUploadField value={v.image} onChange={(url) => set({ ...v, image: url })} kind="image" />
         </Field>
         <div className="hcf-row two">
           <Field label="Tag"><input value={v.tag} onChange={(e) => set({ ...v, tag: e.target.value })} /></Field>
@@ -497,7 +539,35 @@ function GlobalFormStyles() {
 
       .hcf-note { margin: 0; font-size: 0.78rem; color: var(--gray); font-style: italic; }
 
-      .hcf-preview { margin-top: 0.4rem; width: 100%; max-width: 160px; height: 90px; object-fit: cover; border-radius: 6px; border: 1px solid var(--dark-4); background: var(--dark); }
+      .hcf-upload { display: flex; flex-direction: column; gap: 0.5rem; }
+      .hcf-upload-preview { position: relative; width: 100%; max-width: 220px; }
+      .hcf-upload-preview img, .hcf-upload-preview video {
+        width: 100%; max-height: 130px; object-fit: cover; border-radius: 8px;
+        border: 1px solid var(--dark-4); background: var(--dark); display: block;
+      }
+      .hcf-upload-clear {
+        position: absolute; top: 6px; right: 6px;
+        width: 24px; height: 24px; border-radius: 50%;
+        background: rgba(0,0,0,.7); color: #fff; border: none; cursor: pointer;
+        font-size: 0.9rem; line-height: 1; display: inline-flex; align-items: center; justify-content: center;
+      }
+      .hcf-upload-clear:hover { background: var(--error); }
+      .hcf-upload-drop {
+        padding: 0.65rem 0.9rem;
+        background: rgba(238,177,195,.06);
+        border: 1.5px dashed rgba(238,177,195,.35);
+        border-radius: 8px;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: var(--gold);
+        text-align: center;
+        cursor: pointer;
+        transition: background 0.15s, border-color 0.15s;
+      }
+      .hcf-upload-drop:hover { background: rgba(238,177,195,.12); border-color: var(--gold); }
+      .hcf-upload-drop.is-drag { background: rgba(238,177,195,.18); border-color: var(--gold); }
+      .hcf-upload-drop.is-busy { opacity: 0.6; cursor: wait; }
+      .hcf-upload-error { font-size: 0.72rem; font-weight: 500; color: #FF4D6A; }
 
       .hcf-color-row { display: flex; gap: 0.5rem; align-items: center; }
       .hcf-color-row input[type="color"] { width: 40px; height: 36px; padding: 2px; flex-shrink: 0; cursor: pointer; }
