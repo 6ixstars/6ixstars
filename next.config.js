@@ -12,10 +12,12 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      // Permite uploads de hasta 65MB desde Server Actions (default es 1MB).
-      // El límite real de video lo aplica uploadHomeAsset (60MB) — acá solo
-      // evitamos que el framework corte la request antes de llegar ahí.
-      bodySizeLimit: '65mb',
+      // Los archivos de imagen/video van directo del navegador a Supabase
+      // Storage (signed upload URL) — nunca pasan por una Server Action,
+      // porque Vercel corta el body de cualquier función a ~4.5MB sin
+      // importar este valor. Lo dejamos holgado para el import CSV de
+      // productos, que sí pasa por acá.
+      bodySizeLimit: '10mb',
     },
   },
   // El navegador NO debe cachear el documento HTML: así cada deploy se ve al

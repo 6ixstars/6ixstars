@@ -251,62 +251,50 @@ export async function deleteProduct(formData) {
  * No revalida caché — la imagen no aparece en la tienda hasta que el
  * usuario guarde el producto que la referencia.
  */
-export async function uploadProductImage(formData) {
+const MAX_PRODUCT_IMAGE_BYTES = 5 * 1024 * 1024;
+
+/**
+ * Emite una signed upload URL para que el navegador suba la imagen directo a
+ * Supabase Storage. Vercel corta el body de cualquier Server Action a ~4.5MB
+ * (no configurable) — una foto de celular puede superar eso fácil, así que
+ * el archivo nunca debe pasar por nuestro servidor.
+ */
+export async function createProductUploadTicket(mime, size, slugHint) {
   if (!supabaseAdmin) return { ok: false, error: 'Supabase no configurado en el servidor' };
 
-  const file = formData.get('file');
-  if (!file || typeof file === 'string') {
-    return { ok: false, error: 'No se recibió ningún archivo' };
-  }
-
-  // Validación de tipo y tamaño en el server (defensa adicional al client).
-  const mime = file.type || '';
-  if (!/^image\/(jpeg|jpg|png|webp|avif)$/i.test(mime)) {
+  if (!/^image\/(jpeg|jpg|png|webp|avif)$/i.test(mime || '')) {
     return { ok: false, error: `Tipo no soportado (${mime}). Usa JPG, PNG, WebP o AVIF.` };
   }
-  if (file.size > 5 * 1024 * 1024) {
+  if (size > MAX_PRODUCT_IMAGE_BYTES) {
     return { ok: false, error: 'La imagen pesa más de 5MB. Comprímela antes de subir.' };
   }
 
-  // Nombre único: <slugHint?>-<timestamp>-<rand>.<ext>
   const ext = (mime.split('/')[1] || 'jpg').replace('jpeg', 'jpg');
-  const slugHint = slugify(String(formData.get('slugHint') || '')) || 'product';
+  const cleanSlug = slugify(String(slugHint || '')) || 'product';
   const stamp = Date.now().toString(36);
   const rand = Math.random().toString(36).slice(2, 7);
-  const path = `${slugHint}-${stamp}-${rand}.${ext}`;
+  const path = `${cleanSlug}-${stamp}-${rand}.${ext}`;
 
-  let { error: upErr } = await supabaseAdmin.storage
-    .from(STORAGE_BUCKET)
-    .upload(path, file, {
-      contentType: mime,
-      cacheControl: '31536000, immutable', // 1 año — el path cambia con cada upload
-      upsert: false,
-    });
+  let { data, error: signErr } = await supabaseAdmin.storage.from(STORAGE_BUCKET).createSignedUploadUrl(path);
 
   // Self-healing: si el bucket no existe todavía, lo creamos (público) y
   // reintentamos una vez, en vez de mandar al admin a crearlo a mano.
-  if (upErr && /not found|bucket/i.test(upErr.message)) {
+  if (signErr && /not found|bucket/i.test(signErr.message)) {
     const { error: createErr } = await supabaseAdmin.storage.createBucket(STORAGE_BUCKET, {
       public: true,
-      fileSizeLimit: 5 * 1024 * 1024,
+      fileSizeLimit: MAX_PRODUCT_IMAGE_BYTES,
     });
     if (!createErr || /already exists/i.test(createErr.message || '')) {
-      ({ error: upErr } = await supabaseAdmin.storage
-        .from(STORAGE_BUCKET)
-        .upload(path, file, {
-          contentType: mime,
-          cacheControl: '31536000, immutable',
-          upsert: false,
-        }));
+      ({ data, error: signErr } = await supabaseAdmin.storage.from(STORAGE_BUCKET).createSignedUploadUrl(path));
     }
   }
 
-  if (upErr) {
-    return { ok: false, error: `Upload a Storage: ${upErr.message}` };
+  if (signErr) {
+    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message}` };
   }
 
   const { data: pub } = supabaseAdmin.storage.from(STORAGE_BUCKET).getPublicUrl(path);
-  return { ok: true, url: pub?.publicUrl, path };
+  return { ok: true, bucket: STORAGE_BUCKET, path, token: data.token, publicUrl: pub?.publicUrl };
 }
 
 // ─── Import masivo de productos (CSV/XLSX) ──────────────────────────────

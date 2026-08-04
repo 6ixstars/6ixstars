@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useRef, useTransition } from 'react';
-import { uploadProductImage } from './_actions';
+import { createProductUploadTicket } from './_actions';
+import { supabase } from '@/lib/supabase';
 
 /**
  * Editor de galería de imágenes para producto.
@@ -38,17 +39,20 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
   }
 
   async function uploadOne(file, placeholderKey) {
-    const fd = new FormData();
-    fd.append('file', file);
-    fd.append('slugHint', slugHint || '');
-    const res = await uploadProductImage(fd);
-    setItems((arr) =>
-      arr.map((it) => {
-        if (it.key !== placeholderKey) return it;
-        if (res.ok) return { ...it, url: res.url, status: 'ok' };
-        return { ...it, status: 'error', error: res.error || 'Error subiendo' };
-      })
+    const fail = (error) => setItems((arr) =>
+      arr.map((it) => (it.key === placeholderKey ? { ...it, status: 'error', error } : it))
     );
+
+    const ticket = await createProductUploadTicket(file.type, file.size, slugHint);
+    if (!ticket.ok) return fail(ticket.error || 'Error subiendo');
+    if (!supabase) return fail('Supabase no está configurado en el navegador');
+
+    const { error: upErr } = await supabase.storage
+      .from(ticket.bucket)
+      .uploadToSignedUrl(ticket.path, ticket.token, file, { contentType: file.type });
+    if (upErr) return fail(upErr.message || 'Error subiendo el archivo');
+
+    setItems((arr) => arr.map((it) => (it.key === placeholderKey ? { ...it, url: ticket.publicUrl, status: 'ok' } : it)));
   }
 
   function onFilesChosen(fileList) {
@@ -469,7 +473,7 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
 function UploadIcon() {
   return (
     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-         strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: '#8a6936', flexShrink: 0 }}>
+         strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--gold)', flexShrink: 0 }}>
       <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
       <polyline points="17 8 12 3 7 8" />
       <line x1="12" y1="3" x2="12" y2="15" />

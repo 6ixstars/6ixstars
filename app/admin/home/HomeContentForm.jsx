@@ -1,9 +1,10 @@
 'use client';
 
 import { useRef, useState, useTransition } from 'react';
-import { saveHomeSection, resetHomeSection, uploadHomeAsset } from './_actions';
+import { saveHomeSection, resetHomeSection, createHomeUploadTicket } from './_actions';
 import { HOME_ICON_NAMES } from '@/lib/home-content-defaults';
 import { collections as CATEGORY_LIST } from '@/lib/products-constants';
+import { supabase } from '@/lib/supabase';
 
 // ─── Subida de archivos (arrastrar/soltar o click) ─────────────────────────
 // No asumimos que quien edita tenga acceso al filesystem del proyecto — todo
@@ -20,11 +21,25 @@ function FileUploadField({ value, onChange, kind = 'image' }) {
     if (!file) return;
     setBusy(true);
     setError('');
-    const fd = new FormData();
-    fd.append('file', file);
-    const res = await uploadHomeAsset(fd);
-    if (res.ok) onChange(res.url);
-    else setError(res.error || 'Error subiendo');
+    // El archivo va directo del navegador a Supabase Storage con una signed
+    // upload URL — Vercel corta cualquier request de Server Action a ~4.5MB,
+    // así que un video nunca puede pasar por nuestro propio servidor.
+    const ticket = await createHomeUploadTicket(file.type, file.size);
+    if (!ticket.ok) {
+      setError(ticket.error || 'Error preparando la subida');
+      setBusy(false);
+      return;
+    }
+    if (!supabase) {
+      setError('Supabase no está configurado en el navegador');
+      setBusy(false);
+      return;
+    }
+    const { error: upErr } = await supabase.storage
+      .from(ticket.bucket)
+      .uploadToSignedUrl(ticket.path, ticket.token, file, { contentType: file.type });
+    if (upErr) setError(upErr.message || 'Error subiendo el archivo');
+    else onChange(ticket.publicUrl);
     setBusy(false);
   }
 
