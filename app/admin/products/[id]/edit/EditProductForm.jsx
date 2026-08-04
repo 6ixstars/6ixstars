@@ -48,7 +48,7 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
   const [sizes, setSizes] = useState(
     product.product_sizes?.length
       ? product.product_sizes.map((s) => ({ ml: s.size || '', price: s.price ?? '', stock: s.stock ?? '' }))
-      : [{ ml: '100ml', price: '', stock: '' }]
+      : [{ ml: '', price: '', stock: '' }]
   );
   const initialImageUrls = (product.product_images || []).map((i) => i.url).filter(Boolean);
 
@@ -163,7 +163,7 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
                 name="sizes_ml"
                 value={s.ml}
                 onChange={(e) => updateAt(setSizes, i, { ml: e.target.value })}
-                placeholder="100ml"
+                placeholder="S, M, L, XL…"
               />
               <input
                 name="sizes_price"
