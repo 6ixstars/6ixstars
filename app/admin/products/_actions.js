@@ -278,8 +278,11 @@ export async function createProductUploadTicket(mime, size, slugHint) {
   let { data, error: signErr } = await supabaseAdmin.storage.from(STORAGE_BUCKET).createSignedUploadUrl(path);
 
   // Self-healing: si el bucket no existe todavía, lo creamos (público) y
-  // reintentamos una vez, en vez de mandar al admin a crearlo a mano.
-  if (signErr && /not found|bucket/i.test(signErr.message)) {
+  // reintentamos una vez, en vez de mandar al admin a crearlo a mano. Supabase
+  // no siempre dice "not found"/"bucket" en el mensaje (a veces es "The
+  // related resource does not exist"), así que reintentamos ante cualquier
+  // error de firma — createBucket es un no-op seguro si ya existiera.
+  if (signErr) {
     const { error: createErr } = await supabaseAdmin.storage.createBucket(STORAGE_BUCKET, {
       public: true,
       fileSizeLimit: MAX_PRODUCT_IMAGE_BYTES,

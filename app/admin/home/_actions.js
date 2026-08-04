@@ -74,8 +74,11 @@ export async function createHomeUploadTicket(mime, size) {
 
   // Self-healing: si el bucket todavía no existe, lo creamos (público, con la
   // service role key) y reintentamos UNA vez — así nadie tiene que entrar al
-  // dashboard de Supabase a crearlo a mano la primera vez que se usa.
-  if (signErr && /not found|bucket/i.test(signErr.message)) {
+  // dashboard de Supabase a crearlo a mano la primera vez que se usa. Supabase
+  // no siempre dice "not found"/"bucket" en el mensaje (a veces es "The
+  // related resource does not exist"), así que reintentamos ante CUALQUIER
+  // error de firma — createBucket ya es un no-op seguro si ya existiera.
+  if (signErr) {
     const { error: createErr } = await supabaseAdmin.storage.createBucket(HOME_BUCKET, {
       public: true,
       fileSizeLimit: MAX_VIDEO_BYTES,
@@ -86,8 +89,7 @@ export async function createHomeUploadTicket(mime, size) {
   }
 
   if (signErr) {
-    const { data: bl, error: le } = await supabaseAdmin.storage.listBuckets();
-    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message} | buckets=${JSON.stringify(bl)} listErr=${JSON.stringify(le)}` };
+    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message}` };
   }
 
   const { data: pub } = supabaseAdmin.storage.from(HOME_BUCKET).getPublicUrl(path);
