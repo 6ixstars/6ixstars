@@ -86,7 +86,7 @@ export async function createHomeUploadTicket(mime, size) {
   }
 
   if (signErr) {
-    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message}` };
+    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message} | ${JSON.stringify(signErr)}` };
   }
 
   const { data: pub } = supabaseAdmin.storage.from(HOME_BUCKET).getPublicUrl(path);
