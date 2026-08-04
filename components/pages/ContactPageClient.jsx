@@ -43,7 +43,7 @@ export default function ContactPageClient() {
           <div>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, color: 'var(--white)', fontSize: '1.8rem', marginBottom: '8px' }}>Hablemos</h2>
             <p style={{ color: 'var(--gray)', marginBottom: '40px', lineHeight: 1.7 }}>
-              ¿Tienes dudas sobre una fragancia, tu pedido o quieres asesoría personalizada? Con gusto te ayudamos.
+              ¿Tienes dudas sobre una prenda, tu pedido o quieres asesoría personalizada? Con gusto te ayudamos.
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
               {info.map(({ icon: Icon, label, value, href }) => (

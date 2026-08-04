@@ -188,7 +188,7 @@ export default function CheckoutPageClient() {
     <PageTransition>
       <div style={{ textAlign: 'center', padding: '120px 24px' }}>
         <h2 style={{ fontFamily: 'var(--font-serif)', color: 'var(--white)', marginBottom: '16px' }}>Tu carrito está vacío</h2>
-        <p style={{ color: 'var(--gray)', marginBottom: '24px' }}>Descubre nuestras fragancias y empieza a llenarlo.</p>
+        <p style={{ color: 'var(--gray)', marginBottom: '24px' }}>Descubre nuestras prendas y empieza a llenarlo.</p>
         <Link href="/tienda" className="btn btn-primary">Explorar Tienda</Link>
       </div>
     </PageTransition>
@@ -470,7 +470,7 @@ export default function CheckoutPageClient() {
                   <div key={item.key} style={{ display: 'flex', gap: '12px', alignItems: 'center' }}>
                     <div style={{ position: 'relative', flexShrink: 0 }}>
                       <img src={item.images?.[0] || `/img/${item.slug}.webp`} alt={item.name}
-                        onError={e => { if (!e.currentTarget.src.endsWith('placeholder-perfume.webp')) e.currentTarget.src = '/img/placeholder-perfume.webp'; }}
+                        onError={e => { if (!e.currentTarget.src.endsWith('placeholder.webp')) e.currentTarget.src = '/img/placeholder.webp'; }}
                         style={{ width: 56, height: 56, objectFit: 'cover', borderRadius: '8px', background: 'var(--dark-3)' }} />
                       <span style={{
                         position: 'absolute', top: -6, right: -6,

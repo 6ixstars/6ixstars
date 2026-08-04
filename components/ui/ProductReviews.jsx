@@ -128,7 +128,7 @@ function ReviewForm({ productSlug, onSuccess }) {
           rows={4}
           value={form.text}
           onChange={e => setForm(f => ({ ...f, text: e.target.value }))}
-          placeholder="Comparte tu experiencia con esta fragancia..."
+          placeholder="Comparte tu experiencia con este producto..."
           style={{ width: '100%', padding: '10px 12px', border: '1px solid rgba(26,22,16,.15)', background: 'transparent', fontFamily: 'var(--font-sans)', fontSize: '.88rem', color: 'var(--white)', outline: 'none', resize: 'vertical', lineHeight: 1.6 }}
         />
       </div>

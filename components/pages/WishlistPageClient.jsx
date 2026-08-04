@@ -14,7 +14,7 @@ export default function WishlistPageClient() {
 
   const handleAddAll = () => {
     items.forEach(p => addItem(p, p.sizes?.[1]?.ml || p.sizes?.[0]?.ml));
-    toast.success(`${items.length} fragancias agregadas al carrito`, {
+    toast.success(`${items.length} producto${items.length === 1 ? '' : 's'} agregado${items.length === 1 ? '' : 's'} al carrito`, {
       style: { background: '#1A1A1A', color: '#fff', border: '1px solid rgba(175,31,58,.3)' },
       iconTheme: { primary: '#AF1F3A', secondary: '#000' },
     });
@@ -33,7 +33,7 @@ export default function WishlistPageClient() {
               </h1>
             </div>
             <p style={{ color: 'var(--gray)' }}>
-              {items.length} {items.length === 1 ? 'fragancia guardada' : 'fragancias guardadas'}
+              {items.length} {items.length === 1 ? 'producto guardado' : 'productos guardados'}
             </p>
           </div>
           {items.length > 0 && (
@@ -54,10 +54,10 @@ export default function WishlistPageClient() {
               Tu lista de deseos está vacía
             </h2>
             <p style={{ color: 'var(--gray)', marginBottom: '32px', maxWidth: '400px', margin: '0 auto 32px' }}>
-              Guarda tus fragancias favoritas tocando el corazón en cualquier producto.
+              Guarda tus prendas favoritas tocando el corazón en cualquier producto.
             </p>
             <Link href="/tienda" className="btn btn-primary">
-              Explorar Fragancias <ArrowRight size={16} />
+              Explorar Tienda <ArrowRight size={16} />
             </Link>
           </div>
         ) : (

@@ -60,7 +60,7 @@ export default function CartDrawer() {
                   <img
                     src={it.images?.[0] || `/img/${it.slug}.webp`}
                     alt={it.name}
-                    onError={(e) => { e.currentTarget.src = '/img/placeholder-perfume.webp'; }}
+                    onError={(e) => { e.currentTarget.src = '/img/placeholder.webp'; }}
                   />
                 </div>
                 <div className="sb-cart-item-info">

@@ -3,8 +3,7 @@ import { SITE_URL } from '@/lib/site';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const CONC_IDS = ['EDP', 'EDT', 'Extrait', 'Parfum', 'Elixir'];
-const GENDER_IDS = ['Masculino', 'Femenino', 'Unisex'];
+const GENDER_IDS = ['hombre', 'mujer', 'unisex'];
 
 export default async function sitemap() {
   const now = new Date();
@@ -24,13 +23,13 @@ export default async function sitemap() {
     { url: `${SITE_URL}/privacidad`,             lastModified: now, changeFrequency: 'monthly', priority: 0.3 },
   ];
 
-  // Por tipo (nicho, diseñador, árabe)
+  // Por género
   const typePages = productTypes.map(t => ({
     url: `${SITE_URL}/tienda?type=${t.id}`,
     lastModified: now, changeFrequency: 'weekly', priority: 0.75,
   }));
 
-  // Por familia olfativa
+  // Por categoría de prenda
   const collectionPages = collections.map(c => ({
     url: `${SITE_URL}/tienda?cat=${c.id}`,
     lastModified: now, changeFrequency: 'weekly', priority: 0.65,
@@ -46,12 +45,6 @@ export default async function sitemap() {
   const genderPages = GENDER_IDS.map(g => ({
     url: `${SITE_URL}/tienda?gender=${encodeURIComponent(g)}`,
     lastModified: now, changeFrequency: 'weekly', priority: 0.6,
-  }));
-
-  // Por concentración
-  const concPages = CONC_IDS.map(c => ({
-    url: `${SITE_URL}/tienda?conc=${c}`,
-    lastModified: now, changeFrequency: 'weekly', priority: 0.55,
   }));
 
   // Por momento del día
@@ -101,7 +94,6 @@ export default async function sitemap() {
     ...collectionPages,
     ...brandPages,
     ...genderPages,
-    ...concPages,
     ...momentoPages,
     ...climaPages,
     ...productPages,

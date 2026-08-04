@@ -3,7 +3,7 @@ import { SITE_URL } from '@/lib/site';
 
 export const metadata = {
   title: 'Preguntas Frecuentes — Envíos, Devoluciones y Productos | 6ixstars',
-  description: 'Encuentra respuestas sobre envíos, devoluciones, tiempos de entrega y todo sobre nuestras fragancias de lujo.',
+  description: 'Encuentra respuestas sobre envíos, devoluciones, tiempos de entrega y todo sobre nuestra ropa urbana.',
   alternates: { canonical: `${SITE_URL}/faq` },
 };
 

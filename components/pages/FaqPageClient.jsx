@@ -11,16 +11,16 @@ const faqs = [
       { q: '¿Cuánto tarda en llegar mi pedido?', a: 'Envío gratis a toda Colombia. Los pedidos realizados antes de las 14:00 se procesan el mismo día.' },
       { q: '¿Hacen envíos internacionales?', a: 'Sí, enviamos a México, Colombia, Argentina, España y Estados Unidos. El tiempo de entrega internacional es de 5–10 días hábiles.' },
       { q: '¿Cómo rastreo mi pedido?', a: 'Recibirás un email con el número de rastreo en cuanto tu pedido sea despachado. También puedes contactarnos con tu número de orden.' },
-      { q: '¿El envío tiene algún costo?', a: 'El envío es GRATIS en pedidos mayores a $100. Para pedidos menores, el costo es de $9.99.' },
+      { q: '¿El envío tiene algún costo?', a: 'El envío es GRATIS en pedidos mayores a $350.000 COP. Para pedidos menores, el costo es de $15.000 COP.' },
     ],
   },
   {
-    category: 'Productos y Fragancias',
+    category: 'Productos y Tallas',
     items: [
-      { q: '¿Las fragancias son auténticas?', a: 'Sí, todas nuestras fragancias son 100% auténticas y certificadas. Trabajamos directamente con perfumistas y casas de fragancias reconocidas.' },
-      { q: '¿Cómo elijo el tamaño adecuado?', a: '30ml es ideal para probar una fragancia nueva o para llevar de viaje. 50ml es la opción más popular para uso cotidiano. 100ml es la mejor relación precio-cantidad para tu fragancia favorita.' },
-      { q: '¿Qué significa la duración indicada en cada perfume?', a: 'La duración indica cuántas horas permanece la fragancia en la piel en condiciones normales. Puede variar según el tipo de piel, temperatura y actividad.' },
-      { q: '¿Puedo hacer muestras antes de comprar el frasco completo?', a: 'Próximamente ofreceremos sets de muestras. Por ahora, te recomendamos empezar con el tamaño de 30ml para descubrir la fragancia.' },
+      { q: '¿Las prendas son originales?', a: 'Sí, todas nuestras prendas son 100% originales. Trabajamos directamente con las marcas de streetwear que vendemos.' },
+      { q: '¿Cómo elijo mi talla?', a: 'Cada producto tiene tallas disponibles (S, M, L, XL) en la página del producto. Si tenés dudas entre dos tallas, escribinos por WhatsApp y te ayudamos según el fit que busques (ajustado u oversize).' },
+      { q: '¿Cómo debo cuidar mis prendas?', a: 'Recomendamos lavado en frío, del revés, y evitar la secadora en prendas con estampado o bordado para conservar el diseño por más tiempo.' },
+      { q: '¿Van a tener más tallas o restock de un producto agotado?', a: 'Reponemos stock seguido. Si el producto que buscás está agotado, escribinos por WhatsApp y te avisamos apenas vuelva a estar disponible.' },
     ],
   },
   {

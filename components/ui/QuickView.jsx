@@ -101,7 +101,7 @@ export default function QuickView({ product, isOpen, onClose }) {
               {/* Imagen */}
               <div className="qv-image-pane" style={{ position: 'relative', background: 'var(--dark-3)', overflow: 'hidden' }}>
                 <img src={productImages[imgIdx]} alt={product.name}
-                  onError={e => { e.currentTarget.src = '/img/placeholder-perfume.webp'; }}
+                  onError={e => { e.currentTarget.src = '/img/placeholder.webp'; }}
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 {product.badge && (
                   <span className="badge" style={{ position: 'absolute', top: 16, left: 16, background: product.badgeColor }}>{product.badge}</span>

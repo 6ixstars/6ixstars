@@ -53,7 +53,7 @@ export default function ShopLoadMore({ initialPage, initialShown, initialTotal }
       url.searchParams.set('page', String(nextPage));
       window.history.replaceState(window.history.state, '', url.toString());
     } catch (e) {
-      setError('No se pudo cargar más fragancias. Intenta de nuevo.');
+      setError('No se pudo cargar más productos. Intenta de nuevo.');
     } finally {
       setLoading(false);
     }
@@ -77,7 +77,7 @@ export default function ShopLoadMore({ initialPage, initialShown, initialTotal }
             style={{ minWidth: 240 }}
             aria-busy={loading}
           >
-            {loading ? 'Cargando…' : 'Cargar más fragancias'}
+            {loading ? 'Cargando…' : 'Cargar más productos'}
           </button>
         </div>
       )}

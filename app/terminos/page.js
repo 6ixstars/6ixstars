@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function TerminosPage() {
   return (
-    <main style={{ minHeight: '80vh', background: 'var(--bg-1)' }}>
+    <main style={{ minHeight: '80vh', background: 'var(--black)' }}>
       <div style={{ borderBottom: '1px solid rgba(212,166,79,.12)', padding: '52px 0 36px' }}>
         <div className="container">
           <p style={{ fontSize: '.62rem', letterSpacing: '.32em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 14, fontWeight: 500 }}>Legal</p>
@@ -52,7 +52,7 @@ const sections = [
   },
   {
     title: '4. Precios y Pagos',
-    content: 'Los precios están expresados en dólares estadounidenses (USD) y se procesan en pesos colombianos (COP) según la tasa de cambio vigente. Los pagos son procesados de forma segura por Bold. 6ixstars no almacena datos de tarjetas de crédito.',
+    content: 'Los precios están expresados en pesos colombianos (COP). Los pagos son procesados de forma segura por Bold. 6ixstars no almacena datos de tarjetas de crédito.',
   },
   {
     title: '5. Envíos',

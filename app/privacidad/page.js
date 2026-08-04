@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function PrivacidadPage() {
   return (
-    <main style={{ minHeight: '80vh', background: 'var(--bg-1)' }}>
+    <main style={{ minHeight: '80vh', background: 'var(--black)' }}>
       <div style={{ borderBottom: '1px solid rgba(212,166,79,.12)', padding: '52px 0 36px' }}>
         <div className="container">
           <p style={{ fontSize: '.62rem', letterSpacing: '.32em', textTransform: 'uppercase', color: 'var(--gold)', marginBottom: 14, fontWeight: 500 }}>Legal</p>
