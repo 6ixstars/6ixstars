@@ -83,13 +83,18 @@ export async function createHomeUploadTicket(mime, size) {
       public: true,
       fileSizeLimit: MAX_VIDEO_BYTES,
     });
-    if (!createErr || /already exists/i.test(createErr.message || '')) {
+    if (createErr && !/already exists/i.test(createErr.message || '')) {
+      return { ok: false, error: `No se pudo crear el bucket: ${createErr.message} | ${JSON.stringify(createErr)}` };
+    }
+    // Pequeño margen por si el bucket recién creado tarda en propagarse.
+    for (let attempt = 0; attempt < 3 && signErr; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 800));
       ({ data, error: signErr } = await supabaseAdmin.storage.from(HOME_BUCKET).createSignedUploadUrl(path));
     }
   }
 
   if (signErr) {
-    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message}` };
+    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message} | ${JSON.stringify(signErr)}` };
   }
 
   const { data: pub } = supabaseAdmin.storage.from(HOME_BUCKET).getPublicUrl(path);
