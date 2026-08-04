@@ -283,11 +283,14 @@ export async function createProductUploadTicket(mime, size, slugHint) {
   // related resource does not exist"), así que reintentamos ante cualquier
   // error de firma — createBucket es un no-op seguro si ya existiera.
   if (signErr) {
-    const { error: createErr } = await supabaseAdmin.storage.createBucket(STORAGE_BUCKET, {
-      public: true,
-      fileSizeLimit: MAX_PRODUCT_IMAGE_BYTES,
-    });
-    if (!createErr || /already exists/i.test(createErr.message || '')) {
+    // Sin fileSizeLimit explícito: pedir un límite mayor al del plan de
+    // Supabase hace fallar la creación del bucket completa.
+    const { error: createErr } = await supabaseAdmin.storage.createBucket(STORAGE_BUCKET, { public: true });
+    if (createErr && !/already exists/i.test(createErr.message || '')) {
+      return { ok: false, error: `No se pudo crear el bucket: ${createErr.message}` };
+    }
+    for (let attempt = 0; attempt < 3 && signErr; attempt++) {
+      if (attempt > 0) await new Promise((r) => setTimeout(r, 800));
       ({ data, error: signErr } = await supabaseAdmin.storage.from(STORAGE_BUCKET).createSignedUploadUrl(path));
     }
   }

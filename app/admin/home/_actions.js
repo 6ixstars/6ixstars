@@ -43,7 +43,7 @@ const HOME_BUCKET = 'product-images'; // mismo bucket que ya usa el uploader de 
 const IMAGE_TYPES = /^image\/(jpeg|jpg|png|webp|avif)$/i;
 const VIDEO_TYPES = /^video\/(mp4|webm|quicktime)$/i;
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024;   // 5MB
-const MAX_VIDEO_BYTES = 60 * 1024 * 1024;  // 60MB
+const MAX_VIDEO_BYTES = 45 * 1024 * 1024;  // 45MB — bajo el tope de 50MB del plan de Supabase
 
 /**
  * Emite una signed upload URL para subir UN archivo directo del navegador a
@@ -79,14 +79,12 @@ export async function createHomeUploadTicket(mime, size) {
   // related resource does not exist"), así que reintentamos ante CUALQUIER
   // error de firma — createBucket ya es un no-op seguro si ya existiera.
   if (signErr) {
-    const { error: createErr } = await supabaseAdmin.storage.createBucket(HOME_BUCKET, {
-      public: true,
-      fileSizeLimit: MAX_VIDEO_BYTES,
-    });
+    // Sin fileSizeLimit explícito: lo dejamos heredar el máximo del proyecto
+    // en Supabase — pedir un límite mayor al del plan hace fallar la creación.
+    const { error: createErr } = await supabaseAdmin.storage.createBucket(HOME_BUCKET, { public: true });
     if (createErr && !/already exists/i.test(createErr.message || '')) {
-      return { ok: false, error: `No se pudo crear el bucket: ${createErr.message} | ${JSON.stringify(createErr)}` };
+      return { ok: false, error: `No se pudo crear el bucket: ${createErr.message}` };
     }
-    // Pequeño margen por si el bucket recién creado tarda en propagarse.
     for (let attempt = 0; attempt < 3 && signErr; attempt++) {
       if (attempt > 0) await new Promise((r) => setTimeout(r, 800));
       ({ data, error: signErr } = await supabaseAdmin.storage.from(HOME_BUCKET).createSignedUploadUrl(path));
@@ -94,7 +92,7 @@ export async function createHomeUploadTicket(mime, size) {
   }
 
   if (signErr) {
-    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message} | ${JSON.stringify(signErr)}` };
+    return { ok: false, error: `No se pudo preparar la subida: ${signErr.message}` };
   }
 
   const { data: pub } = supabaseAdmin.storage.from(HOME_BUCKET).getPublicUrl(path);
