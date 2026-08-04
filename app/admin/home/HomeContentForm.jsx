@@ -86,7 +86,7 @@ function Section({ title, desc, section, data, onSave, saving, msg }) {
           <button type="button" className="hcf-btn hcf-btn-ghost" disabled={saving} onClick={() => onSave(section, null, true)}>
             Restaurar default
           </button>
-          <button type="button" className="hcf-btn hcf-btn-primary" disabled={saving} onClick={() => onSave(section, data)}>
+          <button type="button" className="hcf-btn hcf-btn-primary" disabled={saving} onClick={() => onSave(section, data.value)}>
             {saving ? 'Guardando…' : 'Guardar'}
           </button>
         </div>
