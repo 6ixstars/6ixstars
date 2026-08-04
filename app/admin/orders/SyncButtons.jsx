@@ -1,5 +1,6 @@
 'use client';
 import { useState, useTransition } from 'react';
+import { RefreshCw } from 'lucide-react';
 import { syncOrderAction, syncAllPendingAction } from './_actions';
 
 export function SyncOrderButton({ orderId }) {
@@ -20,6 +21,9 @@ export function SyncOrderButton({ orderId }) {
         onClick={onClick}
         disabled={isPending}
         style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 6,
           padding: '8px 14px',
           background: '#1f2937',
           color: '#fff',
@@ -31,6 +35,7 @@ export function SyncOrderButton({ orderId }) {
           opacity: isPending ? 0.7 : 1,
         }}
       >
+        <RefreshCw size={13} className={isPending ? 'spin' : ''} />
         {isPending ? 'Sincronizando…' : 'Sincronizar con Bold'}
       </button>
       {msg && (
@@ -40,6 +45,10 @@ export function SyncOrderButton({ orderId }) {
             : `✗ ${msg.error}`}
         </span>
       )}
+      <style jsx>{`
+        .spin { animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
     </div>
   );
 }
@@ -62,6 +71,9 @@ export function SyncAllPendingButton() {
         onClick={onClick}
         disabled={isPending}
         style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 6,
           padding: '7px 13px',
           background: '#fff',
           color: '#1f2937',
@@ -73,7 +85,8 @@ export function SyncAllPendingButton() {
           opacity: isPending ? 0.7 : 1,
         }}
       >
-        {isPending ? 'Sincronizando…' : '↻ Sincronizar pendientes'}
+        <RefreshCw size={13} className={isPending ? 'spin' : ''} />
+        {isPending ? 'Sincronizando…' : 'Sincronizar pendientes'}
       </button>
       {msg && (
         <div style={{ fontSize: '.78rem', color: msg.ok ? '#374151' : '#b91c1c' }}>
@@ -91,6 +104,10 @@ export function SyncAllPendingButton() {
           ) : `✗ ${msg.error}`}
         </div>
       )}
+      <style jsx>{`
+        .spin { animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+      `}</style>
     </div>
   );
 }

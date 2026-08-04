@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { Bell, BellOff, BellRing, Ban } from 'lucide-react';
 
 const VAPID_PUBLIC_KEY = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY || '';
 
@@ -103,14 +104,14 @@ export function PushToggle() {
   if (status === 'unsupported') {
     return (
       <div style={pillStyle('#6b7280', '#f3f4f6')}>
-        🔕 Notificaciones no soportadas en este navegador
+        <BellOff size={14} /> Notificaciones no soportadas en este navegador
       </div>
     );
   }
   if (status === 'denied') {
     return (
       <div style={pillStyle('#b91c1c', '#fee2e2')}>
-        🚫 Notificaciones bloqueadas — habilítalas en ajustes del navegador
+        <Ban size={14} /> Notificaciones bloqueadas — habilítalas en ajustes del navegador
       </div>
     );
   }
@@ -125,13 +126,18 @@ export function PushToggle() {
         true
       )}
     >
-      {busy ? '...' : status === 'on' ? '🔔 Notificaciones activas (clic para desactivar)' : '🔕 Activar notificaciones push'}
+      {busy ? '...' : status === 'on'
+        ? <><BellRing size={14} /> Notificaciones activas (clic para desactivar)</>
+        : <><Bell size={14} /> Activar notificaciones push</>}
     </button>
   );
 }
 
 function pillStyle(color, bg, clickable) {
   return {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 7,
     background: bg,
     color,
     padding: '8px 14px',

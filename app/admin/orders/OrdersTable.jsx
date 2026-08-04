@@ -1,6 +1,7 @@
 'use client';
 import { useState, useMemo, useTransition } from 'react';
 import Link from 'next/link';
+import { MessageCircle, Download, Trash2, ArrowRight } from 'lucide-react';
 import { formatCOP } from '@/lib/format';
 import { bulkDeleteOrdersAction } from './_actions';
 
@@ -167,7 +168,7 @@ export function OrdersTable({ orders }) {
             className="ot-search-input"
           />
           <button onClick={() => exportToCSV(filtered)} className="ot-export-btn">
-            ⬇ Exportar CSV
+            <Download size={14} /> Exportar CSV
           </button>
         </div>
       </div>
@@ -181,7 +182,7 @@ export function OrdersTable({ orders }) {
               Cancelar
             </button>
             <button onClick={handleBulkDelete} disabled={isPending} className="ot-bulk-btn ot-bulk-delete">
-              {isPending ? 'Eliminando...' : '🗑 Eliminar seleccionadas'}
+              {isPending ? 'Eliminando...' : <><Trash2 size={13} /> Eliminar seleccionadas</>}
             </button>
           </div>
         </div>
@@ -252,9 +253,9 @@ export function OrdersTable({ orders }) {
                               rel="noopener noreferrer"
                               className="ot-action ot-action-wa"
                               title="WhatsApp al cliente"
-                            >💬</a>
+                            ><MessageCircle size={14} /></a>
                           )}
-                          <Link href={`/admin/orders/${o.id}`} className="ot-action ot-action-view" title="Ver detalle">→</Link>
+                          <Link href={`/admin/orders/${o.id}`} className="ot-action ot-action-view" title="Ver detalle"><ArrowRight size={14} /></Link>
                         </div>
                       </td>
                     </tr>
@@ -293,7 +294,7 @@ export function OrdersTable({ orders }) {
                   <div className="ot-card-actions">
                     {wa && (
                       <a href={wa} target="_blank" rel="noopener noreferrer" className="ot-card-action">
-                        💬 WhatsApp
+                        <MessageCircle size={14} /> WhatsApp
                       </a>
                     )}
                     <Link href={`/admin/orders/${o.id}`} className="ot-card-action ot-card-action-primary">
@@ -390,6 +391,9 @@ export function OrdersTable({ orders }) {
           outline-offset: -1px;
         }
         .ot-export-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
           padding: 8px 14px;
           background: #fff;
           color: #1f2937;
@@ -414,6 +418,9 @@ export function OrdersTable({ orders }) {
           font-size: .85rem;
         }
         .ot-bulk-btn {
+          display: inline-flex;
+          align-items: center;
+          gap: 5px;
           padding: 6px 12px;
           border-radius: 6px;
           font-size: .8rem;
@@ -538,6 +545,10 @@ export function OrdersTable({ orders }) {
           }
           .ot-card-actions { display: flex; gap: 8px; }
           .ot-card-action {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
             flex: 1;
             padding: 8px;
             text-align: center;

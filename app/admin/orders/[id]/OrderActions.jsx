@@ -1,6 +1,7 @@
 'use client';
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { MessageCircle, Package, Trash2, Mail, User, Bell, FileText } from 'lucide-react';
 import { updateOrderAction, deleteOrderAction, resendOrderNotificationsAction } from '../_actions';
 
 const STATUS_OPTIONS = [
@@ -86,23 +87,23 @@ export function OrderActions({ order }) {
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           {waGeneral && (
             <a href={waGeneral} target="_blank" rel="noopener noreferrer" className="oa-btn oa-btn-wa">
-              💬 WhatsApp al cliente
+              <MessageCircle size={14} /> WhatsApp al cliente
             </a>
           )}
           {waShipped && carrier && trackNum && (
             <a href={waShipped} target="_blank" rel="noopener noreferrer" className="oa-btn oa-btn-wa-shipped">
-              📦 Enviar tracking por WhatsApp
+              <Package size={14} /> Enviar tracking por WhatsApp
             </a>
           )}
           <button onClick={handleDelete} disabled={isPending} className="oa-btn oa-btn-delete">
-            🗑 Eliminar orden
+            <Trash2 size={14} /> Eliminar orden
           </button>
         </div>
       </div>
 
       {/* Reenviar notificaciones por email */}
       <div className="oa-section">
-        <h3 className="oa-title">📧 Reenviar emails</h3>
+        <h3 className="oa-title oa-title-icon"><Mail size={13} /> Reenviar emails</h3>
         <p style={{ margin: '0 0 12px', fontSize: '.78rem', color: '#6b7280', lineHeight: 1.5 }}>
           Útil si la orden quedó sin notificación (ej: Resend no estaba configurado cuando llegó el webhook).
         </p>
@@ -113,14 +114,14 @@ export function OrderActions({ order }) {
             className="oa-btn oa-btn-resend"
             title={!order.customer_email ? 'La orden no tiene customer_email' : `Enviar a ${order.customer_email}`}
           >
-            {resendBusy === 'customer' ? 'Enviando…' : '👤 Reenviar al cliente'}
+            {resendBusy === 'customer' ? 'Enviando…' : <><User size={14} /> Reenviar al cliente</>}
           </button>
           <button
             onClick={() => handleResend('admin')}
             disabled={isPending}
             className="oa-btn oa-btn-resend"
           >
-            {resendBusy === 'admin' ? 'Enviando…' : '🔔 Reenviar al admin'}
+            {resendBusy === 'admin' ? 'Enviando…' : <><Bell size={14} /> Reenviar al admin</>}
           </button>
           <button
             onClick={() => handleResend('both')}
@@ -158,7 +159,7 @@ export function OrderActions({ order }) {
 
       {/* Tracking */}
       <div className="oa-section">
-        <h3 className="oa-title">📦 Tracking de envío</h3>
+        <h3 className="oa-title oa-title-icon"><Package size={13} /> Tracking de envío</h3>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 8, marginBottom: 10 }}>
           <select
             value={carrier}
@@ -189,7 +190,7 @@ export function OrderActions({ order }) {
 
       {/* Notas internas */}
       <div className="oa-section">
-        <h3 className="oa-title">📝 Notas internas (privadas)</h3>
+        <h3 className="oa-title oa-title-icon"><FileText size={13} /> Notas internas (privadas)</h3>
         <textarea
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
@@ -225,6 +226,11 @@ export function OrderActions({ order }) {
           color: #6b7280;
           letter-spacing: .08em;
           margin: 0 0 14px;
+        }
+        .oa-title-icon {
+          display: flex;
+          align-items: center;
+          gap: 6px;
         }
         .oa-btn {
           padding: 8px 14px;

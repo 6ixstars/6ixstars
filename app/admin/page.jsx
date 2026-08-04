@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { supabaseAdmin } from '@/lib/supabase';
 import { getAllProducts } from '@/lib/products';
+import { collections } from '@/lib/products-constants';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -21,9 +22,10 @@ async function fetchStats() {
   // así nos beneficiamos del unstable_cache cuando el admin no edita.
   const products = await getAllProducts();
   const totalProducts = products.length;
-  const byType = products.reduce((acc, p) => {
-    const t = p.productType || 'otro';
-    acc[t] = (acc[t] || 0) + 1;
+  // Cuenta por categoría de prenda (un producto puede tener varias categorías).
+  const byCategory = products.reduce((acc, p) => {
+    const cats = p.categories?.length ? p.categories : (p.category ? [p.category] : []);
+    for (const c of cats) acc[c] = (acc[c] || 0) + 1;
     return acc;
   }, {});
   const brands = new Set(products.map(p => p.brand).filter(Boolean));
@@ -59,7 +61,7 @@ async function fetchStats() {
 
   return {
     totalProducts,
-    byType,
+    byCategory,
     totalBrands: brands.size,
     totalOrders,
     approvedOrders,
@@ -126,13 +128,23 @@ export default async function AdminDashboardPage() {
       <section className="dash-row">
         <article className="dash-card">
           <header className="dash-card-head">
-            <h2 className="dash-card-title">Catálogo por tipo</h2>
+            <h2 className="dash-card-title">Catálogo por categoría</h2>
           </header>
-          <ul className="type-list">
-            <TypeRow label="Diseñador" value={stats.byType.disenador || 0} total={stats.totalProducts} color="#c09a5a" />
-            <TypeRow label="Nicho"     value={stats.byType.nicho     || 0} total={stats.totalProducts} color="#9B59B6" />
-            <TypeRow label="Árabe"     value={stats.byType.arabe     || 0} total={stats.totalProducts} color="#E8687A" />
-          </ul>
+          {stats.totalProducts === 0 ? (
+            <p className="dash-empty">Todavía no hay productos cargados.</p>
+          ) : (
+            <ul className="type-list">
+              {collections.map(c => (
+                <TypeRow
+                  key={c.id}
+                  label={c.name}
+                  value={stats.byCategory[c.id] || 0}
+                  total={stats.totalProducts}
+                  color={c.color}
+                />
+              ))}
+            </ul>
+          )}
         </article>
 
         <article className="dash-card">

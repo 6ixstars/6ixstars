@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Package } from 'lucide-react';
 import { supabaseAdmin } from '@/lib/supabase';
 import { formatCOP } from '@/lib/format';
 import { SyncOrderButton } from '../SyncButtons';
@@ -87,7 +88,7 @@ export default async function OrderDetailPage({ params }) {
       {/* Tracking visible si existe */}
       {(order.tracking_carrier || order.tracking_number) && (
         <div style={{ background: '#dbeafe', border: '1px solid #93c5fd', borderRadius: 8, padding: 16, marginBottom: 20, display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
-          <span style={{ fontSize: 24 }}>📦</span>
+          <Package size={24} color="#1e40af" />
           <div>
             <p style={{ margin: 0, fontSize: '.78rem', color: '#1e40af', textTransform: 'uppercase', letterSpacing: '.06em', fontWeight: 600 }}>En tránsito</p>
             <p style={{ margin: '4px 0 0', fontSize: '.95rem', color: '#1e3a8a' }}>
