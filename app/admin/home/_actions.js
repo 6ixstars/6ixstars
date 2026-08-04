@@ -75,7 +75,7 @@ export async function uploadHomeAsset(formData) {
   const rand = Math.random().toString(36).slice(2, 7);
   const path = `home-${stamp}-${rand}.${ext}`;
 
-  const { error: upErr } = await supabaseAdmin.storage
+  let { error: upErr } = await supabaseAdmin.storage
     .from(HOME_BUCKET)
     .upload(path, file, {
       contentType: mime,
@@ -83,13 +83,26 @@ export async function uploadHomeAsset(formData) {
       upsert: false,
     });
 
-  if (upErr) {
-    if (/not found/i.test(upErr.message)) {
-      return {
-        ok: false,
-        error: `El bucket "${HOME_BUCKET}" no existe en Supabase. Créalo desde Storage → New bucket (público).`,
-      };
+  // Self-healing: si el bucket todavía no existe, lo creamos (público, con la
+  // service role key) y reintentamos UNA vez — así nadie tiene que entrar al
+  // dashboard de Supabase a crearlo a mano la primera vez que se usa.
+  if (upErr && /not found|bucket/i.test(upErr.message)) {
+    const { error: createErr } = await supabaseAdmin.storage.createBucket(HOME_BUCKET, {
+      public: true,
+      fileSizeLimit: MAX_VIDEO_BYTES,
+    });
+    if (!createErr || /already exists/i.test(createErr.message || '')) {
+      ({ error: upErr } = await supabaseAdmin.storage
+        .from(HOME_BUCKET)
+        .upload(path, file, {
+          contentType: mime,
+          cacheControl: '31536000, immutable',
+          upsert: false,
+        }));
     }
+  }
+
+  if (upErr) {
     return { ok: false, error: `Upload a Storage: ${upErr.message}` };
   }
 

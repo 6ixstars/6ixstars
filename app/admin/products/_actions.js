@@ -275,7 +275,7 @@ export async function uploadProductImage(formData) {
   const rand = Math.random().toString(36).slice(2, 7);
   const path = `${slugHint}-${stamp}-${rand}.${ext}`;
 
-  const { error: upErr } = await supabaseAdmin.storage
+  let { error: upErr } = await supabaseAdmin.storage
     .from(STORAGE_BUCKET)
     .upload(path, file, {
       contentType: mime,
@@ -283,14 +283,25 @@ export async function uploadProductImage(formData) {
       upsert: false,
     });
 
-  if (upErr) {
-    // Bucket inexistente → mensaje útil para el admin.
-    if (/not found/i.test(upErr.message)) {
-      return {
-        ok: false,
-        error: `El bucket "${STORAGE_BUCKET}" no existe en Supabase. Créalo desde Storage → New bucket (público).`,
-      };
+  // Self-healing: si el bucket no existe todavía, lo creamos (público) y
+  // reintentamos una vez, en vez de mandar al admin a crearlo a mano.
+  if (upErr && /not found|bucket/i.test(upErr.message)) {
+    const { error: createErr } = await supabaseAdmin.storage.createBucket(STORAGE_BUCKET, {
+      public: true,
+      fileSizeLimit: 5 * 1024 * 1024,
+    });
+    if (!createErr || /already exists/i.test(createErr.message || '')) {
+      ({ error: upErr } = await supabaseAdmin.storage
+        .from(STORAGE_BUCKET)
+        .upload(path, file, {
+          contentType: mime,
+          cacheControl: '31536000, immutable',
+          upsert: false,
+        }));
     }
+  }
+
+  if (upErr) {
     return { ok: false, error: `Upload a Storage: ${upErr.message}` };
   }
 
