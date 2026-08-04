@@ -237,16 +237,16 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
           align-items: center;
           gap: 1rem;
           padding: 1.4rem 1.25rem;
-          background: rgba(192, 154, 90, 0.06);
-          border: 2px dashed rgba(192, 154, 90, 0.35);
+          background: rgba(238, 177, 195, 0.05);
+          border: 2px dashed rgba(238, 177, 195, 0.35);
           border-radius: 12px;
           cursor: pointer;
           transition: background 0.2s, border-color 0.2s;
         }
-        .iu-drop:hover { background: rgba(192, 154, 90, 0.1); border-color: rgba(192, 154, 90, 0.55); }
+        .iu-drop:hover { background: rgba(238, 177, 195, 0.1); border-color: rgba(238, 177, 195, 0.6); }
         .iu-drop.is-drag {
-          background: rgba(192, 154, 90, 0.18);
-          border-color: rgba(192, 154, 90, 0.8);
+          background: rgba(238, 177, 195, 0.16);
+          border-color: var(--gold);
           transform: scale(1.005);
         }
         .iu-drop-text {
@@ -257,12 +257,13 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
         }
         .iu-drop-text strong {
           font-size: 0.92rem;
-          color: #1c1611;
-          font-weight: 500;
+          color: var(--white);
+          font-weight: 600;
         }
         .iu-drop-text span {
           font-size: 0.76rem;
-          color: rgba(28, 22, 17, 0.55);
+          font-weight: 500;
+          color: var(--gray-light);
         }
 
         .iu-paste {
@@ -272,48 +273,52 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
         .iu-paste input {
           flex: 1;
           padding: 0.55rem 0.8rem;
-          background: #fff;
-          border: 1px solid rgba(28, 22, 17, 0.15);
+          background: var(--dark);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
           font-size: 0.83rem;
+          font-weight: 500;
           font-family: inherit;
-          color: #1c1611;
+          color: var(--white);
         }
+        .iu-paste input::placeholder { color: var(--gray); }
         .iu-paste input:focus {
           outline: none;
-          border-color: rgba(192, 154, 90, 0.55);
-          box-shadow: 0 0 0 3px rgba(192, 154, 90, 0.12);
+          border-color: var(--gold);
+          box-shadow: 0 0 0 3px rgba(238, 177, 195, 0.15);
         }
         .iu-paste button {
           padding: 0.55rem 0.95rem;
-          background: rgba(28, 22, 17, 0.04);
-          color: rgba(28, 22, 17, 0.7);
-          border: 1px solid rgba(28, 22, 17, 0.15);
+          background: var(--dark-4);
+          color: var(--white);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
           font-size: 0.82rem;
+          font-weight: 600;
           cursor: pointer;
           font-family: inherit;
         }
         .iu-paste button:hover:not(:disabled) {
-          background: rgba(28, 22, 17, 0.07);
-          color: #1c1611;
+          background: var(--dark);
+          border-color: var(--gray);
         }
         .iu-paste button:disabled { opacity: 0.45; cursor: not-allowed; }
 
         .iu-error {
           margin: 0;
           padding: 0.6rem 0.85rem;
-          background: rgba(170, 50, 50, 0.08);
-          border: 1px solid rgba(170, 50, 50, 0.25);
+          background: rgba(255, 77, 106, 0.1);
+          border: 1px solid rgba(255, 77, 106, 0.3);
           border-radius: 8px;
           font-size: 0.8rem;
-          color: #7a2424;
+          font-weight: 500;
+          color: #FF4D6A;
         }
 
         .iu-empty {
           margin: 0.3rem 0 0;
           font-size: 0.78rem;
-          color: rgba(28, 22, 17, 0.45);
+          color: var(--gray);
           font-style: italic;
         }
 
@@ -328,8 +333,8 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
         .iu-tile {
           position: relative;
           aspect-ratio: 1;
-          background: rgba(28, 22, 17, 0.05);
-          border: 1px solid rgba(28, 22, 17, 0.1);
+          background: var(--dark);
+          border: 1px solid var(--dark-4);
           border-radius: 10px;
           overflow: hidden;
         }
@@ -340,11 +345,11 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
           display: block;
         }
         .iu-tile--error {
-          background: rgba(170, 50, 50, 0.05);
-          border-color: rgba(170, 50, 50, 0.3);
+          background: rgba(255, 77, 106, 0.06);
+          border-color: rgba(255, 77, 106, 0.35);
         }
         .iu-tile--uploading {
-          background: rgba(192, 154, 90, 0.08);
+          background: rgba(238, 177, 195, 0.06);
           border-style: dashed;
         }
         .iu-tile-num {
@@ -357,9 +362,10 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
           justify-content: center;
           width: 22px;
           height: 22px;
-          background: rgba(0, 0, 0, 0.55);
+          background: rgba(0, 0, 0, 0.7);
           color: #fff;
           font-size: 0.7rem;
+          font-weight: 700;
           border-radius: 5px;
           backdrop-filter: blur(4px);
         }
@@ -369,12 +375,12 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
           left: 0.4rem;
           z-index: 2;
           padding: 0.15rem 0.45rem;
-          background: linear-gradient(135deg, #c09a5a, #8a6936);
-          color: #1c1611;
+          background: var(--gold);
+          color: #0B0B0C;
           font-size: 0.62rem;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          font-weight: 500;
+          font-weight: 700;
           border-radius: 4px;
         }
         .iu-tile-actions {
@@ -395,7 +401,7 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          background: rgba(0, 0, 0, 0.65);
+          background: rgba(0, 0, 0, 0.7);
           color: #fff;
           border: none;
           border-radius: 5px;
@@ -404,10 +410,10 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
           backdrop-filter: blur(4px);
           transition: background 0.15s;
         }
-        .iu-btn:hover:not(:disabled) { background: rgba(0, 0, 0, 0.85); }
+        .iu-btn:hover:not(:disabled) { background: rgba(0, 0, 0, 0.9); }
         .iu-btn:disabled { opacity: 0.3; cursor: not-allowed; }
         .iu-btn--del:hover:not(:disabled) {
-          background: rgba(170, 50, 50, 0.95);
+          background: rgba(255, 77, 106, 0.95);
         }
 
         .iu-tile-spinner {
@@ -419,8 +425,8 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
         .spinner {
           width: 22px;
           height: 22px;
-          border: 2px solid rgba(192, 154, 90, 0.25);
-          border-top-color: #8a6936;
+          border: 2px solid rgba(238, 177, 195, 0.25);
+          border-top-color: var(--gold);
           border-radius: 50%;
           animation: spin 0.8s linear infinite;
         }
@@ -444,15 +450,16 @@ export default function ImageUploader({ initialUrls = [], slugHint = '' }) {
           width: 28px;
           height: 28px;
           border-radius: 50%;
-          background: rgba(170, 50, 50, 0.18);
-          color: #7a2424;
+          background: rgba(255, 77, 106, 0.2);
+          color: #FF4D6A;
           font-weight: 700;
         }
         .iu-tile-err p {
           margin: 0;
           font-size: 0.68rem;
           line-height: 1.3;
-          color: #7a2424;
+          font-weight: 500;
+          color: #FF4D6A;
         }
       `}</style>
     </div>

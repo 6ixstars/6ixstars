@@ -86,36 +86,38 @@ export default async function EditProductPage({ params }) {
           max-width: 1100px;
           margin: 0 auto;
           font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
-          color: #2a1f15;
+          color: var(--white);
         }
         .edit-head {
           margin-bottom: 2rem;
         }
         .edit-crumbs {
           font-size: 0.78rem;
-          color: rgba(28, 22, 17, 0.55);
+          font-weight: 500;
+          color: var(--gray-light);
           letter-spacing: 0.04em;
           margin-bottom: 1rem;
         }
         .edit-crumbs a {
-          color: #8a6936;
+          color: var(--gold);
           text-decoration: none;
         }
         .edit-crumbs a:hover { text-decoration: underline; }
-        .crumb-current { color: rgba(28, 22, 17, 0.5); }
+        .crumb-current { color: var(--gray); }
         .edit-eyebrow {
           margin: 0 0 0.3rem;
           font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
           font-size: 0.72rem;
-          color: rgba(28, 22, 17, 0.5);
+          font-weight: 600;
+          color: var(--gray);
           letter-spacing: 0.03em;
         }
         .edit-title {
           margin: 0;
           font-size: 1.85rem;
-          font-weight: 500;
+          font-weight: 700;
           letter-spacing: -0.01em;
-          color: #1c1611;
+          color: var(--white);
         }
       `}</style>
     </div>

@@ -81,8 +81,8 @@ export default function ProductsSearchForm({ defaultQ, defaultType, defaultBrand
           grid-template-columns: 2fr 1fr 1fr auto;
           gap: 0.75rem;
           padding: 1rem 1.1rem;
-          background: #fff;
-          border: 1px solid rgba(28, 22, 17, 0.08);
+          background: var(--dark-2);
+          border: 1px solid var(--dark-4);
           border-radius: 14px;
           margin-bottom: 1.25rem;
           align-items: end;
@@ -101,27 +101,30 @@ export default function ProductsSearchForm({ defaultQ, defaultType, defaultBrand
         }
         .psf-field label {
           font-size: 0.66rem;
+          font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: rgba(28, 22, 17, 0.5);
+          color: var(--gray);
         }
         .psf-field input,
         .psf-field select {
           width: 100%;
           padding: 0.55rem 0.75rem;
-          background: #fff;
-          border: 1px solid rgba(28, 22, 17, 0.15);
+          background: var(--dark);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
           font-size: 0.86rem;
-          color: #1c1611;
+          font-weight: 500;
+          color: var(--white);
           font-family: inherit;
           transition: border-color 0.18s, box-shadow 0.18s;
         }
+        .psf-field input::placeholder { color: var(--gray); }
         .psf-field input:focus,
         .psf-field select:focus {
           outline: none;
-          border-color: rgba(192, 154, 90, 0.55);
-          box-shadow: 0 0 0 3px rgba(192, 154, 90, 0.12);
+          border-color: var(--gold);
+          box-shadow: 0 0 0 3px rgba(238, 177, 195, 0.15);
         }
         .psf-actions {
           display: flex;
@@ -132,28 +135,29 @@ export default function ProductsSearchForm({ defaultQ, defaultType, defaultBrand
           border-radius: 8px;
           font-size: 0.82rem;
           letter-spacing: 0.03em;
-          font-weight: 500;
+          font-weight: 600;
           font-family: inherit;
           cursor: pointer;
           border: 1px solid transparent;
           transition: background 0.18s, color 0.18s, border-color 0.18s;
         }
         .psf-btn--primary {
-          background: linear-gradient(135deg, #c09a5a, #8a6936);
-          color: #1c1611;
+          background: var(--gold);
+          color: #0B0B0C;
         }
         .psf-btn--primary:hover {
-          box-shadow: 0 6px 16px -8px rgba(192, 154, 90, 0.5);
+          background: var(--gold-dark);
+          color: #fff;
         }
         .psf-btn--ghost {
           background: transparent;
-          color: rgba(28, 22, 17, 0.6);
-          border-color: rgba(28, 22, 17, 0.15);
+          color: var(--gray-light);
+          border-color: var(--dark-4);
         }
         .psf-btn--ghost:hover {
-          background: rgba(28, 22, 17, 0.04);
-          color: #1c1611;
-          border-color: rgba(28, 22, 17, 0.25);
+          background: var(--dark);
+          color: var(--white);
+          border-color: var(--gray);
         }
       `}</style>
     </form>

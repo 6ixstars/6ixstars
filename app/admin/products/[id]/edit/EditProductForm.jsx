@@ -436,11 +436,11 @@ function CategoriesPicker({ defaultValues = [] }) {
       </div>
       <style jsx>{`
         .cp {
-          border: 1px solid rgba(28, 22, 17, 0.1);
+          border: 1px solid var(--dark-4);
           border-radius: 12px;
           padding: 0.95rem 1.1rem 1.1rem;
           margin: 0;
-          background: #fff;
+          background: var(--dark-2);
         }
         .cp-legend {
           display: flex;
@@ -448,24 +448,26 @@ function CategoriesPicker({ defaultValues = [] }) {
           gap: 0.75rem;
           padding: 0 0.35rem;
           font-size: 0.72rem;
+          font-weight: 700;
           letter-spacing: 0.14em;
           text-transform: uppercase;
-          color: rgba(28, 22, 17, 0.55);
+          color: var(--gray);
         }
         .cp-count {
           font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
           font-size: 0.7rem;
+          color: var(--gray);
           letter-spacing: 0.04em;
-          color: rgba(28, 22, 17, 0.55);
         }
         .cp-count.is-full {
-          color: #8a6936;
-          font-weight: 600;
+          color: var(--gold);
+          font-weight: 700;
         }
         .cp-hint {
           margin: 0.35rem 0 0.8rem;
           font-size: 0.78rem;
-          color: rgba(28, 22, 17, 0.55);
+          font-weight: 500;
+          color: var(--gray-light);
           line-height: 1.45;
         }
         .cp-grid {
@@ -478,23 +480,24 @@ function CategoriesPicker({ defaultValues = [] }) {
           align-items: center;
           gap: 0.55rem;
           padding: 0.6rem 0.8rem;
-          background: rgba(28, 22, 17, 0.03);
-          border: 1px solid rgba(28, 22, 17, 0.1);
+          background: var(--dark);
+          border: 1px solid var(--dark-4);
           border-radius: 9px;
           font-size: 0.85rem;
-          color: #1c1611;
+          font-weight: 500;
+          color: var(--white);
           cursor: pointer;
           transition: background 0.15s, border-color 0.15s, opacity 0.15s;
         }
         .cp-chip:hover:not(.is-disabled) {
-          background: rgba(192, 154, 90, 0.07);
-          border-color: rgba(192, 154, 90, 0.35);
+          background: rgba(238, 177, 195, 0.08);
+          border-color: rgba(238, 177, 195, 0.4);
         }
         .cp-chip.is-on {
-          background: rgba(192, 154, 90, 0.14);
-          border-color: rgba(192, 154, 90, 0.6);
-          color: #6b4f24;
-          font-weight: 500;
+          background: rgba(238, 177, 195, 0.16);
+          border-color: var(--gold);
+          color: var(--gold);
+          font-weight: 700;
         }
         .cp-chip.is-disabled {
           opacity: 0.4;
@@ -504,7 +507,7 @@ function CategoriesPicker({ defaultValues = [] }) {
           width: auto;
           margin: 0;
           padding: 0;
-          accent-color: #8a6936;
+          accent-color: var(--gold);
           cursor: inherit;
         }
         .cp-dot {
@@ -530,15 +533,15 @@ function FormStyles() {
         flex-direction: column;
         gap: 1rem;
         font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
-        color: #2a1f15;
+        color: var(--white);
       }
       .ef-section {
         display: grid;
         grid-template-columns: 280px 1fr;
         gap: 2rem;
         padding: 1.5rem 1.6rem;
-        background: #fff;
-        border: 1px solid rgba(28, 22, 17, 0.08);
+        background: var(--dark-2);
+        border: 1px solid var(--dark-4);
         border-radius: 14px;
       }
       @media (max-width: 820px) {
@@ -547,14 +550,15 @@ function FormStyles() {
       .ef-section-head h2 {
         margin: 0 0 0.4rem;
         font-size: 1rem;
-        font-weight: 500;
-        color: #1c1611;
+        font-weight: 700;
+        color: var(--white);
         letter-spacing: 0.01em;
       }
       .ef-section-head p {
         margin: 0;
         font-size: 0.78rem;
-        color: rgba(28, 22, 17, 0.55);
+        font-weight: 500;
+        color: var(--gray-light);
         line-height: 1.5;
       }
       .ef-section-body {
@@ -572,15 +576,17 @@ function FormStyles() {
       .field { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
       .field-label {
         font-size: 0.72rem;
+        font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(28, 22, 17, 0.5);
+        color: var(--gray);
       }
-      .field-label em { color: #c46b1e; font-style: normal; }
+      .field-label em { color: #F5A623; font-style: normal; }
       .field-hint {
         margin-top: 0.1rem;
         font-size: 0.72rem;
-        color: rgba(28, 22, 17, 0.45);
+        font-weight: 500;
+        color: var(--gray);
         line-height: 1.4;
       }
       .ef input,
@@ -588,24 +594,26 @@ function FormStyles() {
       .ef textarea {
         width: 100%;
         padding: 0.6rem 0.8rem;
-        background: #fff;
-        border: 1px solid rgba(28, 22, 17, 0.15);
+        background: var(--dark);
+        border: 1px solid var(--dark-4);
         border-radius: 8px;
         font-size: 0.88rem;
-        color: #1c1611;
+        font-weight: 500;
+        color: var(--white);
         font-family: inherit;
         transition: border-color 0.18s, box-shadow 0.18s;
       }
+      .ef input::placeholder, .ef textarea::placeholder { color: var(--gray); }
       .ef textarea { resize: vertical; min-height: 100px; line-height: 1.55; }
       .ef input:focus,
       .ef select:focus,
       .ef textarea:focus {
         outline: none;
-        border-color: rgba(192, 154, 90, 0.55);
-        box-shadow: 0 0 0 3px rgba(192, 154, 90, 0.12);
+        border-color: var(--gold);
+        box-shadow: 0 0 0 3px rgba(238, 177, 195, 0.15);
       }
       .ef input:invalid:not(:placeholder-shown) {
-        border-color: rgba(196, 107, 30, 0.5);
+        border-color: #F5A623;
       }
 
       /* Sizes editor */
@@ -616,9 +624,10 @@ function FormStyles() {
         gap: 0.6rem;
         padding: 0 0.2rem;
         font-size: 0.7rem;
+        font-weight: 700;
         letter-spacing: 0.14em;
         text-transform: uppercase;
-        color: rgba(28, 22, 17, 0.5);
+        color: var(--gray);
       }
       .sizes-row {
         display: grid;
@@ -630,50 +639,52 @@ function FormStyles() {
       .row-del {
         width: 32px; height: 32px;
         display: inline-flex; align-items: center; justify-content: center;
-        background: rgba(170, 50, 50, 0.07);
-        border: 1px solid rgba(170, 50, 50, 0.18);
-        color: #8a2a2a;
+        background: rgba(255, 77, 106, 0.1);
+        border: 1px solid rgba(255, 77, 106, 0.25);
+        color: #FF4D6A;
         border-radius: 8px;
         cursor: pointer;
         font-size: 1.1rem;
         line-height: 1;
         transition: background 0.15s;
       }
-      .row-del:hover:not(:disabled) { background: rgba(170, 50, 50, 0.15); }
+      .row-del:hover:not(:disabled) { background: rgba(255, 77, 106, 0.18); }
       .row-del:disabled { opacity: 0.3; cursor: not-allowed; }
       .row-add {
         margin-top: 0.4rem;
         align-self: flex-start;
         padding: 0.5rem 0.95rem;
-        background: rgba(192, 154, 90, 0.1);
-        color: #6b4f24;
-        border: 1px dashed rgba(192, 154, 90, 0.4);
+        background: rgba(238, 177, 195, 0.1);
+        color: var(--gold);
+        border: 1px dashed rgba(238, 177, 195, 0.45);
         border-radius: 8px;
         font-size: 0.8rem;
+        font-weight: 600;
         letter-spacing: 0.03em;
         cursor: pointer;
         font-family: inherit;
         transition: background 0.15s, border-color 0.15s;
       }
       .row-add:hover {
-        background: rgba(192, 154, 90, 0.18);
-        border-color: rgba(192, 154, 90, 0.6);
+        background: rgba(238, 177, 195, 0.18);
+        border-color: var(--gold);
       }
 
       .checks { display: flex; flex-direction: column; gap: 0.65rem; }
       .check {
         display: flex; align-items: center; gap: 0.6rem;
-        font-size: 0.85rem; color: #1c1611; cursor: pointer;
+        font-size: 0.85rem; font-weight: 500; color: var(--white); cursor: pointer;
       }
       .check input { width: auto; padding: 0; }
 
       .ef-error {
         padding: 0.9rem 1.1rem;
-        background: rgba(170, 50, 50, 0.08);
-        border: 1px solid rgba(170, 50, 50, 0.3);
+        background: rgba(255, 77, 106, 0.1);
+        border: 1px solid rgba(255, 77, 106, 0.3);
         border-radius: 10px;
         font-size: 0.86rem;
-        color: #7a2424;
+        font-weight: 500;
+        color: #FF4D6A;
       }
 
       .ef-footer {
@@ -685,9 +696,9 @@ function FormStyles() {
         flex-wrap: wrap;
         gap: 0.65rem;
         padding: 1rem 1.4rem;
-        background: rgba(246, 241, 230, 0.92);
+        background: rgba(20, 20, 22, 0.92);
         backdrop-filter: blur(8px);
-        border: 1px solid rgba(28, 22, 17, 0.08);
+        border: 1px solid var(--dark-4);
         border-radius: 14px;
         margin-top: 0.5rem;
       }
@@ -702,7 +713,8 @@ function FormStyles() {
         gap: 0.5rem;
         flex-wrap: wrap;
         font-size: 0.82rem;
-        color: #7a2424;
+        font-weight: 500;
+        color: #FF4D6A;
       }
 
       .btn {
@@ -712,7 +724,7 @@ function FormStyles() {
         border-radius: 9px;
         font-size: 0.85rem;
         letter-spacing: 0.03em;
-        font-weight: 500;
+        font-weight: 600;
         font-family: inherit;
         cursor: pointer;
         text-decoration: none;
@@ -720,36 +732,38 @@ function FormStyles() {
         border: 1px solid transparent;
       }
       .btn--primary {
-        background: linear-gradient(135deg, #c09a5a, #8a6936);
-        color: #1c1611;
+        background: var(--gold);
+        color: #0B0B0C;
       }
       .btn--primary:hover:not(:disabled) {
-        box-shadow: 0 10px 22px -10px rgba(192, 154, 90, 0.5);
+        background: var(--gold-dark);
+        color: #fff;
       }
       .btn--ghost {
         background: transparent;
-        color: rgba(28, 22, 17, 0.65);
-        border-color: rgba(28, 22, 17, 0.18);
+        color: var(--gray-light);
+        border-color: var(--dark-4);
       }
       .btn--ghost:hover:not(:disabled) {
-        background: rgba(28, 22, 17, 0.04);
-        color: #1c1611;
+        background: var(--dark-4);
+        color: var(--white);
       }
       .btn--danger {
-        background: #aa3232;
-        color: #fff;
+        background: var(--error);
+        color: #0B0B0C;
       }
       .btn--danger:hover:not(:disabled) {
-        background: #8a2a2a;
+        background: #e0223f;
+        color: #fff;
       }
       .btn--danger-ghost {
         background: transparent;
-        color: #7a2424;
-        border-color: rgba(170, 50, 50, 0.3);
+        color: #FF4D6A;
+        border-color: rgba(255, 77, 106, 0.3);
       }
       .btn--danger-ghost:hover:not(:disabled) {
-        background: rgba(170, 50, 50, 0.07);
-        border-color: rgba(170, 50, 50, 0.5);
+        background: rgba(255, 77, 106, 0.1);
+        border-color: rgba(255, 77, 106, 0.5);
       }
       .btn:disabled { opacity: 0.55; cursor: not-allowed; }
     `}</style>

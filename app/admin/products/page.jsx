@@ -265,7 +265,7 @@ function ProductsStyles() {
         max-width: 1280px;
         margin: 0 auto;
         font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
-        color: #2a1f15;
+        color: var(--white);
       }
       .prods-head {
         display: flex;
@@ -278,21 +278,23 @@ function ProductsStyles() {
       .prods-eyebrow {
         margin: 0 0 0.3rem;
         font-size: 0.7rem;
+        font-weight: 700;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: #8a6936;
+        color: var(--gold);
       }
       .prods-title {
         margin: 0 0 0.35rem;
         font-size: 1.85rem;
-        font-weight: 500;
+        font-weight: 700;
         letter-spacing: -0.01em;
-        color: #1c1611;
+        color: var(--white);
       }
       .prods-sub {
         margin: 0;
         font-size: 0.83rem;
-        color: rgba(28, 22, 17, 0.55);
+        font-weight: 500;
+        color: var(--gray-light);
       }
 
       .prods-head-actions {
@@ -306,7 +308,7 @@ function ProductsStyles() {
         border-radius: 9px;
         font-size: 0.82rem;
         letter-spacing: 0.03em;
-        font-weight: 500;
+        font-weight: 600;
         font-family: inherit;
         cursor: pointer;
         text-decoration: none;
@@ -314,21 +316,22 @@ function ProductsStyles() {
         border: 1px solid transparent;
       }
       .btn--primary {
-        background: linear-gradient(135deg, #c09a5a, #8a6936);
-        color: #1c1611;
+        background: var(--gold);
+        color: #0B0B0C;
       }
       .btn--primary:hover {
-        box-shadow: 0 8px 22px -10px rgba(192, 154, 90, 0.5);
+        background: var(--gold-dark);
+        color: #fff;
       }
       .btn--ghost {
         background: transparent;
-        color: rgba(28, 22, 17, 0.65);
-        border-color: rgba(28, 22, 17, 0.15);
+        color: var(--gray-light);
+        border-color: var(--dark-4);
       }
       .btn--ghost:hover:not(:disabled) {
-        background: rgba(28, 22, 17, 0.04);
-        border-color: rgba(28, 22, 17, 0.25);
-        color: #1c1611;
+        background: var(--dark-2);
+        border-color: var(--gray);
+        color: var(--white);
       }
       .btn:disabled,
       .btn[aria-disabled="true"] {
@@ -339,16 +342,17 @@ function ProductsStyles() {
       .prods-error {
         margin-bottom: 1rem;
         padding: 0.9rem 1rem;
-        background: rgba(170, 50, 50, 0.08);
-        border: 1px solid rgba(170, 50, 50, 0.25);
+        background: rgba(255, 77, 106, 0.1);
+        border: 1px solid rgba(255, 77, 106, 0.3);
         border-radius: 10px;
         font-size: 0.85rem;
-        color: #7a2424;
+        font-weight: 500;
+        color: #FF4D6A;
       }
 
       .prods-tablewrap {
-        background: #fff;
-        border: 1px solid rgba(28, 22, 17, 0.08);
+        background: var(--dark-2);
+        border: 1px solid var(--dark-4);
         border-radius: 14px;
         overflow: hidden;
         margin-bottom: 1.5rem;
@@ -360,43 +364,44 @@ function ProductsStyles() {
       .prods-table thead th {
         text-align: left;
         font-size: 0.7rem;
-        font-weight: 500;
+        font-weight: 700;
         letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: rgba(28, 22, 17, 0.55);
+        color: var(--gray);
         padding: 0.95rem 1rem;
-        border-bottom: 1px solid rgba(28, 22, 17, 0.07);
-        background: rgba(28, 22, 17, 0.02);
+        border-bottom: 1px solid var(--dark-4);
+        background: var(--dark);
       }
       .prods-table tbody td {
         padding: 0.85rem 1rem;
-        border-bottom: 1px solid rgba(28, 22, 17, 0.05);
+        border-bottom: 1px solid var(--dark-4);
         font-size: 0.86rem;
         vertical-align: middle;
       }
       .prods-table tbody tr:last-child td { border-bottom: none; }
-      .prods-table tbody tr:hover { background: rgba(192, 154, 90, 0.045); }
+      .prods-table tbody tr:hover { background: rgba(238, 177, 195, 0.045); }
 
       .prods-thumb {
         width: 44px;
         height: 44px;
         object-fit: cover;
         border-radius: 8px;
-        background: rgba(28, 22, 17, 0.06);
+        background: var(--dark-4);
       }
       .prods-name {
-        font-weight: 500;
-        color: #1c1611;
+        font-weight: 600;
+        color: var(--white);
         line-height: 1.25;
       }
       .prods-slug {
         margin-top: 0.15rem;
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
         font-size: 0.7rem;
-        color: rgba(28, 22, 17, 0.45);
+        color: var(--gray);
       }
       .prods-brand {
-        color: rgba(28, 22, 17, 0.75);
+        color: var(--gray-light);
+        font-weight: 500;
         letter-spacing: 0.02em;
       }
       .type-chip {
@@ -404,8 +409,9 @@ function ProductsStyles() {
         padding: 0.18rem 0.55rem;
         border-radius: 6px;
         font-size: 0.72rem;
-        background: rgba(192, 154, 90, 0.12);
-        color: #8a6936;
+        font-weight: 600;
+        background: rgba(238, 177, 195, 0.14);
+        color: var(--gold);
         letter-spacing: 0.04em;
       }
       .cat-chips {
@@ -419,25 +425,27 @@ function ProductsStyles() {
         padding: 0.1rem 0.42rem;
         border-radius: 5px;
         font-size: 0.66rem;
-        background: rgba(28, 22, 17, 0.05);
-        color: rgba(28, 22, 17, 0.65);
+        font-weight: 500;
+        background: var(--dark-4);
+        color: var(--gray-light);
         letter-spacing: 0.02em;
       }
       .cat-chip--more {
-        background: rgba(192, 154, 90, 0.14);
-        color: #6b4f24;
-        font-weight: 500;
+        background: rgba(238, 177, 195, 0.16);
+        color: var(--gold);
+        font-weight: 600;
       }
       .prods-price {
-        font-weight: 500;
-        color: #1c1611;
+        font-weight: 700;
+        color: var(--white);
       }
       .prods-ml {
         font-size: 0.75rem;
-        color: rgba(28, 22, 17, 0.5);
+        font-weight: 500;
+        color: var(--gray);
       }
       .prods-muted {
-        color: rgba(28, 22, 17, 0.4);
+        color: var(--gray);
         font-style: italic;
         font-size: 0.78rem;
       }
@@ -453,26 +461,27 @@ function ProductsStyles() {
         font-size: 0.65rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        font-weight: 500;
+        font-weight: 700;
       }
-      .flag--gold { background: rgba(192, 154, 90, 0.18); color: #6b4f24; }
-      .flag--ink  { background: rgba(28, 22, 17, 0.08);  color: rgba(28, 22, 17, 0.7); }
-      .flag--err  { background: rgba(170, 50, 50, 0.12);  color: #8a2a2a; }
-      .flag--warn { background: rgba(196, 107, 30, 0.13); color: #8d4a17; }
+      .flag--gold { background: rgba(238, 177, 195, 0.18); color: var(--gold); }
+      .flag--ink  { background: var(--dark-4);  color: var(--gray-light); }
+      .flag--err  { background: rgba(255, 77, 106, 0.15);  color: #FF4D6A; }
+      .flag--warn { background: rgba(245, 166, 35, 0.15); color: #F5A623; }
 
       .row-edit {
-        color: #8a6936;
+        color: var(--gold);
         font-size: 0.82rem;
+        font-weight: 600;
         text-decoration: none;
         letter-spacing: 0.02em;
         white-space: nowrap;
       }
-      .row-edit:hover { color: #5d4724; }
+      .row-edit:hover { color: var(--gold-dark); }
 
       .prods-empty {
         padding: 3rem 1rem !important;
         text-align: center;
-        color: rgba(28, 22, 17, 0.5);
+        color: var(--gray);
         font-size: 0.9rem;
       }
 
@@ -485,17 +494,18 @@ function ProductsStyles() {
       .pager-link {
         padding: 0.55rem 1rem;
         border-radius: 9px;
-        background: #fff;
-        color: #1c1611;
+        background: var(--dark-2);
+        color: var(--white);
         text-decoration: none;
         font-size: 0.83rem;
+        font-weight: 600;
         letter-spacing: 0.02em;
-        border: 1px solid rgba(28, 22, 17, 0.12);
+        border: 1px solid var(--dark-4);
         transition: background 0.15s, border-color 0.15s;
       }
       .pager-link:hover {
-        background: rgba(192, 154, 90, 0.08);
-        border-color: rgba(192, 154, 90, 0.4);
+        background: rgba(238, 177, 195, 0.08);
+        border-color: var(--gold);
       }
       .pager-link--off {
         opacity: 0.4;
@@ -504,7 +514,8 @@ function ProductsStyles() {
       }
       .pager-info {
         font-size: 0.8rem;
-        color: rgba(28, 22, 17, 0.55);
+        font-weight: 500;
+        color: var(--gray-light);
         letter-spacing: 0.04em;
       }
     `}</style>
