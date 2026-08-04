@@ -1,5 +1,7 @@
 import { NextResponse } from 'next/server';
+import { revalidateTag, revalidatePath } from 'next/cache';
 import { supabaseAdmin } from '@/lib/supabase';
+import { HOME_CONTENT_CACHE_TAG } from '@/lib/home-content';
 
 export async function GET() {
   if (!supabaseAdmin) return NextResponse.json({ error: 'no supabaseAdmin' });
@@ -37,5 +39,7 @@ export async function POST() {
     .from('home_content')
     .upsert({ section: 'hero', data: clean, updated_at: new Date().toISOString() }, { onConflict: 'section' });
 
+  revalidateTag(HOME_CONTENT_CACHE_TAG);
+  revalidatePath('/');
   return NextResponse.json({ ok: !writeErr, unwrapDepth: depth, clean, writeErr });
 }
