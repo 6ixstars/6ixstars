@@ -1,16 +1,13 @@
 'use client';
 import Link from 'next/link';
+import { HOME_DEFAULTS } from '@/lib/home-content-defaults';
 
 // Cards 3D con efecto tilt (inspirado en el CodePen de krautgti): la card se
 // inclina siguiendo el mouse, el tenis "sale" flotando en Z al hover, borde
 // con glow de color, círculo de fondo y texto fantasma 6IX/DROP.
-const SHOES = [
-  { name: '6IX AIR · LIME',    img: '/img/shoes/green.webp', color: '#9bdc28' },
-  { name: '6IX AIR · AQUA',    img: '/img/shoes/blue.webp',  color: '#1da3c3' },
-  { name: '6IX AIR · CRIMSON', img: '/img/shoes/red.webp',   color: '#eb0e2f' },
-];
+export default function TiltShoes({ items }) {
+  const SHOES = items?.length ? items : HOME_DEFAULTS.shoes.items;
 
-export default function TiltShoes() {
   const tilt = (e) => {
     const el = e.currentTarget;
     const r = el.getBoundingClientRect();
@@ -25,7 +22,7 @@ export default function TiltShoes() {
       {SHOES.map((s) => (
         <div key={s.name} className="tlt-card" style={{ '--c': s.color }} onMouseMove={tilt} onMouseLeave={reset} data-cursor="hover">
           <h3 className="tlt-name">{s.name}</h3>
-          <Link href="/tienda" className="tlt-buy">COMPRAR</Link>
+          <Link href={s.href || '/tienda'} className="tlt-buy">COMPRAR</Link>
           <div className="tlt-circle" />
           <img className="tlt-shoe" src={s.img} alt={s.name} draggable="false" />
         </div>

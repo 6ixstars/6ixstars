@@ -181,6 +181,19 @@ CREATE TABLE IF NOT EXISTS whatsapp_conversations (
 );
 
 -- =====================================================
+-- CONTENIDO EDITABLE DE LA HOME
+-- =====================================================
+-- Una fila por sección ('hero', 'campaign', 'manifesto', ...). `data` es
+-- JSONB de forma libre — cada sección define su propia forma en
+-- lib/home-content-defaults.js. Si una sección no tiene fila acá, el sitio
+-- usa el default hardcodeado (nunca se rompe por falta de datos).
+CREATE TABLE IF NOT EXISTS home_content (
+  section     TEXT PRIMARY KEY,
+  data        JSONB NOT NULL DEFAULT '{}',
+  updated_at  TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- =====================================================
 -- ÍNDICES
 -- =====================================================
 CREATE INDEX IF NOT EXISTS idx_products_slug          ON products(slug);
@@ -238,3 +251,4 @@ ALTER TABLE reviews                DISABLE ROW LEVEL SECURITY;
 ALTER TABLE newsletter_subs        DISABLE ROW LEVEL SECURITY;
 ALTER TABLE push_subscriptions     DISABLE ROW LEVEL SECURITY;
 ALTER TABLE whatsapp_conversations DISABLE ROW LEVEL SECURITY;
+ALTER TABLE home_content            DISABLE ROW LEVEL SECURITY;

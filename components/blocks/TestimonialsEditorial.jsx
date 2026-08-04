@@ -4,12 +4,13 @@
 // selector de líneas y prev/next. Avatar = iniciales (sin fotos de cara).
 import { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { testimonials as DATA } from '@/lib/products-constants';
+import { HOME_DEFAULTS } from '@/lib/home-content-defaults';
 
 const initials = (name = '') => name.split(' ').filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase();
 
-export default function TestimonialsEditorial() {
-  const items = (DATA || []).map(t => ({
+export default function TestimonialsEditorial({ content }) {
+  const DATA = content?.items?.length ? content.items : HOME_DEFAULTS.testimonials.items;
+  const items = DATA.map(t => ({
     quote: t.text,
     author: t.name,
     role: t.location,

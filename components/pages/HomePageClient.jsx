@@ -1,7 +1,9 @@
 'use client';
 import Link from 'next/link';
-import { ArrowUpRight, ArrowRight, Truck, ShieldCheck, RefreshCw } from 'lucide-react';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
 import { collections } from '@/lib/products-constants';
+import { HOME_DEFAULTS } from '@/lib/home-content-defaults';
+import { HomeIcon as Icon } from '@/lib/home-icon-registry';
 import ProductCard from '@/components/ui/ProductCard';
 import SmoothScroll from '@/components/fx/SmoothScroll';
 import Cursor from '@/components/fx/Cursor';
@@ -37,17 +39,8 @@ function IgGlyph({ size = 16 }) {
 // Bento: spans de columna (de 12) por categoría — layout editorial asimétrico.
 const BENTO_SPANS = [7, 5, 5, 7, 8, 4];
 
-// Piezas del DROP (showcase). Usan las fotos generadas + slugs del seed.
-const DROP_ITEMS = [
-  { name: 'Buzo Oversize Shadow',    price: '$159.900', img: '/img/gen/cat-buzos.webp',     slug: 'buzo-oversize-shadow',   colors: ['#191A1D', '#FF2E7E', '#ECECEC', '#5B5B62'], sizes: ['S', 'M', 'L', 'XL'] },
-  { name: 'Jean Baggy Wave',         price: '$169.900', img: '/img/gen/cat-jeans.webp',     slug: 'jean-baggy-wave',        colors: ['#43618F', '#191A1D', '#ECECEC'],            sizes: ['S', 'M', 'L', 'XL'] },
-  { name: 'Conjunto Track 6ix',      price: '$229.900', img: '/img/gen/cat-conjuntos.webp', slug: 'conjunto-track-6ix',     colors: ['#191A1D', '#FF2E7E', '#5C6B3C'],            sizes: ['S', 'M', 'L', 'XL'] },
-  { name: 'Camisa Boxy Static',      price: '$79.900',  img: '/img/gen/cat-camisas.webp',   slug: 'camisa-boxy-static',     colors: ['#ECECEC', '#191A1D', '#FF2E7E'],            sizes: ['S', 'M', 'L', 'XL'] },
-  { name: 'Bermuda Cargo Tactical',  price: '$109.900', img: '/img/gen/cat-bermudas.webp',  slug: 'bermuda-cargo-tactical', colors: ['#5C6B3C', '#191A1D', '#C9B79C'],            sizes: ['S', 'M', 'L', 'XL'] },
-  { name: 'Gorra Snapback 6ix',      price: '$59.900',  img: '/img/gen/cat-gorras.webp',    slug: 'gorra-snapback-6ix',     colors: ['#191A1D', '#FF2E7E', '#E11D48'],            sizes: ['Única'] },
-];
-
-export default function HomePageClient({ products = [] }) {
+export default function HomePageClient({ products = [], content }) {
+  const c = { ...HOME_DEFAULTS, ...content };
   const bestsellers = products.filter(p => p.bestseller).slice(0, 8);
   const grid = bestsellers.length ? bestsellers : products.slice(0, 8);
   const spotlight = products.find(p => p.featured) || products[0] || null;
@@ -68,37 +61,33 @@ export default function HomePageClient({ products = [] }) {
       <main id="main-content" className="sx6">
 
         {/* ===================== HERO — 21st.dev "Hero with bg video" (headline rotativo) ===================== */}
-        <HeroVideo21 />
+        <HeroVideo21 content={c.hero} />
 
         {/* ===================== BANDA GRAFFITI (reactiva al scroll) ===================== */}
-        <GraffitiBand />
+        <GraffitiBand content={c.graffiti} />
 
         {/* ===================== POR QUÉ 6IX — banda editorial (reemplaza marcas) ===================== */}
-        <WhySix />
+        <WhySix content={c.whysix} />
 
         {/* ===================== DROP 01 — CARRUSEL 3D ===================== */}
         <section className="container sx6-section">
           <Reveal className="sx6-head sx6-head-row">
             <div>
-              <span className="sx6-tag">/// TENIS</span>
-              <h2 className="sx6-head-title">TENIS</h2>
+              <span className="sx6-tag">/// {c.shoes.tag.replace(/^\/\/\/\s*/, '')}</span>
+              <h2 className="sx6-head-title">{c.shoes.title}</h2>
             </div>
-            <Link href="/tienda?cat=gorras" className="sx6-head-link" data-cursor="hover">VER TODO <ArrowRight size={16} /></Link>
+            <Link href={c.shoes.linkHref} className="sx6-head-link" data-cursor="hover">{c.shoes.linkText} <ArrowRight size={16} /></Link>
           </Reveal>
-          <TiltShoes />
+          <TiltShoes items={c.shoes.items} />
         </section>
 
         {/* ===================== TRUST ===================== */}
         <section className="container sx6-trust">
-          {[
-            { Icon: Truck, t: 'Envío a toda Colombia', d: '24–48H' },
-            { Icon: ShieldCheck, t: 'Pago seguro', d: 'BOLD' },
-            { Icon: RefreshCw, t: 'Cambios fáciles', d: '15 DÍAS' },
-          ].map(({ Icon, t, d }, i) => (
-            <Reveal key={t} i={i} className="sx6-trust-item">
-              <Icon size={18} />
-              <p className="sx6-trust-t">{t}</p>
-              <span className="sx6-trust-d">{d}</span>
+          {c.trust.items.map(({ icon, title, subtitle }, i) => (
+            <Reveal key={title} i={i} className="sx6-trust-item">
+              <Icon name={icon} size={18} />
+              <p className="sx6-trust-t">{title}</p>
+              <span className="sx6-trust-d">{subtitle}</span>
             </Reveal>
           ))}
         </section>
@@ -110,36 +99,39 @@ export default function HomePageClient({ products = [] }) {
             <h2 className="sx6-head-title">CATEGORÍAS</h2>
           </Reveal>
           <div className="sx6-bento">
-            {collections.map((c, i) => (
-              <Reveal key={c.id} i={i % 3} className="sx6-bento-cell" style={{ gridColumn: `span ${BENTO_SPANS[i] || 6}` }}>
-                <Link href={`/tienda?cat=${c.id}`} className="sx6-tile" data-cursor="hover"
-                  style={{ backgroundImage: `linear-gradient(180deg, rgba(11,11,12,.2), rgba(11,11,12,.9)), url(/img/gen/cat-${c.id}.webp)`, backgroundSize: 'cover', backgroundPosition: 'center top' }}>
-                  <span className="sx6-tile-ghost">{String(i + 1).padStart(2, '0')}</span>
-                  <div className="sx6-tile-top">
-                    <span className="sx6-tile-idx">[ {String(i + 1).padStart(2, '0')} ]</span>
-                    <span className="sx6-tile-id">{c.id.toUpperCase()}</span>
-                  </div>
-                  <div className="sx6-tile-bot">
-                    <h3 className="sx6-tile-name">{c.name}</h3>
-                    <ArrowUpRight className="sx6-tile-arrow" size={30} />
-                  </div>
-                </Link>
-              </Reveal>
-            ))}
+            {collections.map((cat, i) => {
+              const img = c.categories.images?.[cat.id] || `/img/gen/cat-${cat.id}.webp`;
+              return (
+                <Reveal key={cat.id} i={i % 3} className="sx6-bento-cell" style={{ gridColumn: `span ${BENTO_SPANS[i] || 6}` }}>
+                  <Link href={`/tienda?cat=${cat.id}`} className="sx6-tile" data-cursor="hover"
+                    style={{ backgroundImage: `linear-gradient(180deg, rgba(11,11,12,.2), rgba(11,11,12,.9)), url(${img})`, backgroundSize: 'cover', backgroundPosition: 'center top' }}>
+                    <span className="sx6-tile-ghost">{String(i + 1).padStart(2, '0')}</span>
+                    <div className="sx6-tile-top">
+                      <span className="sx6-tile-idx">[ {String(i + 1).padStart(2, '0')} ]</span>
+                      <span className="sx6-tile-id">{cat.id.toUpperCase()}</span>
+                    </div>
+                    <div className="sx6-tile-bot">
+                      <h3 className="sx6-tile-name">{cat.name}</h3>
+                      <ArrowUpRight className="sx6-tile-arrow" size={30} />
+                    </div>
+                  </Link>
+                </Reveal>
+              );
+            })}
           </div>
         </section>
 
         {/* ===================== LOOKBOOK — 21st.dev Animated Gallery (3D scroll) ===================== */}
-        <LookbookGallery />
+        <LookbookGallery content={c.lookbook} />
 
         {/* ===================== CAMPAÑA ===================== */}
         <section className="sx6-campaign">
-          <img src="/img/gen/campaign.webp" alt="Campaña 6ixstars FW26" className="sx6-campaign-img" />
+          <img src={c.campaign.image} alt="Campaña 6ixstars" className="sx6-campaign-img" />
           <div className="container sx6-campaign-inner">
-            <span className="sx6-tag">/// CAMPAÑA 2026</span>
-            <h2 className="sx6-campaign-title">EN LAS CALLES<br /><span>DE COLOMBIA</span></h2>
+            <span className="sx6-tag">{c.campaign.tag}</span>
+            <h2 className="sx6-campaign-title">{c.campaign.titleLine1}<br /><span>{c.campaign.titleLine2}</span></h2>
             <Magnetic strength={0.4}>
-              <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA COLECCIÓN <ArrowUpRight size={18} /></Link>
+              <Link href={c.campaign.buttonHref} className="sx6-btn sx6-btn-pink" data-cursor="hover">{c.campaign.buttonText} <ArrowUpRight size={18} /></Link>
             </Magnetic>
           </div>
         </section>
@@ -173,15 +165,14 @@ export default function HomePageClient({ products = [] }) {
         <section className="sx6-manifesto">
           <div className="sx6-mani-marq" aria-hidden="true">
             <div className="sx6-mani-track">
-              {Array.from({ length: 8 }).map((_, i) => <span key={i}>6IXSTARS&nbsp;</span>)}
+              {Array.from({ length: 8 }).map((_, i) => <span key={i}>{c.manifesto.marqueeWord}&nbsp;</span>)}
             </div>
           </div>
           <div className="container sx6-mani-inner">
-            <Reveal as="span" className="sx6-mani-tag">/// MANIFIESTO N°01</Reveal>
-            <Reveal as="h2" className="sx6-mani-title">HECHO PARA LA CALLE.<br /><span>NO PARA EL CLÓSET.</span></Reveal>
+            <Reveal as="span" className="sx6-mani-tag">{c.manifesto.tag}</Reveal>
+            <Reveal as="h2" className="sx6-mani-title">{c.manifesto.titleLine1}<br /><span>{c.manifesto.titleLine2}</span></Reveal>
             <Reveal i={1} as="p" className="sx6-mani-text">
-              6ixstars reúne las mejores marcas de streetwear en un solo lugar.
-              Piezas seleccionadas y elegidas a mano. Cuando se agota, se agota.
+              {c.manifesto.text}
             </Reveal>
           </div>
         </section>
@@ -210,15 +201,15 @@ export default function HomePageClient({ products = [] }) {
         )}
 
         {/* ===================== RESEÑAS — 21st.dev Editorial Testimonial ===================== */}
-        <TestimonialsEditorial />
+        <TestimonialsEditorial content={c.testimonials} />
 
         {/* ===================== JOIN ===================== */}
         <section className="sx6-join">
           <div className="container sx6-join-inner">
             <Reveal>
-              <span className="sx6-tag" style={{ color: '#0B0B0C', borderColor: 'rgba(11,11,12,.3)' }}>/// COMUNIDAD 6IX</span>
-              <h2 className="sx6-join-title">ÚNETE AL 6IX</h2>
-              <p className="sx6-join-text">Enterate de los nuevos ingresos antes que nadie. Acceso anticipado, descuentos y nada de spam.</p>
+              <span className="sx6-tag" style={{ color: '#0B0B0C', borderColor: 'rgba(11,11,12,.3)' }}>{c.join.tag}</span>
+              <h2 className="sx6-join-title">{c.join.title}</h2>
+              <p className="sx6-join-text">{c.join.text}</p>
               <form className="sx6-join-form" onSubmit={(e) => e.preventDefault()}>
                 <input type="email" placeholder="TU@CORREO.COM" aria-label="Correo electrónico" data-cursor="hover" />
                 <button type="submit" data-cursor="hover">SUSCRIBIRME</button>

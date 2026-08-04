@@ -2,51 +2,38 @@
 // Sección "Por qué 6ix" — reemplaza la franja de marcas (no vendemos marcas
 // ajenas). 3 bloques editoriales: ícono + título display + texto corto, con
 // número fantasma, brackets e barrido rosa en hover. Paleta de la marca.
-import { Sparkles, BadgeCheck, Flame } from 'lucide-react';
+import { HOME_DEFAULTS } from '@/lib/home-content-defaults';
+import { HOME_ICON_MAP } from '@/lib/home-icon-registry';
+import { Circle } from 'lucide-react';
 
-const ITEMS = [
-  {
-    Icon: Sparkles,
-    tag: 'SELECCIÓN',
-    title: 'ELEGIDO',
-    text: 'Cada pieza escogida a mano. Nada de relleno — solo lo que manda en la calle.',
-  },
-  {
-    Icon: BadgeCheck,
-    tag: 'CALIDAD',
-    title: 'CALIDAD GARANTIZADA',
-    text: 'Productos auténticos y verificados. Sin réplicas, sin excusas.',
-  },
-  {
-    Icon: Flame,
-    tag: 'CULTURA',
-    title: 'COMUNIDAD 6IX',
-    text: 'Más que una tienda: streetwear hecho para la calle, no para el clóset.',
-  },
-];
+export default function WhySix({ content }) {
+  const w = { ...HOME_DEFAULTS.whysix, ...content };
+  const items = w.items?.length ? w.items : HOME_DEFAULTS.whysix.items;
 
-export default function WhySix() {
   return (
     <section className="container why6" style={{ paddingTop: 86, paddingBottom: 10 }}>
       <div className="sx6-head why6-head">
-        <span className="sx6-tag">/// FILOSOFÍA · 03</span>
-        <h2 className="sx6-head-title">POR QUÉ 6IX</h2>
+        <span className="sx6-tag">{w.tag}</span>
+        <h2 className="sx6-head-title">{w.title}</h2>
       </div>
 
       <div className="why6-grid">
-        {ITEMS.map(({ Icon, tag, title, text }, i) => (
-          <article className="why6-cell" key={title} data-cursor="hover">
-            <span className="why6-ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-            <span className="why6-bracket why6-bracket--tl" aria-hidden="true" />
-            <span className="why6-bracket why6-bracket--br" aria-hidden="true" />
-            <div className="why6-top">
-              <span className="why6-ico"><Icon size={26} strokeWidth={1.6} /></span>
-              <span className="why6-tag">/// {tag}</span>
-            </div>
-            <h3 className="why6-title">{title}</h3>
-            <p className="why6-text">{text}</p>
-          </article>
-        ))}
+        {items.map(({ icon, tag, title, text }, i) => {
+          const Icon = HOME_ICON_MAP[icon] || Circle;
+          return (
+            <article className="why6-cell" key={title} data-cursor="hover">
+              <span className="why6-ghost" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <span className="why6-bracket why6-bracket--tl" aria-hidden="true" />
+              <span className="why6-bracket why6-bracket--br" aria-hidden="true" />
+              <div className="why6-top">
+                <span className="why6-ico"><Icon size={26} strokeWidth={1.6} /></span>
+                <span className="why6-tag">/// {tag}</span>
+              </div>
+              <h3 className="why6-title">{title}</h3>
+              <p className="why6-text">{text}</p>
+            </article>
+          );
+        })}
       </div>
 
       <style>{`

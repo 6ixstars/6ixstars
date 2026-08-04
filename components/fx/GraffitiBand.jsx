@@ -16,7 +16,11 @@ function Star({ size = 20 }) {
   );
 }
 
-export default function GraffitiBand({ baseSpeed = 2.2 }) {
+const DEFAULT_PHRASES = ['NUEVOS INGRESOS', 'ENVÍO A TODA COLOMBIA', 'LAS MEJORES MARCAS'];
+
+export default function GraffitiBand({ baseSpeed = 2.2, content }) {
+  const phrases = content?.phrases?.length ? content.phrases : DEFAULT_PHRASES;
+  const bgImage = content?.bgImage || '/img/graffiti.webp';
   const baseX = useMotionValue(0);
   const { scrollY } = useScroll();
   const velocity = useVelocity(scrollY);
@@ -34,11 +38,15 @@ export default function GraffitiBand({ baseSpeed = 2.2 }) {
   });
 
   const Item = () => (
-    <span className="gb-item">NUEVOS INGRESOS <Star /> ENVÍO A TODA COLOMBIA <Star /> LAS MEJORES MARCAS <Star /> </span>
+    <span className="gb-item">
+      {phrases.map((p, i) => (
+        <span key={i}>{p} <Star /> </span>
+      ))}
+    </span>
   );
 
   return (
-    <div className="gb" aria-hidden="true">
+    <div className="gb" aria-hidden="true" style={{ '--gb-bg': `url('${bgImage}')` }}>
       <motion.div className="gb-track" style={{ x }}>
         {[0, 1, 2, 3].map(i => (
           <div className="gb-copy" key={i}><Item /></div>
@@ -47,7 +55,7 @@ export default function GraffitiBand({ baseSpeed = 2.2 }) {
 
       <style>{`
         .gb { position: relative; overflow: hidden; border-top: 1px solid var(--dark-4); border-bottom: 1px solid var(--dark-4); padding: 20px 0; background: #0B0B0C; }
-        .gb::before { content: ''; position: absolute; inset: 0; background: url('/img/graffiti.webp') center / cover; opacity: .55; }
+        .gb::before { content: ''; position: absolute; inset: 0; background: var(--gb-bg) center / cover; opacity: .55; }
         .gb::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, #0B0B0C, transparent 12%, transparent 88%, #0B0B0C), rgba(11,11,12,.3); }
         .gb-track { position: relative; z-index: 1; display: flex; width: max-content; will-change: transform; }
         .gb-copy { display: flex; }

@@ -8,10 +8,12 @@ import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import VideoSlides from '@/components/fx/VideoSlides';
 import Magnetic from '@/components/fx/Magnetic';
+import { HOME_DEFAULTS } from '@/lib/home-content-defaults';
 
-export default function HeroVideo21() {
+export default function HeroVideo21({ content }) {
+  const h = { ...HOME_DEFAULTS.hero, ...content };
   const [titleNumber, setTitleNumber] = useState(0);
-  const titles = useMemo(() => ['MANDAS', 'BRILLAS', 'PEGAS', 'RESALTAS'], []);
+  const titles = useMemo(() => (h.words?.length ? h.words : HOME_DEFAULTS.hero.words), [h.words]);
 
   useEffect(() => {
     const id = setTimeout(() => {
@@ -24,7 +26,10 @@ export default function HeroVideo21() {
     <section className="hero21 relative w-full min-h-[100svh] overflow-hidden font-sans">
       {/* Video de fondo (crossfade de 2 clips) */}
       <div className="absolute inset-0 z-0">
-        <VideoSlides />
+        <VideoSlides
+          video1={h.video1} video1Poster={h.video1Poster}
+          video2={h.video2} video2Poster={h.video2Poster}
+        />
       </div>
       {/* Overlay para legibilidad */}
       <div className="absolute inset-0 z-10 pointer-events-none"
@@ -33,11 +38,11 @@ export default function HeroVideo21() {
       <div className="relative z-20 flex flex-col items-center justify-end md:justify-center w-full min-h-[100svh] pb-24 md:pb-0">
         <div className="flex gap-7 items-center justify-center flex-col w-full container">
           {/* Kicker */}
-          <span className="hero21-kicker">★ STREETWEAR MULTIMARCA · DESDE EL 6IX</span>
+          <span className="hero21-kicker">{h.kicker}</span>
 
           {/* Headline con palabra rotativa */}
           <h1 className="hero21-title">
-            <span className="block">EN LA CALLE</span>
+            <span className="block">{h.titlePrefix}</span>
             <span className="relative flex w-full justify-center overflow-hidden text-center pb-2">
               &nbsp;
               {titles.map((title, index) => (
@@ -58,14 +63,14 @@ export default function HeroVideo21() {
             </span>
           </h1>
 
-          <p className="hero21-sub">Las mejores marcas de streetwear, curadas. Lo que se usa en el 6ix.</p>
+          <p className="hero21-sub">{h.subtitle}</p>
 
           <div className="flex flex-row flex-wrap gap-3 justify-center">
             <Magnetic strength={0.5}>
-              <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">VER LA TIENDA <ArrowUpRight size={18} /></Link>
+              <Link href={h.ctaPrimaryHref} className="sx6-btn sx6-btn-pink" data-cursor="hover">{h.ctaPrimaryText} <ArrowUpRight size={18} /></Link>
             </Magnetic>
             <Magnetic strength={0.5}>
-              <Link href="/tienda?sort=nuevo" className="sx6-btn sx6-btn-ghost" data-cursor="hover">LO NUEVO</Link>
+              <Link href={h.ctaSecondaryHref} className="sx6-btn sx6-btn-ghost" data-cursor="hover">{h.ctaSecondaryText}</Link>
             </Magnetic>
           </div>
         </div>

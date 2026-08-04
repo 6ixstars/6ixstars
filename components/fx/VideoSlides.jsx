@@ -6,12 +6,11 @@ import { useEffect, useState } from 'react';
 // hero3 es un clip vertical (celular) — con "cover" se ve recortado/con
 // zoom excesivo, así que usa "contain" (se ve completo) y los laterales
 // quedan en negro sólido — limpio y elegante, sin formas/blur de relleno.
-const VIDEOS = [
-  { src: '/video/hero2.mp4', poster: '/video/hero2-poster.webp', fit: 'cover' },
-  { src: '/video/hero3.mp4', poster: '/video/hero3-poster.webp', fit: 'contain' },
-];
-
-export default function VideoSlides() {
+export default function VideoSlides({ video1, video1Poster, video2, video2Poster }) {
+  const VIDEOS = [
+    { src: video1 || '/video/hero2.mp4', poster: video1Poster || '/video/hero2-poster.webp', fit: 'cover' },
+    { src: video2 || '/video/hero3.mp4', poster: video2Poster || '/video/hero3-poster.webp', fit: 'contain' },
+  ];
   const [active, setActive] = useState(0);
   const [loaded, setLoaded] = useState(() => VIDEOS.map((_, i) => i === 0));
 

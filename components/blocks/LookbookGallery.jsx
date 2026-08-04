@@ -7,16 +7,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowUpRight, ChevronLeft, ChevronRight, X } from 'lucide-react';
-
-// 9 looks → grid de 3 columnas × 3 filas.
-const COLS = [
-  ['/img/gen/look-01.webp', '/img/gen/look-02.webp', '/img/gen/look-03.webp'],
-  ['/img/gen/look-04.webp', '/img/gen/look-05.webp', '/img/gen/look-06.webp'],
-  ['/img/gen/look-07.webp', '/img/gen/look-08.webp', '/img/gen/look-09.webp'],
-];
-
-// Orden de COLS (column-major) coincide con la numeración [01..09] de cada celda.
-const LOOKS = COLS.flat();
+import { HOME_DEFAULTS } from '@/lib/home-content-defaults';
 
 function Cell({ src, n, onOpen }) {
   return (
@@ -27,7 +18,14 @@ function Cell({ src, n, onOpen }) {
   );
 }
 
-export default function LookbookGallery() {
+export default function LookbookGallery({ content }) {
+  const lk = { ...HOME_DEFAULTS.lookbook, ...content };
+  const images = lk.images?.length === 9 ? lk.images : HOME_DEFAULTS.lookbook.images;
+  // 9 looks → grid de 3 columnas × 3 filas (column-major, coincide con la
+  // numeración [01..09] de cada celda).
+  const COLS = [images.slice(0, 3), images.slice(3, 6), images.slice(6, 9)];
+  const LOOKS = COLS.flat();
+
   let counter = 0;
   const [activeIdx, setActiveIdx] = useState(null);
   const isOpen = activeIdx !== null;
@@ -52,9 +50,9 @@ export default function LookbookGallery() {
   return (
     <section className="lookbook-21">
       <div className="container lk-head">
-        <span className="lk-tag">/// EDITORIAL · COL. 2026</span>
-        <h2 className="lk-title">GALERÍA <span>2026</span></h2>
-        <p className="lk-sub">La calle como pasarela. Pasa el cursor — la pieza cobra vida.</p>
+        <span className="lk-tag">{lk.tag}</span>
+        <h2 className="lk-title">{lk.title} <span>{lk.titleAccent}</span></h2>
+        <p className="lk-sub">{lk.subtitle}</p>
       </div>
 
       <div className="gx-grid">
@@ -72,7 +70,7 @@ export default function LookbookGallery() {
 
       <div className="container gx-foot">
         <Link href="/tienda" className="sx6-btn sx6-btn-pink" data-cursor="hover">
-          VER COLECCIÓN COMPLETA <ArrowUpRight size={18} />
+          {lk.buttonText} <ArrowUpRight size={18} />
         </Link>
       </div>
 

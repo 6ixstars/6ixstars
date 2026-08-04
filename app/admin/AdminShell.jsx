@@ -21,6 +21,12 @@ const NAV_SECTIONS = [
     ],
   },
   {
+    label: 'Contenido',
+    items: [
+      { label: 'Home', href: '/admin/home', icon: LayoutIcon },
+    ],
+  },
+  {
     label: 'Catálogo',
     items: [
       { label: 'Productos', href: '/admin/products', icon: BoxIcon },
@@ -390,6 +396,15 @@ function HomeIcon(p) {
       <path d="M3 11l9-8 9 8" />
       <path d="M5 10v10h14V10" />
       <path d="M10 20v-6h4v6" />
+    </svg>
+  );
+}
+function LayoutIcon(p) {
+  return (
+    <svg {...iconProps} {...p}>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <line x1="3" y1="9" x2="21" y2="9" />
+      <line x1="9" y1="9" x2="9" y2="21" />
     </svg>
   );
 }
