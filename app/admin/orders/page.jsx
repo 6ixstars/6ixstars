@@ -55,12 +55,12 @@ async function renderOrders() {
   }
 
   return (
-    <main style={{ padding: '32px 24px', maxWidth: 1400, margin: '0 auto', fontFamily: 'var(--font-montserrat), ui-sans-serif, system-ui, sans-serif', color: '#1f2937', background: '#fff', minHeight: '100vh' }}>
+    <main style={{ padding: '32px 24px', maxWidth: 1400, margin: '0 auto', fontFamily: 'var(--font-montserrat), ui-sans-serif, system-ui, sans-serif', color: 'var(--white)', background: 'var(--black)', minHeight: '100vh' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
         <div>
-          <p style={{ margin: '0 0 0.25rem', fontSize: '.7rem', letterSpacing: '.2em', textTransform: 'uppercase', color: '#8a6936' }}>Ventas</p>
-          <h1 style={{ fontSize: '1.85rem', fontWeight: 500, letterSpacing: '-.01em', margin: 0, color: '#1c1611' }}>Órdenes</h1>
-          <p style={{ fontSize: '.82rem', color: 'rgba(28,22,17,.55)', margin: '.3rem 0 0' }}>
+          <p style={{ margin: '0 0 0.25rem', fontSize: '.7rem', fontWeight: 700, letterSpacing: '.2em', textTransform: 'uppercase', color: 'var(--gold)' }}>Ventas</p>
+          <h1 style={{ fontSize: '1.85rem', fontWeight: 700, letterSpacing: '-.01em', margin: 0, color: 'var(--white)' }}>Órdenes</h1>
+          <p style={{ fontSize: '.82rem', fontWeight: 500, color: 'var(--gray-light)', margin: '.3rem 0 0' }}>
             Últimas {orders?.length || 0} órdenes
           </p>
         </div>

@@ -222,7 +222,7 @@ function DashboardStyles() {
         max-width: 1280px;
         margin: 0 auto;
         font-family: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
-        color: #2a1f15;
+        color: var(--white);
       }
       .dash-head {
         display: flex;
@@ -235,21 +235,23 @@ function DashboardStyles() {
       .dash-eyebrow {
         margin: 0 0 0.25rem;
         font-size: 0.7rem;
+        font-weight: 700;
         letter-spacing: 0.2em;
         text-transform: uppercase;
-        color: #8a6936;
+        color: var(--gold);
       }
       .dash-title {
         margin: 0;
         font-size: 1.85rem;
-        font-weight: 500;
+        font-weight: 700;
         letter-spacing: -0.01em;
-        color: #1c1611;
+        color: var(--white);
       }
       .dash-date {
         margin: 0;
         font-size: 0.82rem;
-        color: rgba(28, 22, 17, 0.55);
+        font-weight: 500;
+        color: var(--gray-light);
         letter-spacing: 0.03em;
         font-variant: small-caps;
       }
@@ -274,47 +276,50 @@ function DashboardStyles() {
       .stat {
         position: relative;
         padding: 1.25rem 1.25rem 1.1rem;
-        background: #fff;
-        border: 1px solid rgba(28, 22, 17, 0.08);
+        background: var(--dark-2);
+        border: 1px solid var(--dark-4);
         border-radius: 14px;
         transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
       }
       .stat-link:hover .stat {
         transform: translateY(-2px);
-        border-color: rgba(192, 154, 90, 0.4);
-        box-shadow: 0 12px 28px -16px rgba(28, 22, 17, 0.18);
+        border-color: var(--gold);
+        box-shadow: 0 12px 28px -16px rgba(0, 0, 0, 0.5);
       }
       .stat-eyebrow {
         margin: 0 0 0.5rem;
         font-size: 0.65rem;
+        font-weight: 700;
         letter-spacing: 0.18em;
         text-transform: uppercase;
-        color: rgba(28, 22, 17, 0.5);
+        color: var(--gray);
       }
       .stat-label {
         margin: 0 0 0.4rem;
         font-size: 0.85rem;
-        color: rgba(28, 22, 17, 0.7);
+        font-weight: 500;
+        color: var(--gray-light);
       }
       .stat-value {
         margin: 0;
         font-size: 1.8rem;
-        font-weight: 500;
+        font-weight: 700;
         letter-spacing: -0.02em;
         line-height: 1;
-        color: #1c1611;
+        color: var(--white);
       }
       .stat-sub {
         margin: 0.6rem 0 0;
         font-size: 0.72rem;
-        color: rgba(28, 22, 17, 0.55);
+        font-weight: 500;
+        color: var(--gray);
         letter-spacing: 0.02em;
       }
       .stat--gold .stat-value {
-        color: #8a6936;
+        color: var(--gold);
       }
       .stat--warn .stat-value {
-        color: #c46b1e;
+        color: #F5A623;
       }
 
       .dash-row {
@@ -327,8 +332,8 @@ function DashboardStyles() {
       }
 
       .dash-card {
-        background: #fff;
-        border: 1px solid rgba(28, 22, 17, 0.08);
+        background: var(--dark-2);
+        border: 1px solid var(--dark-4);
         border-radius: 14px;
         padding: 1.4rem 1.4rem 1.5rem;
       }
@@ -341,22 +346,23 @@ function DashboardStyles() {
       .dash-card-title {
         margin: 0;
         font-size: 0.95rem;
-        font-weight: 500;
+        font-weight: 700;
         letter-spacing: 0.02em;
-        color: #1c1611;
+        color: var(--white);
       }
       .dash-card-link {
         font-size: 0.78rem;
-        color: #8a6936;
+        font-weight: 600;
+        color: var(--gold);
         text-decoration: none;
         letter-spacing: 0.04em;
       }
-      .dash-card-link:hover { color: #5d4724; }
+      .dash-card-link:hover { color: var(--gold-dark); }
 
       .dash-empty {
         margin: 0;
         font-size: 0.85rem;
-        color: rgba(28, 22, 17, 0.5);
+        color: var(--gray);
       }
 
       .type-list {
@@ -371,14 +377,15 @@ function DashboardStyles() {
         display: flex;
         justify-content: space-between;
         font-size: 0.8rem;
+        font-weight: 600;
         margin-bottom: 0.35rem;
       }
-      .type-row-label { color: #1c1611; letter-spacing: 0.02em; }
-      .type-row-value { color: rgba(28, 22, 17, 0.7); }
-      .type-row-pct { color: rgba(28, 22, 17, 0.4); }
+      .type-row-label { color: var(--white); letter-spacing: 0.02em; }
+      .type-row-value { color: var(--gray-light); }
+      .type-row-pct { color: var(--gray); }
       .type-bar {
         height: 5px;
-        background: rgba(28, 22, 17, 0.07);
+        background: var(--dark-4);
         border-radius: 3px;
         overflow: hidden;
       }
@@ -402,14 +409,14 @@ function DashboardStyles() {
         align-items: center;
         gap: 1rem;
         padding: 0.65rem 0.75rem;
-        background: rgba(28, 22, 17, 0.025);
+        background: var(--dark);
         border: 1px solid transparent;
         border-radius: 9px;
         transition: background 0.15s, border-color 0.15s;
       }
       .order-row:hover {
-        background: rgba(192, 154, 90, 0.08);
-        border-color: rgba(192, 154, 90, 0.2);
+        background: rgba(238, 177, 195, 0.08);
+        border-color: rgba(238, 177, 195, 0.25);
       }
       .order-ref {
         display: flex;
@@ -420,11 +427,13 @@ function DashboardStyles() {
       .order-ref code {
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
         font-size: 0.74rem;
-        color: #1c1611;
+        font-weight: 600;
+        color: var(--white);
       }
       .order-customer {
         font-size: 0.75rem;
-        color: rgba(28, 22, 17, 0.6);
+        font-weight: 500;
+        color: var(--gray-light);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -437,8 +446,8 @@ function DashboardStyles() {
       }
       .order-total {
         font-size: 0.85rem;
-        font-weight: 500;
-        color: #1c1611;
+        font-weight: 700;
+        color: var(--white);
       }
 
       .pill {
@@ -449,12 +458,12 @@ function DashboardStyles() {
         font-size: 0.68rem;
         letter-spacing: 0.06em;
         text-transform: uppercase;
-        font-weight: 500;
+        font-weight: 700;
       }
-      .pill--ok   { background: rgba(34, 145, 99, 0.12);   color: #1f6b48; }
-      .pill--warn { background: rgba(196, 107, 30, 0.13);  color: #8d4a17; }
-      .pill--err  { background: rgba(170, 50, 50, 0.12);   color: #8a2a2a; }
-      .pill--neutral { background: rgba(28, 22, 17, 0.08); color: rgba(28, 22, 17, 0.6); }
+      .pill--ok   { background: rgba(74, 222, 128, 0.15);  color: var(--success); }
+      .pill--warn { background: rgba(245, 166, 35, 0.15);  color: #F5A623; }
+      .pill--err  { background: rgba(255, 77, 106, 0.15);  color: var(--error); }
+      .pill--neutral { background: var(--dark-4); color: var(--gray-light); }
     `}</style>
   );
 }

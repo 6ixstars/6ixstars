@@ -17,7 +17,7 @@ const OrdersTable = dynamic(
   {
     ssr: false,
     loading: () => (
-      <div style={{ padding: '40px 0', textAlign: 'center', color: '#6b7280', fontSize: '.9rem' }}>
+      <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--gray-light)', fontSize: '.9rem', fontWeight: 500 }}>
         Cargando órdenes…
       </div>
     ),

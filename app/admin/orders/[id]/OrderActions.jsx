@@ -215,15 +215,16 @@ export function OrderActions({ order }) {
 
       <style>{`
         .oa-section {
-          background: #fff;
-          border: 1px solid #e5e7eb;
+          background: var(--dark-2);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
           padding: 18px;
         }
         .oa-title {
           font-size: .78rem;
+          font-weight: 700;
           text-transform: uppercase;
-          color: #6b7280;
+          color: var(--gray);
           letter-spacing: .08em;
           margin: 0 0 14px;
         }
@@ -236,7 +237,7 @@ export function OrderActions({ order }) {
           padding: 8px 14px;
           border-radius: 6px;
           font-size: .82rem;
-          font-weight: 500;
+          font-weight: 600;
           cursor: pointer;
           border: 0;
           text-decoration: none;
@@ -245,31 +246,32 @@ export function OrderActions({ order }) {
           gap: 6px;
         }
         .oa-btn:disabled { opacity: .55; cursor: not-allowed; }
-        .oa-btn-primary { background: #1f2937; color: #fff; }
-        .oa-btn-primary:hover:not(:disabled) { background: #111827; }
-        .oa-btn-wa { background: #25D366; color: #fff; }
+        .oa-btn-primary { background: var(--gold); color: #0B0B0C; }
+        .oa-btn-primary:hover:not(:disabled) { background: var(--gold-dark); color: #fff; }
+        .oa-btn-wa { background: #25D366; color: #0B0B0C; }
         .oa-btn-wa:hover { background: #1ea655; }
-        .oa-btn-wa-shipped { background: #1d4ed8; color: #fff; }
-        .oa-btn-delete { background: #ef4444; color: #fff; }
-        .oa-btn-delete:hover:not(:disabled) { background: #dc2626; }
+        .oa-btn-wa-shipped { background: #3B82F6; color: #0B0B0C; }
+        .oa-btn-delete { background: var(--error); color: #0B0B0C; }
+        .oa-btn-delete:hover:not(:disabled) { background: #e0223f; color: #fff; }
         .oa-btn-resend {
-          background: #fff;
-          color: #1f2937;
-          border: 1px solid #d1d5db;
+          background: var(--dark-4);
+          color: var(--white);
+          border: 1px solid var(--dark-4);
         }
         .oa-btn-resend:hover:not(:disabled) {
-          background: #faf6ee;
-          border-color: #AF1F3A;
-          color: #6b4f24;
+          background: var(--dark);
+          border-color: var(--gold);
+          color: var(--gold);
         }
         .oa-select, .oa-input, .oa-textarea {
           padding: 8px 12px;
-          border: 1px solid #d1d5db;
+          border: 1px solid var(--dark-4);
           border-radius: 6px;
           font-size: .85rem;
+          font-weight: 500;
           font-family: inherit;
-          background: #fff;
-          color: #1f2937;
+          background: var(--dark);
+          color: var(--white);
         }
         .oa-textarea {
           width: 100%;
@@ -277,17 +279,17 @@ export function OrderActions({ order }) {
           min-height: 80px;
         }
         .oa-select:focus, .oa-input:focus, .oa-textarea:focus {
-          outline: 2px solid #AF1F3A;
+          outline: 2px solid var(--gold);
           outline-offset: -1px;
         }
         .oa-msg {
           padding: 10px 14px;
           border-radius: 6px;
           font-size: .85rem;
-          font-weight: 500;
+          font-weight: 600;
         }
-        .oa-msg.success { background: #d1fae5; color: #047857; }
-        .oa-msg.error { background: #fee2e2; color: #b91c1c; }
+        .oa-msg.success { background: rgba(74,222,128,.15); color: #4ADE80; }
+        .oa-msg.error { background: rgba(255,77,106,.15); color: #FF4D6A; }
       `}</style>
     </div>
   );

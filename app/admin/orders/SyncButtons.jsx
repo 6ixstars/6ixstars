@@ -25,12 +25,12 @@ export function SyncOrderButton({ orderId }) {
           alignItems: 'center',
           gap: 6,
           padding: '8px 14px',
-          background: '#1f2937',
-          color: '#fff',
+          background: 'var(--gold)',
+          color: '#0B0B0C',
           border: 0,
           borderRadius: 6,
           fontSize: '.82rem',
-          fontWeight: 500,
+          fontWeight: 700,
           cursor: isPending ? 'wait' : 'pointer',
           opacity: isPending ? 0.7 : 1,
         }}
@@ -39,7 +39,7 @@ export function SyncOrderButton({ orderId }) {
         {isPending ? 'Sincronizando…' : 'Sincronizar con Bold'}
       </button>
       {msg && (
-        <span style={{ fontSize: '.82rem', color: msg.ok ? '#059669' : '#b91c1c' }}>
+        <span style={{ fontSize: '.82rem', fontWeight: 600, color: msg.ok ? '#4ADE80' : '#FF4D6A' }}>
           {msg.ok
             ? `${msg.oldStatus} → ${msg.newStatus}`
             : `✗ ${msg.error}`}
@@ -75,12 +75,12 @@ export function SyncAllPendingButton() {
           alignItems: 'center',
           gap: 6,
           padding: '7px 13px',
-          background: '#fff',
-          color: '#1f2937',
-          border: '1px solid #d1d5db',
+          background: 'var(--dark-2)',
+          color: 'var(--white)',
+          border: '1px solid var(--dark-4)',
           borderRadius: 6,
           fontSize: '.78rem',
-          fontWeight: 500,
+          fontWeight: 600,
           cursor: isPending ? 'wait' : 'pointer',
           opacity: isPending ? 0.7 : 1,
         }}
@@ -89,13 +89,13 @@ export function SyncAllPendingButton() {
         {isPending ? 'Sincronizando…' : 'Sincronizar pendientes'}
       </button>
       {msg && (
-        <div style={{ fontSize: '.78rem', color: msg.ok ? '#374151' : '#b91c1c' }}>
+        <div style={{ fontSize: '.78rem', fontWeight: 500, color: msg.ok ? 'var(--gray-light)' : '#FF4D6A' }}>
           {msg.ok ? (
             <details open>
-              <summary style={{ cursor: 'pointer' }}>{msg.synced} consultadas</summary>
+              <summary style={{ cursor: 'pointer', color: 'var(--white)', fontWeight: 600 }}>{msg.synced} consultadas</summary>
               <ul style={{ margin: '6px 0 0 0', padding: '0 0 0 16px' }}>
                 {msg.results.map((r, i) => (
-                  <li key={i} style={{ fontFamily: 'ui-monospace, monospace', fontSize: '.74rem' }}>
+                  <li key={i} style={{ fontFamily: 'ui-monospace, monospace', fontSize: '.74rem', color: 'var(--gray-light)' }}>
                     <span>{r.ref}</span> → <strong>{r.status}</strong>
                   </li>
                 ))}

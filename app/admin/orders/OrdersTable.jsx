@@ -6,11 +6,11 @@ import { formatCOP } from '@/lib/format';
 import { bulkDeleteOrdersAction } from './_actions';
 
 const STATUS_STYLES = {
-  approved: { bg: '#10b98122', color: '#059669', label: 'Aprobada' },
-  pending:  { bg: '#f59e0b22', color: '#b45309', label: 'Pendiente' },
-  declined: { bg: '#ef444422', color: '#b91c1c', label: 'Rechazada' },
-  voided:   { bg: '#6b728022', color: '#374151', label: 'Anulada' },
-  error:    { bg: '#ef444422', color: '#b91c1c', label: 'Error' },
+  approved: { bg: 'rgba(74, 222, 128, 0.15)',  color: '#4ADE80', label: 'Aprobada' },
+  pending:  { bg: 'rgba(245, 166, 35, 0.15)',  color: '#F5A623', label: 'Pendiente' },
+  declined: { bg: 'rgba(255, 77, 106, 0.15)',  color: '#FF4D6A', label: 'Rechazada' },
+  voided:   { bg: 'rgba(140, 140, 147, 0.2)',  color: '#C7C7CD', label: 'Anulada' },
+  error:    { bg: 'rgba(255, 77, 106, 0.15)',  color: '#FF4D6A', label: 'Error' },
 };
 
 const FILTERS = [
@@ -21,12 +21,12 @@ const FILTERS = [
 ];
 
 function StatusBadge({ status }) {
-  const s = STATUS_STYLES[status] || { bg: '#e5e7eb', color: '#374151', label: status || '?' };
+  const s = STATUS_STYLES[status] || { bg: 'var(--dark-4)', color: 'var(--gray-light)', label: status || '?' };
   return (
     <span style={{
       background: s.bg, color: s.color,
       padding: '3px 10px', borderRadius: 99,
-      fontSize: '.7rem', fontWeight: 600,
+      fontSize: '.7rem', fontWeight: 700,
       letterSpacing: '.04em', textTransform: 'uppercase',
       whiteSpace: 'nowrap',
     }}>{s.label}</span>
@@ -129,11 +129,11 @@ export function OrdersTable({ orders }) {
       {/* Stats */}
       <div className="ot-stats">
         {[
-          { label: 'Órdenes', value: stats.total, color: '#1f2937' },
-          { label: 'Aprobadas', value: stats.approved, color: '#059669' },
-          { label: 'Pendientes', value: stats.pending, color: '#b45309' },
-          { label: 'Ingresos', value: formatCOP(stats.revenue) || '$0', color: '#1f2937' },
-          { label: 'Ticket promedio', value: formatCOP(stats.avgTicket) || '$0', color: '#1f2937' },
+          { label: 'Órdenes', value: stats.total, color: 'var(--white)' },
+          { label: 'Aprobadas', value: stats.approved, color: '#4ADE80' },
+          { label: 'Pendientes', value: stats.pending, color: '#F5A623' },
+          { label: 'Ingresos', value: formatCOP(stats.revenue) || '$0', color: 'var(--white)' },
+          { label: 'Ticket promedio', value: formatCOP(stats.avgTicket) || '$0', color: 'var(--white)' },
         ].map(s => (
           <div key={s.label} className="ot-stat">
             <p className="ot-stat-label">{s.label}</p>
@@ -236,12 +236,12 @@ export function OrdersTable({ orders }) {
                       </td>
                       <td>
                         <div style={{ fontWeight: 500 }}>{o.customer_name || '—'}</div>
-                        <div style={{ fontSize: '.78rem', color: '#6b7280' }}>{o.customer_email}</div>
+                        <div style={{ fontSize: '.78rem', color: 'var(--gray-light)' }}>{o.customer_email}</div>
                       </td>
-                      <td style={{ textAlign: 'center', color: '#6b7280' }}>{o.order_items?.length || 0}</td>
+                      <td style={{ textAlign: 'center', color: 'var(--gray-light)' }}>{o.order_items?.length || 0}</td>
                       <td style={{ textAlign: 'right', fontWeight: 600 }}>{formatCOP(Number(o.total)) || '$0'}</td>
                       <td style={{ textAlign: 'center' }}><StatusBadge status={o.status} /></td>
-                      <td style={{ textAlign: 'right', color: '#6b7280', fontSize: '.78rem' }}>
+                      <td style={{ textAlign: 'right', color: 'var(--gray-light)', fontSize: '.78rem' }}>
                         {new Date(o.created_at).toLocaleString('es-CO', { dateStyle: 'short', timeStyle: 'short' })}
                       </td>
                       <td style={{ textAlign: 'center' }}>
@@ -282,12 +282,12 @@ export function OrdersTable({ orders }) {
                   </div>
                   <div className="ot-card-body">
                     <div><strong>{o.customer_name}</strong></div>
-                    <div style={{ fontSize: '.82rem', color: '#6b7280' }}>{o.customer_email}</div>
-                    <div style={{ fontSize: '.82rem', color: '#6b7280' }}>{o.shipping_city}</div>
+                    <div style={{ fontSize: '.82rem', color: 'var(--gray-light)' }}>{o.customer_email}</div>
+                    <div style={{ fontSize: '.82rem', color: 'var(--gray-light)' }}>{o.shipping_city}</div>
                   </div>
                   <div className="ot-card-footer">
                     <span style={{ fontWeight: 700 }}>{formatCOP(Number(o.total)) || '$0'}</span>
-                    <span style={{ fontSize: '.74rem', color: '#9ca3af' }}>
+                    <span style={{ fontSize: '.74rem', color: 'var(--gray)' }}>
                       {new Date(o.created_at).toLocaleDateString('es-CO')}
                     </span>
                   </div>
@@ -316,14 +316,15 @@ export function OrdersTable({ orders }) {
           margin-bottom: 24px;
         }
         .ot-stat {
-          background: #fff;
-          border: 1px solid #e5e7eb;
+          background: var(--dark-2);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
           padding: 14px;
         }
         .ot-stat-label {
           font-size: .66rem;
-          color: #6b7280;
+          font-weight: 700;
+          color: var(--gray);
           text-transform: uppercase;
           letter-spacing: .06em;
           margin: 0 0 6px;
@@ -344,8 +345,8 @@ export function OrdersTable({ orders }) {
         }
         .ot-tabs {
           display: inline-flex;
-          background: #fff;
-          border: 1px solid #e5e7eb;
+          background: var(--dark-2);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
           padding: 4px;
           gap: 2px;
@@ -355,39 +356,43 @@ export function OrdersTable({ orders }) {
           border: 0;
           padding: 7px 14px;
           font-size: .82rem;
-          font-weight: 500;
-          color: #6b7280;
+          font-weight: 600;
+          color: var(--gray-light);
           cursor: pointer;
           border-radius: 6px;
           transition: all .15s ease;
         }
-        .ot-tab:hover { color: #1f2937; }
+        .ot-tab:hover { color: var(--white); }
         .ot-tab.is-active {
-          background: #1f2937;
-          color: #fff;
+          background: var(--gold);
+          color: #0B0B0C;
         }
         .ot-tab-count {
-          background: rgba(255,255,255,.15);
+          background: rgba(0,0,0,.15);
           padding: 1px 7px;
           border-radius: 99px;
           font-size: .7rem;
           margin-left: 4px;
         }
         .ot-tab:not(.is-active) .ot-tab-count {
-          background: #f3f4f6;
-          color: #6b7280;
+          background: var(--dark-4);
+          color: var(--gray-light);
         }
 
         .ot-search { display: flex; gap: 8px; }
         .ot-search-input {
           padding: 8px 12px;
-          border: 1px solid #d1d5db;
+          background: var(--dark-2);
+          border: 1px solid var(--dark-4);
           border-radius: 6px;
           font-size: .85rem;
+          font-weight: 500;
+          color: var(--white);
           min-width: 260px;
         }
+        .ot-search-input::placeholder { color: var(--gray); }
         .ot-search-input:focus {
-          outline: 2px solid #AF1F3A;
+          outline: 2px solid var(--gold);
           outline-offset: -1px;
         }
         .ot-export-btn {
@@ -395,27 +400,29 @@ export function OrdersTable({ orders }) {
           align-items: center;
           gap: 6px;
           padding: 8px 14px;
-          background: #fff;
-          color: #1f2937;
-          border: 1px solid #d1d5db;
+          background: var(--dark-2);
+          color: var(--white);
+          border: 1px solid var(--dark-4);
           border-radius: 6px;
           font-size: .82rem;
-          font-weight: 500;
+          font-weight: 600;
           cursor: pointer;
           white-space: nowrap;
         }
-        .ot-export-btn:hover { background: #f9fafb; }
+        .ot-export-btn:hover { background: var(--dark-4); }
 
         .ot-bulkbar {
           display: flex;
           justify-content: space-between;
           align-items: center;
-          background: #1f2937;
-          color: #fff;
+          background: var(--dark-2);
+          border: 1px solid var(--gold-border, rgba(238,177,195,.25));
+          color: var(--white);
           padding: 10px 16px;
           border-radius: 8px;
           margin-bottom: 12px;
           font-size: .85rem;
+          font-weight: 500;
         }
         .ot-bulk-btn {
           display: inline-flex;
@@ -424,26 +431,28 @@ export function OrdersTable({ orders }) {
           padding: 6px 12px;
           border-radius: 6px;
           font-size: .8rem;
-          font-weight: 500;
+          font-weight: 600;
           cursor: pointer;
           border: 0;
         }
-        .ot-bulk-cancel { background: rgba(255,255,255,.1); color: #fff; }
-        .ot-bulk-delete { background: #ef4444; color: #fff; }
+        .ot-bulk-cancel { background: var(--dark-4); color: var(--white); }
+        .ot-bulk-delete { background: var(--error); color: #0B0B0C; }
         .ot-bulk-delete:disabled { opacity: .6; cursor: wait; }
 
         .ot-empty {
           padding: 80px 20px;
           text-align: center;
-          background: #f9fafb;
+          background: var(--dark-2);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
-          color: #6b7280;
+          color: var(--gray-light);
           font-size: .9rem;
+          font-weight: 500;
         }
 
         .ot-table-wrap {
-          background: #fff;
-          border: 1px solid #e5e7eb;
+          background: var(--dark-2);
+          border: 1px solid var(--dark-4);
           border-radius: 8px;
           overflow: hidden;
           overflow-x: auto;
@@ -454,35 +463,36 @@ export function OrdersTable({ orders }) {
           font-size: .85rem;
         }
         .ot-table thead tr {
-          background: #f9fafb;
-          border-bottom: 1px solid #e5e7eb;
+          background: var(--dark);
+          border-bottom: 1px solid var(--dark-4);
         }
         .ot-table th {
           text-align: left;
           padding: 12px 16px;
-          font-weight: 600;
+          font-weight: 700;
           font-size: .7rem;
           text-transform: uppercase;
           letter-spacing: .06em;
-          color: #6b7280;
+          color: var(--gray);
           white-space: nowrap;
         }
         .ot-table tbody tr {
-          border-bottom: 1px solid #f3f4f6;
+          border-bottom: 1px solid var(--dark-4);
           transition: background .15s ease;
         }
-        .ot-table tbody tr:hover { background: #fafafa; }
-        .ot-table tbody tr.is-selected { background: #fef3c7; }
+        .ot-table tbody tr td { color: var(--white); font-weight: 500; }
+        .ot-table tbody tr:hover { background: var(--dark); }
+        .ot-table tbody tr.is-selected { background: rgba(238,177,195,.08); }
         .ot-table td {
           padding: 14px 16px;
           vertical-align: middle;
         }
         .ot-ref {
-          color: #2563eb;
+          color: var(--gold);
           text-decoration: none;
           font-family: ui-monospace, monospace;
           font-size: .78rem;
-          font-weight: 500;
+          font-weight: 700;
         }
         .ot-ref:hover { text-decoration: underline; }
 
@@ -493,14 +503,14 @@ export function OrdersTable({ orders }) {
           width: 30px;
           height: 30px;
           border-radius: 6px;
-          background: #f3f4f6;
-          color: #1f2937;
+          background: var(--dark-4);
+          color: var(--white);
           text-decoration: none;
           font-size: .9rem;
           transition: all .15s ease;
         }
-        .ot-action:hover { background: #e5e7eb; }
-        .ot-action-wa:hover { background: #25D366; color: #fff; }
+        .ot-action:hover { background: var(--dark); }
+        .ot-action-wa:hover { background: #25D366; color: #0B0B0C; }
 
         .ot-cards { display: none; }
 
@@ -521,12 +531,13 @@ export function OrdersTable({ orders }) {
           .ot-table-wrap { display: none; }
           .ot-cards { display: flex; flex-direction: column; gap: 10px; }
           .ot-card {
-            background: #fff;
-            border: 1px solid #e5e7eb;
+            background: var(--dark-2);
+            border: 1px solid var(--dark-4);
             border-radius: 10px;
             padding: 14px;
+            color: var(--white);
           }
-          .ot-card.is-selected { background: #fef3c7; border-color: #f59e0b; }
+          .ot-card.is-selected { background: rgba(238,177,195,.08); border-color: var(--gold); }
           .ot-card-header {
             display: flex;
             align-items: center;
@@ -534,12 +545,12 @@ export function OrdersTable({ orders }) {
             margin-bottom: 10px;
           }
           .ot-card-header .ot-ref { flex: 1; }
-          .ot-card-body { margin-bottom: 10px; font-size: .9rem; }
+          .ot-card-body { margin-bottom: 10px; font-size: .9rem; font-weight: 500; }
           .ot-card-footer {
             display: flex;
             justify-content: space-between;
             padding: 8px 0;
-            border-top: 1px solid #f3f4f6;
+            border-top: 1px solid var(--dark-4);
             margin-bottom: 10px;
             font-size: .92rem;
           }
@@ -552,16 +563,16 @@ export function OrdersTable({ orders }) {
             flex: 1;
             padding: 8px;
             text-align: center;
-            background: #f3f4f6;
-            color: #1f2937;
+            background: var(--dark-4);
+            color: var(--white);
             text-decoration: none;
             border-radius: 6px;
             font-size: .82rem;
-            font-weight: 500;
+            font-weight: 600;
           }
           .ot-card-action-primary {
-            background: #1f2937;
-            color: #fff;
+            background: var(--gold);
+            color: #0B0B0C;
           }
         }
       `}</style>

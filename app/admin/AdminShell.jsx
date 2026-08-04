@@ -141,14 +141,14 @@ export default function AdminShell({ children }) {
         .admin-shell {
           --sidebar-w: 260px;
           --sidebar-w-collapsed: 72px;
-          --gold: #c09a5a;
-          --gold-soft: rgba(192, 154, 90, 0.18);
-          --gold-border: rgba(192, 154, 90, 0.22);
-          --bg-shell: #0e0a07;
-          --bg-side: #14100c;
-          --bg-content: #f6f1e6;
-          --ink: #f3ead7;
-          --ink-muted: rgba(243, 234, 215, 0.55);
+          --gold: #EEB1C3;
+          --gold-soft: rgba(238, 177, 195, 0.16);
+          --gold-border: rgba(238, 177, 195, 0.2);
+          --bg-shell: #0B0B0C;
+          --bg-side: #141416;
+          --bg-content: #0B0B0C;
+          --ink: #F5F5F6;
+          --ink-muted: rgba(245, 245, 246, 0.6);
 
           display: grid;
           grid-template-columns: var(--sidebar-w) 1fr;
@@ -189,12 +189,12 @@ export default function AdminShell({ children }) {
           width: 40px;
           height: 40px;
           border-radius: 50%;
-          background: linear-gradient(135deg, var(--gold), #8a6936);
+          background: linear-gradient(135deg, var(--gold), #AF1F3A);
           color: var(--bg-side);
           font-weight: 700;
           font-size: 0.85rem;
           letter-spacing: 0.04em;
-          box-shadow: 0 4px 14px -6px rgba(192, 154, 90, 0.5);
+          box-shadow: 0 4px 14px -6px rgba(238, 177, 195, 0.5);
         }
         .admin-brand-text {
           display: flex;
@@ -203,7 +203,7 @@ export default function AdminShell({ children }) {
         }
         .admin-brand-name {
           font-size: 0.95rem;
-          font-weight: 500;
+          font-weight: 700;
           letter-spacing: 0.04em;
           color: var(--ink);
         }
@@ -224,13 +224,13 @@ export default function AdminShell({ children }) {
         }
         .admin-nav::-webkit-scrollbar { width: 4px; }
         .admin-nav::-webkit-scrollbar-thumb {
-          background: rgba(192, 154, 90, 0.2);
+          background: rgba(238, 177, 195, 0.2);
           border-radius: 2px;
         }
         .admin-nav-section-label {
           padding: 0 0.85rem 0.4rem;
           font-size: 0.65rem;
-          color: rgba(243, 234, 215, 0.4);
+          color: rgba(245, 245, 246, 0.4);
           letter-spacing: 0.18em;
           text-transform: uppercase;
         }
@@ -249,20 +249,22 @@ export default function AdminShell({ children }) {
           gap: 0.75rem;
           padding: 0.6rem 0.85rem;
           border-radius: 10px;
-          color: rgba(243, 234, 215, 0.75);
+          color: rgba(245, 245, 246, 0.75);
           text-decoration: none;
           font-size: 0.875rem;
+          font-weight: 500;
           letter-spacing: 0.02em;
           transition: background 0.18s, color 0.18s;
           position: relative;
         }
         .admin-nav-link:hover:not(.is-soon) {
-          background: rgba(192, 154, 90, 0.08);
+          background: rgba(238, 177, 195, 0.08);
           color: var(--ink);
         }
         .admin-nav-link.is-active {
           background: var(--gold-soft);
           color: var(--ink);
+          font-weight: 700;
         }
         .admin-nav-link.is-active::before {
           content: '';
@@ -289,8 +291,8 @@ export default function AdminShell({ children }) {
           font-size: 0.6rem;
           padding: 0.1rem 0.4rem;
           border-radius: 4px;
-          background: rgba(243, 234, 215, 0.08);
-          color: rgba(243, 234, 215, 0.5);
+          background: rgba(245, 245, 246, 0.08);
+          color: rgba(245, 245, 246, 0.5);
           letter-spacing: 0.08em;
           text-transform: uppercase;
         }
@@ -310,7 +312,7 @@ export default function AdminShell({ children }) {
           gap: 0.75rem;
           padding: 0.55rem 0.85rem;
           background: transparent;
-          color: rgba(243, 234, 215, 0.6);
+          color: rgba(245, 245, 246, 0.6);
           border: 1px solid transparent;
           border-radius: 10px;
           font-size: 0.85rem;
@@ -322,7 +324,7 @@ export default function AdminShell({ children }) {
         }
         .admin-icon-btn:hover,
         .admin-logout-btn:hover:not(:disabled) {
-          background: rgba(192, 154, 90, 0.08);
+          background: rgba(238, 177, 195, 0.08);
           color: var(--ink);
           border-color: var(--gold-border);
         }
@@ -342,7 +344,7 @@ export default function AdminShell({ children }) {
 
         .admin-content {
           background: var(--bg-content);
-          color: #2a1f15;
+          color: var(--ink);
           overflow-x: hidden;
           min-width: 0;
         }
