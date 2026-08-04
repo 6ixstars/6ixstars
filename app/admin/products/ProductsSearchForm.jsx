@@ -47,11 +47,11 @@ export default function ProductsSearchForm({ defaultQ, defaultType, defaultBrand
       </div>
 
       <div className="psf-field">
-        <label htmlFor="psf-type">Tipo</label>
+        <label htmlFor="psf-type">Género</label>
         <select id="psf-type" value={type} onChange={(e) => setType(e.target.value)}>
           <option value="">Todos</option>
           {productTypes.map((t) => (
-            <option key={t.id} value={t.id}>{t.name.replace('Perfumes de ', '').replace('Perfumes ', '')}</option>
+            <option key={t.id} value={t.id}>{t.name}</option>
           ))}
         </select>
       </div>

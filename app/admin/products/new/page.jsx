@@ -33,7 +33,7 @@ export default async function NewProductPage() {
         </div>
         <div className="newp-headline">
           <p className="newp-eyebrow">Crear producto</p>
-          <h1 className="newp-title">Nuevo perfume en el catálogo</h1>
+          <h1 className="newp-title">Nuevo producto en el catálogo</h1>
           <p className="newp-sub">
             Empieza por el nombre — el slug se genera automáticamente. Puedes ajustar todo después.
           </p>

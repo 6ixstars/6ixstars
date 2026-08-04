@@ -58,7 +58,7 @@ async function fetchProducts({ page, q, type, brand }) {
     sizes.sort((a, b) => Number(a.price) - Number(b.price));
     const lowest = sizes[0];
     const images = (p.product_images || []).slice().sort((a, b) => (a.order_index ?? 99) - (b.order_index ?? 99));
-    const thumb = images[0]?.url || (p.slug ? `/img/${p.slug}.webp` : '/img/placeholder-perfume.webp');
+    const thumb = images[0]?.url || (p.slug ? `/img/${p.slug}.webp` : '/img/placeholder.webp');
     return {
       id: p.id,
       slug: p.slug,
@@ -143,7 +143,7 @@ export default async function AdminProductsPage({ searchParams }) {
               <th style={{ width: 56 }}></th>
               <th>Producto</th>
               <th>Marca</th>
-              <th>Tipo</th>
+              <th>Género</th>
               <th style={{ textAlign: 'right' }}>Precio desde</th>
               <th>Estado</th>
               <th style={{ width: 100 }}></th>

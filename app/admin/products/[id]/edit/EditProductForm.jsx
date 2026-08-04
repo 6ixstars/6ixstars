@@ -4,7 +4,7 @@ import { useState, useTransition, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { updateProduct, createProduct, deleteProduct } from '../../_actions';
 import ImageUploader from '../../ImageUploader';
-import { productTypes, collections } from '@/lib/products-constants';
+import { collections } from '@/lib/products-constants';
 
 /**
  * Form de edición/creación de producto.
@@ -80,7 +80,7 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
       {mode === 'edit' && <input type="hidden" name="id" value={product.id} />}
 
       {/* ── Información básica ────────────────────────────────────────── */}
-      <Section title="Información" desc="Nombre, marca, tipo, descripción.">
+      <Section title="Información" desc="Nombre, marca, categorías, descripción.">
         <Field label="Nombre" required>
           <input name="name" value={name} onChange={onNameChange} required />
         </Field>
@@ -106,22 +106,6 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
             <datalist id="brand-list">
               {brands.map((b) => <option key={b} value={b} />)}
             </datalist>
-          </Field>
-        </div>
-
-        <div className="row two">
-          <Field label="Tipo">
-            <select name="product_type" defaultValue={product.product_type || ''}>
-              <option value="">—</option>
-              {productTypes.map((t) => (
-                <option key={t.id} value={t.id}>
-                  {t.name.replace('Perfumes de ', '').replace('Perfumes ', '')}
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label="Concentración" hint="EDP, EDT, Extrait…">
-            <input name="type" defaultValue={product.type || ''} placeholder="EDP" />
           </Field>
         </div>
 
@@ -162,19 +146,6 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
             <input name="original_price" type="number" min="0" step="100" defaultValue={product.original_price ?? ''} />
           </Field>
         </div>
-      </Section>
-
-      {/* ── Notas olfativas ───────────────────────────────────────────── */}
-      <Section title="Notas olfativas" desc="Separa cada nota con coma.">
-        <Field label="Notas de salida">
-          <input name="notes_top" defaultValue={product.notes_top || ''} placeholder="Bergamota, Limón, Pimienta" />
-        </Field>
-        <Field label="Notas de corazón">
-          <input name="notes_heart" defaultValue={product.notes_heart || ''} placeholder="Rosa, Jazmín, Iris" />
-        </Field>
-        <Field label="Notas de fondo">
-          <input name="notes_base" defaultValue={product.notes_base || ''} placeholder="Sándalo, Vainilla, Almizcle" />
-        </Field>
       </Section>
 
       {/* ── Tamaños ───────────────────────────────────────────────────── */}
@@ -235,28 +206,6 @@ export default function EditProductForm({ mode = 'edit', product = {}, brands = 
       {/* ── Imágenes ──────────────────────────────────────────────────── */}
       <Section title="Imágenes" desc="Sube desde tu computador o pega URLs existentes. La primera es la principal.">
         <ImageUploader initialUrls={initialImageUrls} slugHint={slug || name} />
-      </Section>
-
-      {/* ── Performance ───────────────────────────────────────────────── */}
-      <Section title="Performance y temporada" desc="Cómo se comporta la fragancia.">
-        <div className="row three">
-          <Field label="Longevidad">
-            <input name="longevity" defaultValue={product.longevity || ''} placeholder="8–10 horas" />
-          </Field>
-          <Field label="Sillage / proyección">
-            <input name="sillage" defaultValue={product.sillage || ''} placeholder="Moderado" />
-          </Field>
-          <Field label="Temporada">
-            <input name="season" defaultValue={product.season || ''} placeholder="Otoño / Invierno" />
-          </Field>
-        </div>
-        <Field label="Ocasiones" hint="Separadas con coma.">
-          <input
-            name="occasion"
-            defaultValue={Array.isArray(product.occasion) ? product.occasion.join(', ') : (product.occasion || '')}
-            placeholder="Noche, Gala, Cita"
-          />
-        </Field>
       </Section>
 
       {/* ── Flags ─────────────────────────────────────────────────────── */}
@@ -379,7 +328,7 @@ function updateAt(setter, idx, patch) {
 }
 
 /**
- * Selector multi-checkbox para familias olfativas. Máximo 5 por producto
+ * Selector multi-checkbox de categorías de prenda. Máximo 5 por producto
  * (limit de UX + CHECK constraint en Supabase). Cada item renderiza un
  * <input type="checkbox" name="category"> — el form padre los lee con
  * formData.getAll('category') en el server action.
@@ -406,13 +355,13 @@ function CategoriesPicker({ defaultValues = [] }) {
   return (
     <fieldset className="cp">
       <legend className="cp-legend">
-        <span>Familias olfativas</span>
+        <span>Categorías</span>
         <span className={`cp-count ${selected.size >= MAX ? 'is-full' : ''}`}>
           {selected.size} / {MAX}
         </span>
       </legend>
       <p className="cp-hint">
-        Elige una o varias (hasta {MAX}). La primera marcada será la familia principal.
+        Elige una o varias (hasta {MAX}). La primera marcada será la categoría principal.
       </p>
       <div className="cp-grid">
         {collections.map((c) => {
