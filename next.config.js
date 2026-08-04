@@ -12,8 +12,10 @@ const nextConfig = {
   },
   experimental: {
     serverActions: {
-      // Permite uploads de hasta 5MB desde Server Actions (default es 1MB).
-      bodySizeLimit: '5mb',
+      // Permite uploads de hasta 65MB desde Server Actions (default es 1MB).
+      // El límite real de video lo aplica uploadHomeAsset (60MB) — acá solo
+      // evitamos que el framework corte la request antes de llegar ahí.
+      bodySizeLimit: '65mb',
     },
   },
   // El navegador NO debe cachear el documento HTML: así cada deploy se ve al
